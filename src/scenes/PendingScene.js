@@ -14,11 +14,15 @@ import { withStyles } from 'material-ui/styles'
 type Props = {
   history: Object,
   classes: Object,
+  onNext(Object): void
 }
 type State = {
 }
 
-class NewUserScreenOne extends Component<Props, State> {
+class PendingSceneComponent extends Component<Props, State> {
+  onNext = () => {
+    this.props.onNext(this.props.history)
+  }
   render () {
     const { classes } = this.props
     return <div className={classes.container} >
@@ -29,7 +33,7 @@ class NewUserScreenOne extends Component<Props, State> {
 
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={() => {}} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
       </div>
     </div>
   }
@@ -40,5 +44,5 @@ const styles = theme => ({
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom
 })
-
-export default withStyles(styles)(NewUserScreenOne)
+const PendingScene = withStyles(styles)(PendingSceneComponent)
+export { PendingScene }

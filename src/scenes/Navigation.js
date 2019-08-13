@@ -6,7 +6,7 @@ import { createMuiTheme, withStyles } from 'material-ui/styles'
 
 // import { ConfirmationScreenConnector as Confirmation } from '../connectors/ConfirmationScreenConnector'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import NewUserStartSceneOne from './NewUserScreenOne'
+import { NewUserNameScene } from './NewUserNameScene'
 // import { SellQuoteRequestSceneConnector as SellQuoteRequestScene } from '../connectors/SellQuoteRequestSceneConnector'
 // import { StartSceneConnector as StartScene } from '../connectors/StartSceneConnector'
 // import StartScene from './InputSceneTest'
@@ -29,7 +29,7 @@ const theme = createMuiTheme({
 
 export const routes = [{
   path: '/',
-  main: NewUserStartSceneOne,
+  main: NewUserNameScene,
   exact: true
 }/* , {
   path: '/sellQuoteRequest',
