@@ -27,7 +27,8 @@ export const poweredByRow = {
   width: '100%',
   flexDirection: 'column',
   alignItems: 'flex-end',
-  height: 50
+  height: 50,
+  marginTop: 10
 }
 export const sceneContainer = {
   display: 'flex',
@@ -36,23 +37,23 @@ export const sceneContainer = {
   alignItems: 'center',
   flexDirection: 'column',
   paddingLeft: 20,
-  paddingRight: 20,
-  paddingTop: 10
+  paddingRight: 20
 }
 
 export const sceneMainContainer = {
   display: 'flex',
+  flexDirection: 'column',
   position: 'relative',
-  flexGrow: 5,
+  flex: 3,
   width: '100%'
 }
 
 export const sceneButtonBottom = {
   display: 'flex',
     position: 'relative',
-    flexGrow: 1,
+    flexShrink: 1,
     minHeight: 60,
     width: '100%',
-    maxHeight: 60
+    maxHeight: 70
 }
 

@@ -6,7 +6,9 @@ import { ThankYouScreen } from '../scenes/ThankYouScreen'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    thanksMessage: 'We’re reviewing your information right now, pending approval. Check your email in the next few days for next steps.'
+  }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {

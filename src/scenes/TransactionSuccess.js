@@ -28,9 +28,14 @@ class TransactionSuccessComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy useBlack/>
+          <PoweredBy/>
         </div>
-
+        <div className={classes.headerText} >
+          Congratulations!
+        </div>
+        <div className={classes.subHeaderText}>
+          Transaction was successful
+        </div>
       </div>
       <div className={classes.containerBottom}>
         <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
@@ -39,10 +44,28 @@ class TransactionSuccessComponent extends Component<Props, State> {
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: sceneContainer,
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
-  containerBottom: sceneButtonBottom
+  containerBottom: sceneButtonBottom,
+  headerText: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginTop: 147,
+    width: '100%',
+    fontSize: 30,
+    height: 40,
+    color: THEME.COLORS.WHITE
+  },
+  subHeaderText: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginTop: 16,
+    width: '100%',
+    fontSize: 16,
+    height: 20,
+    color: THEME.COLORS.WHITE
+  }
 })
 const TransactionSuccess = withStyles(styles)(TransactionSuccessComponent)
 export { TransactionSuccess }
