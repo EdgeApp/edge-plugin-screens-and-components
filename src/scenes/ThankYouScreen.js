@@ -9,7 +9,7 @@ import {
 
 import { PrimaryButton } from '../components/indexComponents'
 import THEME from '../constants/themeConstants.js'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
   history: Object,

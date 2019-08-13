@@ -10,8 +10,8 @@ import {
 
 // import { InputAdornment } from 'material-ui/Input'
 import THEME from '../constants/themeConstants.js'
-import TextField from 'material-ui/TextField'
-import { withStyles } from 'material-ui/styles'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 
 /* import Typography from 'material-ui/Typography' */
 

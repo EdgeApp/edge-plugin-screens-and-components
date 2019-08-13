@@ -8,10 +8,13 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
-import Checkbox from 'material-ui/Checkbox'
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import THEME from '../constants/themeConstants.js'
-import TextField from 'material-ui/TextField'
-import { withStyles } from 'material-ui/styles'
+import TextField from '@material-ui/core/TextField'
+import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
   history: Object,
@@ -36,26 +39,35 @@ class SignatureSceneComponent extends Component<Props, State> {
           <div className={classes.headerText} >
             Provide your electronic signature.
           </div>
-
           <TextField
-            id="filled-email-input"
+            id="standard-uncontrolled"
             label="Social Security Number"
-            className={classes.textField}
-            type="number"
             fullWidth
-            name="security"
-            autoComplete="email"
+            InputProps={{
+              classes: {
+                input: classes.resize,
+              },
+            }}
+            className={classes.textField}
             margin="normal"
-            variant="filled"
             onChange={() => {}}
             autoFocus
           />
         </div>
-        <div>
-
+        <div className={classes.twoColumn}>
+          <div className={classes.left}>
+            <Checkbox
+              icon={<CheckBoxOutlineBlankIcon style={{ width: 26, height: 26 }}/>}
+              checkedIcon={<CheckBoxIcon style={{ width: 26, height: 26 }} backgroundColor={THEME.COLORS.ACCENT_BLUE}/>}
+              value="checkedI"
+              color= 'primary'
+            />
+          </div>
+          <div className={classes.right} >
+            <div className={classes.disclaimer}>I confirm that all information submitted, to the best of my knowledge, is true, accurate, and up to date.</div>
+          </div>
         </div>
-        <Checkbox className={classes.checkbox} onChange ={() => {}}/>
-        <div className={classes.disclaimer}>I confirm that all information submitted, to the best of my knowledge, is true, accurate, and up to date.</div>
+
       </div>
       <div className={classes.containerBottom}>
         <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
@@ -68,6 +80,9 @@ const styles = theme => ({
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
+  clear: {
+    backgroundColor: THEME.COLORS.WHITE
+  },
   inset: {
     display: 'flex',
     width: '100%',
@@ -77,6 +92,9 @@ const styles = theme => ({
   textField: {
     position: 'relative',
     selfAlign: 'center'
+  },
+  resize: {
+    fontSize: 17
   },
   headerText: {
     display: 'flex',
@@ -89,15 +107,29 @@ const styles = theme => ({
     alignItems: 'center',
     color: THEME.COLORS.BLACK,
   },
+  twoColumn: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 47
+  },
   checkbox: {
-    width: 30,
-    height: 30
+    width: 100,
+    height: 100,
+    fontSize: 90
+  },
+  left: {
+    flexShrink: 1,
+    maxWidth: 50
+  },
+  right: {
+    flexGrow: 1
   },
   disclaimer: {
     display: 'flex',
     flexDirection: 'column',
-    width: '80%',
+    width: '100%',
     fontSize: 17,
+    marginTop: 9,
     color: THEME.COLORS.BLACK
   },
 })
