@@ -31,9 +31,12 @@ type Props = {
   changeFiat(string): void
 }
 type State = {
+  clicked: number,
+  value: string
 }
 
 class TransactionAmountScreenComponent extends Component<Props, State> {
+  inputRef: any
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -67,7 +70,6 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     this.setState({
       value: val
     })
-    this.props.onChange(val)
   }
   renderReceive = () => {
     const { classes } = this.props
@@ -140,7 +142,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
       value={this.state.value}
       className={classes.textField}
       margin="normal"
-      onChange={this.onChang}
+      onChange={this.onChange}
       autoFocus
             />
   }
