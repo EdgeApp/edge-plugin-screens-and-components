@@ -2,15 +2,32 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { BuySellScene } from '../scenes/BuySellScene'
-import {THANK_YOU_ROUTE} from '../constants/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    wallet: {
+      name: 'Allen Wallet',
+      receiveAddress: {
+        publicAddress: 'string'
+      },
+      currencyCode: 'BTC',
+      fiatCurrencyCode: 'USD',
+      currencyIcon: 'string',
+      currencyIconDark: 'string'
+    },
+    transactions: state.Transactions.transactions,
+    isBuyDisabled: true,
+    isSellDisabled: true,
+    partnerName: 'Wyre'
+  }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onNext: (history: Object) => {
-    history.push(THANK_YOU_ROUTE)
+  onSellClick: () => {
+  },
+  selectWallet: () => {
+  },
+  onBuyClick: () => {
   }
 })
 export const BuySellConnector = connect(

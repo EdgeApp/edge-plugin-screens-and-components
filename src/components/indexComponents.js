@@ -11,3 +11,6 @@ export * from './SupportLink'
 export * from './TertiaryButton'
 export * from './WalletButton'
 export * from './TextFormatComponents.js' */
+export * from './StartHeader'
+export * from './StartParagraph'
+export * from './IntroItemComponent.js'

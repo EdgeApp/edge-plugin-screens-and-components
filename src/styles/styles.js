@@ -39,6 +39,15 @@ export const sceneContainer = {
   paddingLeft: 20,
   paddingRight: 20
 }
+export const sceneContainerNoHeight = {
+  display: 'flex',
+  flex: 1,
+  minHeight: '100%',
+  alignItems: 'center',
+  flexDirection: 'column',
+  paddingLeft: 20,
+  paddingRight: 20
+}
 
 export const sceneMainContainer = {
   display: 'flex',
@@ -55,5 +64,18 @@ export const sceneButtonBottom = {
     minHeight: 60,
     width: '100%',
     maxHeight: 70
+}
+export const containerSpinner = {
+  display: 'flex',
+  flex: '1',
+  width: '100%',
+  height: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-around'
+}
+export const logo = {
+  position: 'relative',
+  width: '100%'
 }
 

@@ -34,7 +34,8 @@ const powerThemes = theme => ({
   p: {
     color: THEME.COLORS.WHITE,
     textAlign: 'right',
-    fontSize: 11
+    fontSize: 11,
+    marginRight: 10
   },
   pDark: {
     color: THEME.COLORS.BLACK,

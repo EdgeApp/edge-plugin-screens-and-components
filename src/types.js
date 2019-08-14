@@ -9,3 +9,9 @@ export type WalletDetails = {
   currencyIcon: string,
   currencyIconDark: string
 }
+
+export type Card = {
+  title: string,
+  body: string,
+  list: Array<string>
+}

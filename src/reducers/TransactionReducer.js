@@ -1,9 +1,9 @@
 // @flow
 import type { Action } from '../types/ReduxTypes'
-import type { WyreTransaction } from '../types/AppTypes'
+import type { Transaction } from '../types/AppTypes'
 
 export type TransactionState = {
-  transactions:Array<WyreTransaction>
+  transactions:Array<Transaction>
 }
 
 export const initialState = {

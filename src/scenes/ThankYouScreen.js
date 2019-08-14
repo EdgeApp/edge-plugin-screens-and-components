@@ -30,7 +30,7 @@ class ThankYouScreenComponent extends Component<Props, State> {
       <div className={classes.containerMain}>
         <div className={classes.inset} >
           <div className={classes.headerText} >
-            Thank You!
+            Please bear with us…
           </div>
           <div className={classes.subHeaderText}>
             {this.props.thanksMessage}

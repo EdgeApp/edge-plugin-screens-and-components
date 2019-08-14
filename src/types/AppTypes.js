@@ -11,6 +11,11 @@ export type LocalStorage = {
   wyreETH: string | null
 }
 
+export type Card = {
+  title: string,
+  body: string,
+  list: Array<string>
+}
 export type WalletDetails = {
   name: string,
   receiveAddress: {
@@ -22,7 +27,7 @@ export type WalletDetails = {
   currencyIconDark: string
 }
 
-export type WyreTransaction = {
+export type Transaction = {
   closedAt: number,
   createdAt: number,
   id: string,
