@@ -6,7 +6,27 @@ import { TransactionConfirmationScreen } from '../scenes/TransactionConfirmation
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    wallet: {
+      name: 'Allen Wallet',
+      receiveAddress: {
+        publicAddress: 'string'
+      },
+      currencyCode: 'BTC',
+      fiatCurrencyCode: 'USD',
+      currencyIcon: 'string',
+      currencyIconDark: 'string'
+    },
+    isSell:true,
+    cryptoAmount: '.00345',
+    fiatAmount: '50',
+    withdrawFrom: 'Western Bank',
+    depositTo: 'My Wallet',
+    fees: '$2.99',
+    total: '$1,027.01',
+    onOfCurrencyCodeInFiat: '$5,1023',
+    buyOrSell: 'sell'
+  }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
