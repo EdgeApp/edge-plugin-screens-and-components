@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {NEW_USER_NAME_ROUTE} from '../constants/index'
+import {TRANSACTION_CONFIRM_ROUTE} from '../constants/index'
 import { TransactionAmountScreen } from '../scenes/TransactionAmountScreen'
 import { connect } from 'react-redux'
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(NEW_USER_NAME_ROUTE)
+    history.push(TRANSACTION_CONFIRM_ROUTE)
   }
 })
 export const TransactionAmountConnector = connect(

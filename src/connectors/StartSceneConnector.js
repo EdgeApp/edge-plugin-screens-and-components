@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {SIGNATURE_ROUTE} from '../constants/index'
+import {ADDRESS_ROUTE} from '../constants/index'
 import { StartScene } from '../scenes/StartScene'
 import { connect } from 'react-redux'
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(SIGNATURE_ROUTE)
+    history.push(ADDRESS_ROUTE)
   }
 })
 export const StartSceneConnector = connect(

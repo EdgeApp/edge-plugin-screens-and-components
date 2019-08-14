@@ -3,7 +3,6 @@ import {
   ADDRESS_ROUTE,
   BANK_CONNECT_ROUTE,
   DOC_UPLOAD_ROUTE,
-  NEW_USER_NAME_ROUTE,
   PHONE_ROUTE,
   SIGNATURE_ROUTE,
   SOCIAL_ROUTE,
@@ -17,7 +16,6 @@ import {
   AddressConnector,
   BuySellConnector,
   DocUploadConnector,
-  NewUserConnector,
   PhoneConnector,
   SignatureConnector,
   SocialConnector,
@@ -64,10 +62,6 @@ export const routes = [{
 }, {
   path: DOC_UPLOAD_ROUTE,
   main: DocUploadConnector,
-  exact: true
-}, {
-  path: NEW_USER_NAME_ROUTE,
-  main: NewUserConnector,
   exact: true
 }, {
   path: PHONE_ROUTE,
