@@ -17,7 +17,11 @@ const mapStateToProps = (state: State) => {
       currencyIcon: 'string',
       currencyIconDark: 'string'
     },
-    exchangeRatesFrom: null
+    exchangeRatesFrom: 10,
+    buyOrSell: 'sell',
+    cryptoAmount: '.00345',
+    fiatAmount: '50',
+    bankName: 'Allen\'s Amazing Banks XX007'
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
