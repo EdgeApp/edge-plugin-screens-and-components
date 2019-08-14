@@ -100,6 +100,9 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
             <div className={classes.poweredByRow}>
               <PoweredBy />
             </div>
+            <div className={classes.chooseAmount} >
+              Choose Amount
+            </div>
             <div className={classes.amountContainer}>
               <div className={classes.innerDiv} >
                 {this.renderOptions()}
@@ -156,11 +159,11 @@ const styles = theme => ({
   amountContainer: {
     position: 'relative',
     display: 'flex',
+    flexShrink: 1,
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    borderRadius: 6,
-    marginTop: 10
+    borderRadius: 6
   },
   innerDiv: {
     display: 'flex',
@@ -168,8 +171,6 @@ const styles = theme => ({
     position: 'relative',
     flexShrink: 1,
     fontSize: 50,
-    topMargin: 20,
-    height: '100%',
     color: THEME.COLORS.WHITE
   },
   inputHidden: {
@@ -178,35 +179,32 @@ const styles = theme => ({
     marginLeft: -20,
     color: THEME.COLORS.WHITE
   },
-  static: {
-    fontSize: 24,
-    border: '1px solid ' + THEME.COLORS.OPACITY_WHITE_TWO,
-    borderRadius: 6,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 15,
-    paddingLeft: 15,
-    color: THEME.COLORS.WHITE
-  },
   doRow: {
     display: 'flex',
     position: 'relative',
-    flexDirection: 'row',
-    height: '100%'
+    flexDirection: 'row'
   },
   dollar: {
     paddingTop: 10,
     fontSize: 40,
-    height: '100%',
     marginRight: 3
   },
   inputWrapper: {
     fontSize: 68,
-    height: '100%'
   },
   textField: {
     position: 'relative',
     selfAlign: 'center'
+  },
+  chooseAmount: {
+    flexShrink: 1,
+    display: 'flex',
+    fontSize: 17,
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 24,
+    color: THEME.COLORS.WHITE,
+    flexDirection: 'column'
   },
   receiveAmount: {
     flexShrink: 1,
@@ -214,6 +212,7 @@ const styles = theme => ({
     fontSize: 13,
     width: '100%',
     textAlign: 'center',
+    marginTop: 14,
     color: THEME.COLORS.WHITE,
     flexDirection: 'column'
   },
