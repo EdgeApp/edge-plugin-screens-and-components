@@ -9,4 +9,6 @@ const root = document.getElementById('root')
 // $FlowFixMe
 ReactDOM.render(<App />, root)
 
+export { TransactionAmountScreen } from './scenes/TransactionAmountScreen'
+
 

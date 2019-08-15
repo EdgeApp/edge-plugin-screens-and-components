@@ -1,5 +1,4 @@
 // @flow
-import { PoweredBy, PrimaryButton } from '../components/indexComponents'
 import React, { Component } from 'react'
 import {
   poweredByRow,
@@ -8,6 +7,8 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+// @flow
+import { PrimaryButton } from '../components/indexComponents'
 import THEME from '../constants/themeConstants.js'
 import { withStyles } from '@material-ui/core/styles'
 
