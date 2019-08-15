@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {START_ROUTE} from '../constants/index'
+import {SOCIAL_ROUTE} from '../constants/index'
 import { ThankYouScreen } from '../scenes/ThankYouScreen'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(START_ROUTE)
+    history.push(SOCIAL_ROUTE)
   }
 })
 export const ThankYouConnector = connect(

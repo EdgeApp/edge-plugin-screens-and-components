@@ -1,6 +1,6 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
-import { NOT_STARTED, TRANSACTION_AMOUNT_ROUTE } from '../constants/index'
+import { NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
 
 import { StartScene } from '../scenes/StartScene'
 import { connect } from 'react-redux'
@@ -12,7 +12,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(TRANSACTION_AMOUNT_ROUTE)
+    history.push(THANK_YOU_ROUTE)
   },
   initInfo: () => {
 

@@ -30,7 +30,7 @@ class ThankYouScreenComponent extends Component<Props, State> {
       <div className={classes.containerMain}>
         <div className={classes.inset} >
           <div className={classes.headerText} >
-            Please bear with us…
+            Thank You
           </div>
           <div className={classes.subHeaderText}>
             {this.props.thanksMessage}
@@ -38,7 +38,7 @@ class ThankYouScreenComponent extends Component<Props, State> {
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.onNext} >Done </PrimaryButton>
       </div>
     </div>
   }

@@ -1,8 +1,8 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
+import {BANK_CONNECT_ROUTE} from '../constants/index'
 import { SocialScreen } from '../scenes/SocialScreen'
-import {THANK_YOU_ROUTE} from '../constants/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(THANK_YOU_ROUTE)
+    history.push(BANK_CONNECT_ROUTE)
   }
 })
 export const SocialConnector = connect(

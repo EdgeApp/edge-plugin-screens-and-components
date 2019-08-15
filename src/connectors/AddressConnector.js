@@ -2,7 +2,7 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { AddressScene } from '../scenes/AddressScreen'
-import {THANK_YOU_ROUTE} from '../constants/index'
+import {DOC_UPLOAD_ROUTE} from '../constants/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(THANK_YOU_ROUTE)
+    history.push(DOC_UPLOAD_ROUTE)
   }
 })
 export const AddressConnector = connect(

@@ -47,7 +47,6 @@ class SocialScreenComponent extends Component<Props, State> {
             name="security"
             autoComplete="email"
             margin="normal"
-            variant="filled"
             onChange={() => {}}
             autoFocus
           />

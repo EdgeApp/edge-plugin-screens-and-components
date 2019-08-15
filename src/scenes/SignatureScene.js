@@ -40,7 +40,7 @@ class SignatureSceneComponent extends Component<Props, State> {
           </div>
           <TextField
             id="standard-uncontrolled"
-            label="Social Security Number"
+            label="Full Name"
             fullWidth
             InputProps={{
               classes: {

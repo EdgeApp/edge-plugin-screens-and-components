@@ -1,8 +1,8 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import { DocumentUploadScreen } from '../scenes/DocumentUploadScreen'
-import {SOCIAL_ROUTE} from '../constants/index'
+import {ADDRESS_ROUTE} from '../constants/index'
+import { BankConnectScene } from '../scenes/BankConnectScene'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
@@ -10,10 +10,10 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(SOCIAL_ROUTE)
+    history.push(ADDRESS_ROUTE)
   }
 })
-export const DocUploadConnector = connect(
+export const BankConnector = connect(
   mapStateToProps,
   mapDispatchToProps
-)(DocumentUploadScreen)
+)(BankConnectScene)

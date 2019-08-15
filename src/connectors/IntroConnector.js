@@ -2,7 +2,7 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { IntroScene } from '../scenes/IntroScene'
-import {TRANSACTION_AMOUNT_ROUTE} from '../constants'
+import {THANK_YOU_ROUTE} from '../constants'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
@@ -29,7 +29,7 @@ const mapStateToProps = (state: State) => {
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
-    history.push(TRANSACTION_AMOUNT_ROUTE)
+    history.push(THANK_YOU_ROUTE)
   }
 })
 export const IntroConnector = connect(

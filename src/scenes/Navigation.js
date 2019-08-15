@@ -14,6 +14,7 @@ import {
 } from '../constants/index'
 import {
   AddressConnector,
+  BankConnector,
   BuySellConnector,
   DocUploadConnector,
   PhoneConnector,
@@ -57,7 +58,7 @@ export const routes = [{
   exact: true
 }, {
   path: BANK_CONNECT_ROUTE,
-  main: BuySellConnector,
+  main: BankConnector,
   exact: true
 }, {
   path: DOC_UPLOAD_ROUTE,

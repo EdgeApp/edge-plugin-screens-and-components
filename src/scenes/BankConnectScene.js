@@ -29,9 +29,6 @@ class BankConnectSceneComponent extends Component<Props, State> {
     const { classes } = this.props
     return <div className={classes.container} >
       <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy useBlack/>
-        </div>
         <div className={classes.inset} >
           <div className={classes.headerText} >
             Great!
