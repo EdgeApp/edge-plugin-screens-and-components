@@ -28,14 +28,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getExchangeRate: () => {
     // dispatch(getExchangeRate())
   },
-  confirmQuote: (crypto: string, fiat: string, history: Object) => {
+  confirmQuote: (crypto: string, fiat: string,  history: Object) => {
     // dispatch(confirmQuote(crypto,fiat, history))
     history.push(TRANSACTION_CONFIRM_ROUTE)
   },
-  changeCrypto: (string) => {
-
+  changeCrypto: (amount, exchangeRate: number) => {
   },
-  changeFiat: (string) => {
+  changeFiat: (amount: string, exchangeRate: number) => {
 
   }
   /*

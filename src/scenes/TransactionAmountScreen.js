@@ -27,8 +27,8 @@ type Props = {
   exchangeRatesTo: number,
   getExchangeRate(): void,
   confirmQuote(string,string, Object): void,
-  changeCrypto(string): void,
-  changeFiat(string): void
+  changeCrypto(string, number): void,
+  changeFiat(string, number): void
 }
 type State = {
   clicked: number,
@@ -70,7 +70,9 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     this.setState({
       value: val
     })
-  }
+    const exchangeRate = this.props.buyOrSell === 'sel' ? this.props.exchangeRatesFrom : this.props.exchangeRatesTo
+    this.props.changeFiat(val, exchangeRate)
+  }//
   renderReceive = () => {
     const { classes } = this.props
     if(this.props.cryptoAmount !== '') {
