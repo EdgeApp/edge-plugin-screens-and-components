@@ -8,7 +8,7 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import type { WalletDetails } from '../types/AppTypes'
 import { withStyles } from '@material-ui/core/styles'
 
