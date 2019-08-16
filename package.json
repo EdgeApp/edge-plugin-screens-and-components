@@ -2,6 +2,7 @@
     "name": "edge-plugin-screens-and-components",
     "version": "0.0.1",
     "private": true,
+    "main": "src/exports.js",
     "devDependencies": {
       "babel-eslint": "^8.1.0",
       "babel-jest": "^20.0.3",
