@@ -8,7 +8,7 @@ import {
 } from '../styles/styles'
 
 import { PoweredBy } from '../components/indexComponents'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
 
 type Props = {

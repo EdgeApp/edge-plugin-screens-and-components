@@ -10,7 +10,7 @@ import {
 
 import ChooseWalletButton from '../components/ChooseWalletButton'
 import { PoweredBy } from '../components/indexComponents'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import { TertiaryButton } from '../components/TertiaryButton'
 import { TransactionItem } from '../components/TransactionItem.js'
 import { withStyles } from '@material-ui/core/styles'

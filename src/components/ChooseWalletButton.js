@@ -3,7 +3,7 @@
 
 import React, {Component} from 'react'
 
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/styles'
 
 type Props = {

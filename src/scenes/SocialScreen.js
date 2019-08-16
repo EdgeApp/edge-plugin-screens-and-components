@@ -9,7 +9,7 @@ import {
 } from '../styles/styles'
 
 // import { InputAdornment } from 'material-ui/Input'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 

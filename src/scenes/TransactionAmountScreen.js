@@ -10,7 +10,7 @@ import {
 } from '../styles/styles'
 
 import CircularProgress from '@material-ui/core/CircularProgress'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
 import type { WalletDetails } from '../types/AppTypes'
 import { withStyles } from '@material-ui/core/styles'

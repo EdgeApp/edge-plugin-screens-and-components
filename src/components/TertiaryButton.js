@@ -3,7 +3,7 @@ import { buttonStyle, buttonStyleHollow } from '../styles/styles'
 
 import Button from '@material-ui/core/Button'
 import React from 'react'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 
 type Props = {
   onClick(): void,

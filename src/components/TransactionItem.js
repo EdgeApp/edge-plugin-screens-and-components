@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import type { Transaction } from '../types/AppTypes'
 import { withStyles } from '@material-ui/styles'
 const limitStyles = theme => ({

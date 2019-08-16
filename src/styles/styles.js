@@ -1,5 +1,5 @@
 // @flow
-// import THEME from '../constants/themeConstants.js'
+// import THEME from '../constants/themeConstants'
 export const styles = {
   primaryButton: {
     height: '50px'
