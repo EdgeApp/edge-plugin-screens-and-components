@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
 const powerThemes = theme => ({
   container: {

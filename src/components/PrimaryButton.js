@@ -1,7 +1,7 @@
 // @flow
 import Button from '@material-ui/core/Button'
 import React from 'react'
-import THEME from '../constants/themeConstants.js'
+import THEME from '../constants/themeConstants'
 import { buttonStyle } from '../styles/styles'
 
 type Props = {
