@@ -1,9 +1,10 @@
 // @flow
 import React, {Fragment} from 'react'
-import {StartHeader, StartParagraph} from './indexComponents'
 
 import type { Card } from  '../types/AppTypes.js'
 import Divider from '@material-ui/core/Divider'
+import {StartHeader} from './StartHeader'
+import {StartParagraph} from './StartParagraph'
 import { withStyles } from '@material-ui/core/styles'
 
 type ParagraphProps = {
