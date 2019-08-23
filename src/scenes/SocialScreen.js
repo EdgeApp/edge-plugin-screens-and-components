@@ -8,6 +8,7 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+import type { PoweredByType } from '../types/AppTypes'
 // import { InputAdornment } from 'material-ui/Input'
 import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
@@ -18,6 +19,7 @@ import { withStyles } from '@material-ui/core/styles'
 type Props = {
   history: Object,
   classes: Object,
+  poweredBy: PoweredByType,
   onNext(Object): void
 }
 type State = {
@@ -32,7 +34,7 @@ class SocialScreenComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy useBlack/>
+          <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
         </div>
         <div className={classes.inset} >
           <div className={classes.headerText} >

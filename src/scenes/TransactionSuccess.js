@@ -8,12 +8,14 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
   history: Object,
   classes: Object,
+  poweredBy: PoweredByType,
   onNext(Object): void
 }
 type State = {
@@ -28,7 +30,7 @@ class TransactionSuccessComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy/>
+          <PoweredBy poweredBy={this.props.poweredBy}/>
         </div>
         <div className={classes.headerText} >
           Congratulations!

@@ -25,7 +25,11 @@ const mapStateToProps = (state: State) => {
     fees: '$2.99',
     total: '$1,027.01',
     onOfCurrencyCodeInFiat: '$5,1023',
-    buyOrSell: 'sell'
+    buyOrSell: 'sell',
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: require('../assets/poweredByLogo.png')
+    }
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

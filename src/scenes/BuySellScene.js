@@ -1,6 +1,6 @@
 // @flow
+import type { PoweredByType, Transaction, WalletDetails } from '../types/AppTypes'
 import React, { Component } from 'react'
-import type { Transaction, WalletDetails } from '../types/AppTypes'
 import {
   poweredByRow,
   sceneButtonBottom,
@@ -22,6 +22,7 @@ type Props = {
   partnerName: string,
   transactions: Array<Transaction>,
   isBuyDisabled: boolean,
+  poweredBy: PoweredByType,
   isSellDisabled: boolean,
   onSellClick(): void,
   selectWallet(): void,
@@ -65,7 +66,7 @@ class BuySellSceneComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy />
+          <PoweredBy poweredBy={this.props.poweredBy}/>
         </div>
         <div className={classes.buttonsContainer} >
           <TertiaryButton

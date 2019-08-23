@@ -7,7 +7,11 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
   return {
-    accountStatus: NOT_STARTED
+    accountStatus: NOT_STARTED,
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: '../assets/poweredByLogo.png'
+    }
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

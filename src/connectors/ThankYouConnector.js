@@ -7,7 +7,11 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
   return {
-    thanksMessage: 'We’re reviewing your information right now, pending approval. Check your email in the next few days for next steps.'
+    thanksMessage: 'We’re reviewing your information right now, pending approval. Check your email in the next few days for next steps.',
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: '../assets/poweredByLogo.png'
+    }
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -7581,29 +7581,30 @@ var powerThemes = function powerThemes(theme) {
   };
 };
 
-var onClick = function onClick() {
-  window.edgeProvider.openEmailApp('support@sendwyre.com');
+var _onClick = function onClick(arg) {
+  window.edgeProvider.openEmailApp(arg);
 };
 
 var PoweredBy = withStyles$1(powerThemes)(function (props) {
-  var image = require('../assets/poweredByLogo.png');
-
+  // const image = props.poweredBy.logo
   var p = props.useBlack ? props.classes.pDark : props.classes.p;
   return React__default.createElement("div", {
     className: props.classes.container,
-    onClick: onClick
+    onClick: function onClick() {
+      _onClick(props.poweredBy.email);
+    }
   }, React__default.createElement("div", {
     className: props.classes.containerInner
   }, React__default.createElement("div", null, React__default.createElement("div", {
     className: p
   }, "Powered by"), React__default.createElement("div", {
     className: p
-  }, "support@sendwyre.com"))), React__default.createElement("div", {
+  }, props.poweredBy.email))), React__default.createElement("div", {
     className: props.classes.shim
   }), React__default.createElement("div", {
     className: props.classes.logoWrapper
   }, React__default.createElement("img", {
-    src: image,
+    src: props.poweredBy.logo,
     className: props.classes.logo,
     alt: ''
   })));
@@ -17029,7 +17030,9 @@ function (_Component) {
       onClick: this.onClick
     }, React__default.createElement("div", {
       className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, null)), React__default.createElement("div", {
+    }, React__default.createElement(PoweredBy, {
+      poweredBy: this.props.poweredBy
+    })), React__default.createElement("div", {
       className: classes.chooseAmount
     }, "Choose Amount"), React__default.createElement("div", {
       className: classes.amountContainer

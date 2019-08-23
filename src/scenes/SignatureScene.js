@@ -11,6 +11,7 @@ import {
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import Checkbox from '@material-ui/core/Checkbox';
+import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
@@ -18,6 +19,7 @@ import { withStyles } from '@material-ui/core/styles'
 type Props = {
   history: Object,
   classes: Object,
+  poweredBy: PoweredByType,
   onNext(Object): void
 }
 type State = {
@@ -32,7 +34,7 @@ class SignatureSceneComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy useBlack/>
+        <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
         </div>
         <div className={classes.inset} >
           <div className={classes.headerText} >

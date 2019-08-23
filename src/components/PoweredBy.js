@@ -1,7 +1,9 @@
 // @flow
+import type { PoweredByType } from '../types/AppTypes'
 import React from 'react'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
+
 const powerThemes = theme => ({
   container: {
     display: 'flex',
@@ -45,31 +47,34 @@ const powerThemes = theme => ({
 })
 type Props = {
   classes: Object,
-  useBlack?: boolean
+  useBlack?: boolean,
+  poweredBy: PoweredByType,
 }
-const onClick = () => {
-  window.edgeProvider.openEmailApp('support@sendwyre.com')
+const onClick = (arg: string) => {
+  window.edgeProvider.openEmailApp(arg)
 }
 const PoweredBy = withStyles(powerThemes)((props: Props) => {
-  const image = require('../assets/poweredByLogo.png')
+  // const image = props.poweredBy.logo
   const p = props.useBlack
     ? props.classes.pDark
     : props.classes.p
   return (
-    <div className={props.classes.container} onClick={onClick}>
+    <div className={props.classes.container} onClick={() => {
+      onClick(props.poweredBy.email)
+      }}>
       <div className={props.classes.containerInner} >
         <div>
           <div className={p} >
             Powered by
           </div>
           <div className={p} >
-            support@sendwyre.com
+            {props.poweredBy.email}
           </div>
         </div>
       </div>
       <div className={props.classes.shim} />
       <div className={props.classes.logoWrapper} >
-        <img src={image} className={props.classes.logo} alt={''}/>
+        <img src={props.poweredBy.logo} className={props.classes.logo} alt={''}/>
       </div>
     </div>
   )

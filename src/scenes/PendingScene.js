@@ -8,12 +8,14 @@ import {
 } from '../styles/styles'
 
 import { PoweredBy } from '../components/indexComponents'
+import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
   history: Object,
   classes: Object,
+  poweredBy: PoweredByType,
   onNext(Object): void
 }
 type State = {
@@ -28,7 +30,7 @@ class PendingSceneComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy useBlack/>
+        <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
         </div>
         <div className={classes.inset} >
           <div className={classes.headerText} >

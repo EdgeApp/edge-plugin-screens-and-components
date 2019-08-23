@@ -6,7 +6,12 @@ import { TransactionSuccess } from '../scenes/TransactionSuccess'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: '../assets/poweredByLogo.png'
+    }
+  }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {

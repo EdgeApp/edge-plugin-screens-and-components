@@ -1,5 +1,6 @@
 // @flow
 import { PoweredBy, PrimaryButton } from '../components/indexComponents'
+import type { PoweredByType, WalletDetails } from '../types/AppTypes'
 import React, { Component } from 'react'
 import {
   poweredByRow,
@@ -9,7 +10,6 @@ import {
 } from '../styles/styles'
 
 import THEME from '../constants/themeConstants'
-import type { WalletDetails } from '../types/AppTypes'
 import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
@@ -24,6 +24,7 @@ type Props = {
   isSell: boolean,
   fees: string,
   total: string,
+  poweredBy: PoweredByType,
   onOfCurrencyCodeInFiat: string,
   onNext(Object): void
 }
@@ -39,7 +40,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
-          <PoweredBy/>
+          <PoweredBy poweredBy={this.props.poweredBy}/>
         </div>
         <div className={classes.amountContainer}>
           <div className={classes.innerDiv} >

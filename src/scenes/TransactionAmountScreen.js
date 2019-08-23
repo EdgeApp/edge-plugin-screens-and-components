@@ -1,5 +1,6 @@
 // @flow
 import { PoweredBy, PrimaryButton } from '../components/indexComponents'
+import type { PoweredByType, WalletDetails } from '../types/AppTypes'
 import React, { Component } from 'react'
 import {
   containerSpinner,
@@ -12,7 +13,6 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress'
 import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
-import type { WalletDetails } from '../types/AppTypes'
 import { withStyles } from '@material-ui/core/styles'
 
 type Props = {
@@ -25,6 +25,7 @@ type Props = {
   bankName: string,
   exchangeRatesFrom: number,
   exchangeRatesTo: number,
+  poweredBy: PoweredByType,
   getExchangeRate(): void,
   confirmQuote(string,string, Object): void,
   changeCrypto(string, number): void,
@@ -100,7 +101,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     return <div className={classes.container}>
       <div className={classes.containerMain} onClick={this.onClick}>
             <div className={classes.poweredByRow}>
-              <PoweredBy />
+              <PoweredBy poweredBy={this.props.poweredBy}/>
             </div>
             <div className={classes.chooseAmount} >
               Choose Amount

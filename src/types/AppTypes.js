@@ -11,6 +11,11 @@ export type LocalStorage = {
   wyreETH: string | null
 }
 
+export type PoweredByType = {
+  logo: any,
+  email: string
+}
+
 export type Card = {
   title: string,
   body: string,

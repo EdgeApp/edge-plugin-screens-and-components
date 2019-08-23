@@ -3,6 +3,8 @@
 .*/node_modules/react-native/.*
 .*/node_modules/react-native-keyboard-aware-scroll-view/.*
 .*/node_modules/jss/.*
+.*/node_modules/@parcel/watcher/test/tmp/.*
+.*/src/main.js
 [include]
 
 [libs]

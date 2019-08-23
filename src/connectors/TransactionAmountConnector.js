@@ -21,7 +21,11 @@ const mapStateToProps = (state: State) => {
     buyOrSell: 'sell',
     cryptoAmount: '.00345',
     fiatAmount: '50',
-    bankName: 'Allen\'s Amazing Banks XX007'
+    bankName: 'Allen\'s Amazing Banks XX007',
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: '../assets/poweredByLogo.png'
+    }
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -19,7 +19,11 @@ const mapStateToProps = (state: State) => {
     transactions: state.Transactions.transactions,
     isBuyDisabled: true,
     isSellDisabled: true,
-    partnerName: 'Wyre'
+    partnerName: 'Wyre',
+    poweredBy: {
+      email: 'support@wyre.com',
+      logo: '../assets/poweredByLogo.png'
+    }
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
