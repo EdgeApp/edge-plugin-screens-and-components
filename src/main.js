@@ -7,43 +7,6 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var React = require('react');
 var React__default = _interopDefault(React);
 var ReactDOM = _interopDefault(require('react-dom'));
-var reactRedux = require('react-redux');
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -7922,17 +7885,6 @@ function useIsFocusVisible() {
   };
 }
 
-var interopRequireDefault = createCommonjsModule(function (module) {
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      "default": obj
-    };
-  }
-
-  module.exports = _interopRequireDefault;
-});
-unwrapExports(interopRequireDefault);
-
 var config = {
   disabled: false
 };
@@ -10065,10 +10017,6 @@ var buttonStyle = {
   height: '50px',
   borderRadius: '5px'
 };
-var buttonStyleHollow = {
-  textTransform: 'none',
-  borderRadius: '5px'
-};
 var poweredByRow = {
   display: 'flex',
   flexShrink: 1,
@@ -10656,714 +10604,233 @@ var styles$6 = function styles(theme) {
 
 var IntroScene = withStyles$1(styles$6)(IntroSceneComponent);
 
-var runtime_1 = createCommonjsModule(function (module) {
-  /**
-   * Copyright (c) 2014-present, Facebook, Inc.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   */
-  var runtime = function (exports) {
+var SIZE = 44;
 
-    var Op = Object.prototype;
-    var hasOwn = Op.hasOwnProperty;
-    var undefined$1; // More compressible than void 0.
+function getRelativeValue(value, min, max) {
+  var clampedValue = Math.min(Math.max(min, value), max);
+  return (clampedValue - min) / (max - min);
+}
 
-    var $Symbol = typeof Symbol === "function" ? Symbol : {};
-    var iteratorSymbol = $Symbol.iterator || "@@iterator";
-    var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-    var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+function easeOut(t) {
+  t = getRelativeValue(t, 0, 1); // https://gist.github.com/gre/1650294
 
-    function wrap(innerFn, outerFn, self, tryLocsList) {
-      // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-      var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-      var generator = Object.create(protoGenerator.prototype);
-      var context = new Context(tryLocsList || []); // The ._invoke method unifies the implementations of the .next,
-      // .throw, and .return methods.
+  t = (t -= 1) * t * t + 1;
+  return t;
+}
 
-      generator._invoke = makeInvokeMethod(innerFn, self, context);
-      return generator;
-    }
+function easeIn(t) {
+  return t * t;
+}
 
-    exports.wrap = wrap; // Try/catch helper to minimize deoptimizations. Returns a completion
-    // record like context.tryEntries[i].completion. This interface could
-    // have been (and was previously) designed to take a closure to be
-    // invoked without arguments, but in all the cases we care about we
-    // already have an existing method we want to call, so there's no need
-    // to create a new function object. We can even get away with assuming
-    // the method takes exactly one argument, since that happens to be true
-    // in every case, so we don't have to touch the arguments object. The
-    // only additional allocation required is the completion record, which
-    // has a stable shape and so hopefully should be cheap to allocate.
+var styles$7 = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'inline-block',
+      lineHeight: 1 // Keep the progress centered
 
-    function tryCatch(fn, obj, arg) {
-      try {
-        return {
-          type: "normal",
-          arg: fn.call(obj, arg)
-        };
-      } catch (err) {
-        return {
-          type: "throw",
-          arg: err
-        };
+    },
+
+    /* Styles applied to the root element if `variant="static"`. */
+    static: {
+      transition: theme.transitions.create('transform')
+    },
+
+    /* Styles applied to the root element if `variant="indeterminate"`. */
+    indeterminate: {
+      animation: '$mui-progress-circular-rotate 1.4s linear infinite'
+    },
+
+    /* Styles applied to the root element if `color="primary"`. */
+    colorPrimary: {
+      color: theme.palette.primary.main
+    },
+
+    /* Styles applied to the root element if `color="secondary"`. */
+    colorSecondary: {
+      color: theme.palette.secondary.main
+    },
+
+    /* Styles applied to the `svg` element. */
+    svg: {},
+
+    /* Styles applied to the `circle` svg path. */
+    circle: {
+      stroke: 'currentColor' // Use butt to follow the specification, by chance, it's already the default CSS value.
+      // strokeLinecap: 'butt',
+
+    },
+
+    /* Styles applied to the `circle` svg path if `variant="static"`. */
+    circleStatic: {
+      transition: theme.transitions.create('stroke-dashoffset')
+    },
+
+    /* Styles applied to the `circle` svg path if `variant="indeterminate"`. */
+    circleIndeterminate: {
+      animation: '$mui-progress-circular-dash 1.4s ease-in-out infinite',
+      // Some default value that looks fine waiting for the animation to kicks in.
+      strokeDasharray: '80px, 200px',
+      strokeDashoffset: '0px' // Add the unit to fix a Edge 16 and below bug.
+
+    },
+    '@keyframes mui-progress-circular-rotate': {
+      '100%': {
+        transform: 'rotate(360deg)'
       }
-    }
-
-    var GenStateSuspendedStart = "suspendedStart";
-    var GenStateSuspendedYield = "suspendedYield";
-    var GenStateExecuting = "executing";
-    var GenStateCompleted = "completed"; // Returning this object from the innerFn has the same effect as
-    // breaking out of the dispatch switch statement.
-
-    var ContinueSentinel = {}; // Dummy constructor functions that we use as the .constructor and
-    // .constructor.prototype properties for functions that return Generator
-    // objects. For full spec compliance, you may wish to configure your
-    // minifier not to mangle the names of these two functions.
-
-    function Generator() {}
-
-    function GeneratorFunction() {}
-
-    function GeneratorFunctionPrototype() {} // This is a polyfill for %IteratorPrototype% for environments that
-    // don't natively support it.
-
-
-    var IteratorPrototype = {};
-
-    IteratorPrototype[iteratorSymbol] = function () {
-      return this;
-    };
-
-    var getProto = Object.getPrototypeOf;
-    var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-
-    if (NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-      // This environment has a native %IteratorPrototype%; use it instead
-      // of the polyfill.
-      IteratorPrototype = NativeIteratorPrototype;
-    }
-
-    var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
-    GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-    GeneratorFunctionPrototype.constructor = GeneratorFunction;
-    GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = "GeneratorFunction"; // Helper for defining the .next, .throw, and .return methods of the
-    // Iterator interface in terms of a single ._invoke method.
-
-    function defineIteratorMethods(prototype) {
-      ["next", "throw", "return"].forEach(function (method) {
-        prototype[method] = function (arg) {
-          return this._invoke(method, arg);
-        };
-      });
-    }
-
-    exports.isGeneratorFunction = function (genFun) {
-      var ctor = typeof genFun === "function" && genFun.constructor;
-      return ctor ? ctor === GeneratorFunction || // For the native GeneratorFunction constructor, the best we can
-      // do is to check its .name property.
-      (ctor.displayName || ctor.name) === "GeneratorFunction" : false;
-    };
-
-    exports.mark = function (genFun) {
-      if (Object.setPrototypeOf) {
-        Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-      } else {
-        genFun.__proto__ = GeneratorFunctionPrototype;
-
-        if (!(toStringTagSymbol in genFun)) {
-          genFun[toStringTagSymbol] = "GeneratorFunction";
-        }
-      }
-
-      genFun.prototype = Object.create(Gp);
-      return genFun;
-    }; // Within the body of any async function, `await x` is transformed to
-    // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-    // `hasOwn.call(value, "__await")` to determine if the yielded value is
-    // meant to be awaited.
-
-
-    exports.awrap = function (arg) {
-      return {
-        __await: arg
-      };
-    };
-
-    function AsyncIterator(generator) {
-      function invoke(method, arg, resolve, reject) {
-        var record = tryCatch(generator[method], generator, arg);
-
-        if (record.type === "throw") {
-          reject(record.arg);
-        } else {
-          var result = record.arg;
-          var value = result.value;
-
-          if (value && typeof value === "object" && hasOwn.call(value, "__await")) {
-            return Promise.resolve(value.__await).then(function (value) {
-              invoke("next", value, resolve, reject);
-            }, function (err) {
-              invoke("throw", err, resolve, reject);
-            });
-          }
-
-          return Promise.resolve(value).then(function (unwrapped) {
-            // When a yielded Promise is resolved, its final value becomes
-            // the .value of the Promise<{value,done}> result for the
-            // current iteration.
-            result.value = unwrapped;
-            resolve(result);
-          }, function (error) {
-            // If a rejected Promise was yielded, throw the rejection back
-            // into the async generator function so it can be handled there.
-            return invoke("throw", error, resolve, reject);
-          });
-        }
-      }
-
-      var previousPromise;
-
-      function enqueue(method, arg) {
-        function callInvokeWithMethodAndArg() {
-          return new Promise(function (resolve, reject) {
-            invoke(method, arg, resolve, reject);
-          });
-        }
-
-        return previousPromise = // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, // Avoid propagating failures to Promises returned by later
-        // invocations of the iterator.
-        callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
-      } // Define the unified helper method that is used to implement .next,
-      // .throw, and .return (see defineIteratorMethods).
-
-
-      this._invoke = enqueue;
-    }
-
-    defineIteratorMethods(AsyncIterator.prototype);
-
-    AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-      return this;
-    };
-
-    exports.AsyncIterator = AsyncIterator; // Note that simple async functions are implemented on top of
-    // AsyncIterator objects; they just return a Promise for the value of
-    // the final result produced by the iterator.
-
-    exports.async = function (innerFn, outerFn, self, tryLocsList) {
-      var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList));
-      return exports.isGeneratorFunction(outerFn) ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function (result) {
-        return result.done ? result.value : iter.next();
-      });
-    };
-
-    function makeInvokeMethod(innerFn, self, context) {
-      var state = GenStateSuspendedStart;
-      return function invoke(method, arg) {
-        if (state === GenStateExecuting) {
-          throw new Error("Generator is already running");
-        }
-
-        if (state === GenStateCompleted) {
-          if (method === "throw") {
-            throw arg;
-          } // Be forgiving, per 25.3.3.3.3 of the spec:
-          // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-
-
-          return doneResult();
-        }
-
-        context.method = method;
-        context.arg = arg;
-
-        while (true) {
-          var delegate = context.delegate;
-
-          if (delegate) {
-            var delegateResult = maybeInvokeDelegate(delegate, context);
-
-            if (delegateResult) {
-              if (delegateResult === ContinueSentinel) continue;
-              return delegateResult;
-            }
-          }
-
-          if (context.method === "next") {
-            // Setting context._sent for legacy support of Babel's
-            // function.sent implementation.
-            context.sent = context._sent = context.arg;
-          } else if (context.method === "throw") {
-            if (state === GenStateSuspendedStart) {
-              state = GenStateCompleted;
-              throw context.arg;
-            }
-
-            context.dispatchException(context.arg);
-          } else if (context.method === "return") {
-            context.abrupt("return", context.arg);
-          }
-
-          state = GenStateExecuting;
-          var record = tryCatch(innerFn, self, context);
-
-          if (record.type === "normal") {
-            // If an exception is thrown from innerFn, we leave state ===
-            // GenStateExecuting and loop back for another invocation.
-            state = context.done ? GenStateCompleted : GenStateSuspendedYield;
-
-            if (record.arg === ContinueSentinel) {
-              continue;
-            }
-
-            return {
-              value: record.arg,
-              done: context.done
-            };
-          } else if (record.type === "throw") {
-            state = GenStateCompleted; // Dispatch the exception by looping back around to the
-            // context.dispatchException(context.arg) call above.
-
-            context.method = "throw";
-            context.arg = record.arg;
-          }
-        }
-      };
-    } // Call delegate.iterator[context.method](context.arg) and handle the
-    // result, either by returning a { value, done } result from the
-    // delegate iterator, or by modifying context.method and context.arg,
-    // setting context.delegate to null, and returning the ContinueSentinel.
-
-
-    function maybeInvokeDelegate(delegate, context) {
-      var method = delegate.iterator[context.method];
-
-      if (method === undefined$1) {
-        // A .throw or .return when the delegate iterator has no .throw
-        // method always terminates the yield* loop.
-        context.delegate = null;
-
-        if (context.method === "throw") {
-          // Note: ["return"] must be used for ES3 parsing compatibility.
-          if (delegate.iterator["return"]) {
-            // If the delegate iterator has a return method, give it a
-            // chance to clean up.
-            context.method = "return";
-            context.arg = undefined$1;
-            maybeInvokeDelegate(delegate, context);
-
-            if (context.method === "throw") {
-              // If maybeInvokeDelegate(context) changed context.method from
-              // "return" to "throw", let that override the TypeError below.
-              return ContinueSentinel;
-            }
-          }
-
-          context.method = "throw";
-          context.arg = new TypeError("The iterator does not provide a 'throw' method");
-        }
-
-        return ContinueSentinel;
-      }
-
-      var record = tryCatch(method, delegate.iterator, context.arg);
-
-      if (record.type === "throw") {
-        context.method = "throw";
-        context.arg = record.arg;
-        context.delegate = null;
-        return ContinueSentinel;
-      }
-
-      var info = record.arg;
-
-      if (!info) {
-        context.method = "throw";
-        context.arg = new TypeError("iterator result is not an object");
-        context.delegate = null;
-        return ContinueSentinel;
-      }
-
-      if (info.done) {
-        // Assign the result of the finished delegate to the temporary
-        // variable specified by delegate.resultName (see delegateYield).
-        context[delegate.resultName] = info.value; // Resume execution at the desired location (see delegateYield).
-
-        context.next = delegate.nextLoc; // If context.method was "throw" but the delegate handled the
-        // exception, let the outer generator proceed normally. If
-        // context.method was "next", forget context.arg since it has been
-        // "consumed" by the delegate iterator. If context.method was
-        // "return", allow the original .return call to continue in the
-        // outer generator.
-
-        if (context.method !== "return") {
-          context.method = "next";
-          context.arg = undefined$1;
-        }
-      } else {
-        // Re-yield the result returned by the delegate method.
-        return info;
-      } // The delegate iterator is finished, so forget it and continue with
-      // the outer generator.
-
-
-      context.delegate = null;
-      return ContinueSentinel;
-    } // Define Generator.prototype.{next,throw,return} in terms of the
-    // unified ._invoke helper method.
-
-
-    defineIteratorMethods(Gp);
-    Gp[toStringTagSymbol] = "Generator"; // A Generator should always return itself as the iterator object when the
-    // @@iterator function is called on it. Some browsers' implementations of the
-    // iterator prototype chain incorrectly implement this, causing the Generator
-    // object to not be returned from this call. This ensures that doesn't happen.
-    // See https://github.com/facebook/regenerator/issues/274 for more details.
-
-    Gp[iteratorSymbol] = function () {
-      return this;
-    };
-
-    Gp.toString = function () {
-      return "[object Generator]";
-    };
-
-    function pushTryEntry(locs) {
-      var entry = {
-        tryLoc: locs[0]
-      };
-
-      if (1 in locs) {
-        entry.catchLoc = locs[1];
-      }
-
-      if (2 in locs) {
-        entry.finallyLoc = locs[2];
-        entry.afterLoc = locs[3];
-      }
-
-      this.tryEntries.push(entry);
-    }
-
-    function resetTryEntry(entry) {
-      var record = entry.completion || {};
-      record.type = "normal";
-      delete record.arg;
-      entry.completion = record;
-    }
-
-    function Context(tryLocsList) {
-      // The root entry object (effectively a try statement without a catch
-      // or a finally block) gives us a place to store values thrown from
-      // locations where there is no enclosing try statement.
-      this.tryEntries = [{
-        tryLoc: "root"
-      }];
-      tryLocsList.forEach(pushTryEntry, this);
-      this.reset(true);
-    }
-
-    exports.keys = function (object) {
-      var keys = [];
-
-      for (var key in object) {
-        keys.push(key);
-      }
-
-      keys.reverse(); // Rather than returning an object with a next method, we keep
-      // things simple and return the next function itself.
-
-      return function next() {
-        while (keys.length) {
-          var key = keys.pop();
-
-          if (key in object) {
-            next.value = key;
-            next.done = false;
-            return next;
-          }
-        } // To avoid creating an additional object, we just hang the .value
-        // and .done properties off the next function object itself. This
-        // also ensures that the minifier will not anonymize the function.
-
-
-        next.done = true;
-        return next;
-      };
-    };
-
-    function values(iterable) {
-      if (iterable) {
-        var iteratorMethod = iterable[iteratorSymbol];
-
-        if (iteratorMethod) {
-          return iteratorMethod.call(iterable);
-        }
-
-        if (typeof iterable.next === "function") {
-          return iterable;
-        }
-
-        if (!isNaN(iterable.length)) {
-          var i = -1,
-              next = function next() {
-            while (++i < iterable.length) {
-              if (hasOwn.call(iterable, i)) {
-                next.value = iterable[i];
-                next.done = false;
-                return next;
-              }
-            }
-
-            next.value = undefined$1;
-            next.done = true;
-            return next;
-          };
-
-          return next.next = next;
-        }
-      } // Return an iterator with no values.
-
-
-      return {
-        next: doneResult
-      };
-    }
-
-    exports.values = values;
-
-    function doneResult() {
-      return {
-        value: undefined$1,
-        done: true
-      };
-    }
-
-    Context.prototype = {
-      constructor: Context,
-      reset: function (skipTempReset) {
-        this.prev = 0;
-        this.next = 0; // Resetting context._sent for legacy support of Babel's
-        // function.sent implementation.
-
-        this.sent = this._sent = undefined$1;
-        this.done = false;
-        this.delegate = null;
-        this.method = "next";
-        this.arg = undefined$1;
-        this.tryEntries.forEach(resetTryEntry);
-
-        if (!skipTempReset) {
-          for (var name in this) {
-            // Not sure about the optimal order of these conditions:
-            if (name.charAt(0) === "t" && hasOwn.call(this, name) && !isNaN(+name.slice(1))) {
-              this[name] = undefined$1;
-            }
-          }
-        }
+    },
+    '@keyframes mui-progress-circular-dash': {
+      '0%': {
+        strokeDasharray: '1px, 200px',
+        strokeDashoffset: '0px'
       },
-      stop: function () {
-        this.done = true;
-        var rootEntry = this.tryEntries[0];
-        var rootRecord = rootEntry.completion;
-
-        if (rootRecord.type === "throw") {
-          throw rootRecord.arg;
-        }
-
-        return this.rval;
+      '50%': {
+        strokeDasharray: '100px, 200px',
+        strokeDashoffset: '-15px'
       },
-      dispatchException: function (exception) {
-        if (this.done) {
-          throw exception;
-        }
-
-        var context = this;
-
-        function handle(loc, caught) {
-          record.type = "throw";
-          record.arg = exception;
-          context.next = loc;
-
-          if (caught) {
-            // If the dispatched exception was caught by a catch block,
-            // then let that catch block handle the exception normally.
-            context.method = "next";
-            context.arg = undefined$1;
-          }
-
-          return !!caught;
-        }
-
-        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-          var entry = this.tryEntries[i];
-          var record = entry.completion;
-
-          if (entry.tryLoc === "root") {
-            // Exception thrown outside of any try block that could handle
-            // it, so set the completion value of the entire function to
-            // throw the exception.
-            return handle("end");
-          }
-
-          if (entry.tryLoc <= this.prev) {
-            var hasCatch = hasOwn.call(entry, "catchLoc");
-            var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-            if (hasCatch && hasFinally) {
-              if (this.prev < entry.catchLoc) {
-                return handle(entry.catchLoc, true);
-              } else if (this.prev < entry.finallyLoc) {
-                return handle(entry.finallyLoc);
-              }
-            } else if (hasCatch) {
-              if (this.prev < entry.catchLoc) {
-                return handle(entry.catchLoc, true);
-              }
-            } else if (hasFinally) {
-              if (this.prev < entry.finallyLoc) {
-                return handle(entry.finallyLoc);
-              }
-            } else {
-              throw new Error("try statement without catch or finally");
-            }
-          }
-        }
-      },
-      abrupt: function (type, arg) {
-        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-          var entry = this.tryEntries[i];
-
-          if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
-            var finallyEntry = entry;
-            break;
-          }
-        }
-
-        if (finallyEntry && (type === "break" || type === "continue") && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc) {
-          // Ignore the finally entry if control is not jumping to a
-          // location outside the try/catch block.
-          finallyEntry = null;
-        }
-
-        var record = finallyEntry ? finallyEntry.completion : {};
-        record.type = type;
-        record.arg = arg;
-
-        if (finallyEntry) {
-          this.method = "next";
-          this.next = finallyEntry.finallyLoc;
-          return ContinueSentinel;
-        }
-
-        return this.complete(record);
-      },
-      complete: function (record, afterLoc) {
-        if (record.type === "throw") {
-          throw record.arg;
-        }
-
-        if (record.type === "break" || record.type === "continue") {
-          this.next = record.arg;
-        } else if (record.type === "return") {
-          this.rval = this.arg = record.arg;
-          this.method = "return";
-          this.next = "end";
-        } else if (record.type === "normal" && afterLoc) {
-          this.next = afterLoc;
-        }
-
-        return ContinueSentinel;
-      },
-      finish: function (finallyLoc) {
-        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-          var entry = this.tryEntries[i];
-
-          if (entry.finallyLoc === finallyLoc) {
-            this.complete(entry.completion, entry.afterLoc);
-            resetTryEntry(entry);
-            return ContinueSentinel;
-          }
-        }
-      },
-      "catch": function (tryLoc) {
-        for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-          var entry = this.tryEntries[i];
-
-          if (entry.tryLoc === tryLoc) {
-            var record = entry.completion;
-
-            if (record.type === "throw") {
-              var thrown = record.arg;
-              resetTryEntry(entry);
-            }
-
-            return thrown;
-          }
-        } // The context.catch method must only be called with a location
-        // argument that corresponds to a known catch block.
-
-
-        throw new Error("illegal catch attempt");
-      },
-      delegateYield: function (iterable, resultName, nextLoc) {
-        this.delegate = {
-          iterator: values(iterable),
-          resultName: resultName,
-          nextLoc: nextLoc
-        };
-
-        if (this.method === "next") {
-          // Deliberately forget the last sent value so that we don't
-          // accidentally pass it on to the delegate.
-          this.arg = undefined$1;
-        }
-
-        return ContinueSentinel;
+      '100%': {
+        strokeDasharray: '100px, 200px',
+        strokeDashoffset: '-125px'
       }
-    }; // Regardless of whether this script is executing as a CommonJS module
-    // or not, return the runtime object so that we can declare the variable
-    // regeneratorRuntime in the outer scope, which allows this module to be
-    // injected easily by `bin/regenerator --include-runtime script.js`.
+    },
 
-    return exports;
-  }( // If this script is executing as a CommonJS module, use module.exports
-  // as the regeneratorRuntime namespace. Otherwise create a new empty
-  // object. Either way, the resulting object will be used to initialize
-  // the regeneratorRuntime variable at the top of this file.
-   module.exports );
+    /* Styles applied to the `circle` svg path if `disableShrink={true}`. */
+    circleDisableShrink: {
+      animation: 'none'
+    }
+  };
+};
+/**
+ * ## ARIA
+ *
+ * If the progress bar is describing the loading progress of a particular region of a page,
+ * you should use `aria-describedby` to point to the progress bar, and set the `aria-busy`
+ * attribute to `true` on that region until it has finished loading.
+ */
 
-  try {
-    regeneratorRuntime = runtime;
-  } catch (accidentalStrictMode) {
-    // This module should not be running in strict mode, so the above
-    // assignment should always work unless something is misconfigured. Just
-    // in case runtime.js accidentally runs in strict mode, we can escape
-    // strict mode using a global Function call. This could conceivably fail
-    // if a Content Security Policy forbids using Function, but in that case
-    // the proper solution is to fix the accidental strict mode problem. If
-    // you've misconfigured your bundler to force strict mode and applied a
-    // CSP to forbid Function, and you're not willing to fix either of those
-    // problems, please detail your unique predicament in a GitHub issue.
-    Function("r", "regeneratorRuntime = r")(runtime);
+var CircularProgress = React__default.forwardRef(function CircularProgress(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$color = props.color,
+      color = _props$color === void 0 ? 'primary' : _props$color,
+      _props$disableShrink = props.disableShrink,
+      disableShrink = _props$disableShrink === void 0 ? false : _props$disableShrink,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 40 : _props$size,
+      style = props.style,
+      _props$thickness = props.thickness,
+      thickness = _props$thickness === void 0 ? 3.6 : _props$thickness,
+      _props$value = props.value,
+      value = _props$value === void 0 ? 0 : _props$value,
+      _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'indeterminate' : _props$variant,
+      other = _objectWithoutProperties(props, ["classes", "className", "color", "disableShrink", "size", "style", "thickness", "value", "variant"]);
+
+  var circleStyle = {};
+  var rootStyle = {};
+  var rootProps = {};
+
+  if (variant === 'determinate' || variant === 'static') {
+    var circumference = 2 * Math.PI * ((SIZE - thickness) / 2);
+    circleStyle.strokeDasharray = circumference.toFixed(3);
+    rootProps['aria-valuenow'] = Math.round(value);
+
+    if (variant === 'static') {
+      circleStyle.strokeDashoffset = "".concat(((100 - value) / 100 * circumference).toFixed(3), "px");
+      rootStyle.transform = 'rotate(-90deg)';
+    } else {
+      circleStyle.strokeDashoffset = "".concat((easeIn((100 - value) / 100) * circumference).toFixed(3), "px");
+      rootStyle.transform = "rotate(".concat((easeOut(value / 70) * 270).toFixed(3), "deg)");
+    }
   }
-});
 
-var regenerator = runtime_1;
+  return React__default.createElement("div", _extends$1({
+    className: clsx(classes.root, className, color !== 'inherit' && classes["color".concat(capitalize(color))], {
+      indeterminate: classes.indeterminate,
+      static: classes.static
+    }[variant]),
+    style: _extends$1({
+      width: size,
+      height: size
+    }, rootStyle, {}, style),
+    ref: ref,
+    role: "progressbar"
+  }, rootProps, other), React__default.createElement("svg", {
+    className: classes.svg,
+    viewBox: "".concat(SIZE / 2, " ").concat(SIZE / 2, " ").concat(SIZE, " ").concat(SIZE)
+  }, React__default.createElement("circle", {
+    className: clsx(classes.circle, disableShrink && classes.circleDisableShrink, {
+      indeterminate: classes.circleIndeterminate,
+      static: classes.circleStatic
+    }[variant]),
+    style: circleStyle,
+    cx: SIZE,
+    cy: SIZE,
+    r: (SIZE - thickness) / 2,
+    fill: "none",
+    strokeWidth: thickness
+  })));
+});
+process.env.NODE_ENV !== "production" ? CircularProgress.propTypes = {
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: propTypes.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: propTypes.string,
+
+  /**
+   * The color of the component. It supports those theme colors that make sense for this component.
+   */
+  color: propTypes.oneOf(['primary', 'secondary', 'inherit']),
+
+  /**
+   * If `true`, the shrink animation is disabled.
+   * This only works if variant is `indeterminate`.
+   */
+  disableShrink: chainPropTypes(propTypes.bool, function (props) {
+    if (props.disableShrink && props.variant && props.variant !== 'indeterminate') {
+      return new Error('Material-UI: you have provided the `disableShrink` prop ' + 'with a variant other than `indeterminate`. This will have no effect.');
+    }
+
+    return null;
+  }),
+
+  /**
+   * The size of the circle.
+   */
+  size: propTypes.oneOfType([propTypes.number, propTypes.string]),
+
+  /**
+   * @ignore
+   */
+  style: propTypes.object,
+
+  /**
+   * The thickness of the circle.
+   */
+  thickness: propTypes.number,
+
+  /**
+   * The value of the progress indicator for the determinate and static variants.
+   * Value between 0 and 100.
+   */
+  value: propTypes.number,
+
+  /**
+   * The variant to use.
+   * Use indeterminate when there is no progress value.
+   */
+  variant: propTypes.oneOf(['determinate', 'indeterminate', 'static'])
+} : void 0;
+var CircularProgress$1 = withStyles$1(styles$7, {
+  name: 'MuiCircularProgress',
+  flip: false
+})(CircularProgress);
 
 function formControlState(_ref) {
   var props = _ref.props,
@@ -11425,7 +10892,7 @@ function getStyleValue(computedStyle, property) {
 }
 
 var useEnhancedEffect$3 = typeof window !== 'undefined' ? React__default.useLayoutEffect : React__default.useEffect;
-var styles$7 = {
+var styles$8 = {
   /* Styles applied to the shadow textarea element. */
   shadow: {
     // Visibility needed to hide the extra text area on iPads
@@ -11543,7 +11010,7 @@ var TextareaAutosize = React__default.forwardRef(function TextareaAutosize(props
     readOnly: true,
     ref: shadowRef,
     tabIndex: -1,
-    style: _extends$1({}, styles$7.shadow, {}, style)
+    style: _extends$1({}, styles$8.shadow, {}, style)
   }));
 });
 process.env.NODE_ENV !== "production" ? TextareaAutosize.propTypes = {
@@ -11613,7 +11080,7 @@ function isAdornedStart(obj) {
   return obj.startAdornment;
 }
 
-var styles$8 = function styles(theme) {
+var styles$9 = function styles(theme) {
   var light = theme.palette.type === 'light';
   var placeholder = {
     color: 'currentColor',
@@ -12198,11 +11665,11 @@ process.env.NODE_ENV !== "production" ? InputBase.propTypes = {
    */
   value: propTypes.any
 } : void 0;
-var InputBase$1 = withStyles$1(styles$8, {
+var InputBase$1 = withStyles$1(styles$9, {
   name: 'MuiInputBase'
 })(InputBase);
 
-var styles$9 = function styles(theme) {
+var styles$a = function styles(theme) {
   var light = theme.palette.type === 'light';
   var bottomLineColor = light ? 'rgba(0, 0, 0, 0.42)' : 'rgba(255, 255, 255, 0.7)';
   return {
@@ -12465,11 +11932,11 @@ process.env.NODE_ENV !== "production" ? Input.propTypes = {
   value: propTypes.any
 } : void 0;
 Input.muiName = 'Input';
-var Input$1 = withStyles$1(styles$9, {
+var Input$1 = withStyles$1(styles$a, {
   name: 'MuiInput'
 })(Input);
 
-var styles$a = function styles(theme) {
+var styles$b = function styles(theme) {
   var light = theme.palette.type === 'light';
   var bottomLineColor = light ? 'rgba(0, 0, 0, 0.42)' : 'rgba(255, 255, 255, 0.7)';
   var backgroundColor = light ? 'rgba(0, 0, 0, 0.09)' : 'rgba(255, 255, 255, 0.09)';
@@ -12787,11 +12254,11 @@ process.env.NODE_ENV !== "production" ? FilledInput.propTypes = {
   value: propTypes.any
 } : void 0;
 FilledInput.muiName = 'Input';
-var FilledInput$1 = withStyles$1(styles$a, {
+var FilledInput$1 = withStyles$1(styles$b, {
   name: 'MuiFilledInput'
 })(FilledInput);
 
-var styles$b = function styles(theme) {
+var styles$c = function styles(theme) {
   var align = theme.direction === 'rtl' ? 'right' : 'left';
   return {
     /* Styles applied to the root element. */
@@ -12898,12 +12365,12 @@ process.env.NODE_ENV !== "production" ? NotchedOutline.propTypes = {
    */
   theme: propTypes.object
 } : void 0;
-var NotchedOutline$1 = withStyles$1(styles$b, {
+var NotchedOutline$1 = withStyles$1(styles$c, {
   name: 'PrivateNotchedOutline',
   withTheme: true
 })(NotchedOutline);
 
-var styles$c = function styles(theme) {
+var styles$d = function styles(theme) {
   var borderColor = theme.palette.type === 'light' ? 'rgba(0, 0, 0, 0.23)' : 'rgba(255, 255, 255, 0.23)';
   return {
     /* Styles applied to the root element. */
@@ -13179,7 +12646,7 @@ process.env.NODE_ENV !== "production" ? OutlinedInput.propTypes = {
   value: propTypes.any
 } : void 0;
 OutlinedInput.muiName = 'Input';
-var OutlinedInput$1 = withStyles$1(styles$c, {
+var OutlinedInput$1 = withStyles$1(styles$d, {
   name: 'MuiOutlinedInput'
 })(OutlinedInput);
 
@@ -13187,7 +12654,7 @@ function useFormControl$1() {
   return React__default.useContext(FormControlContext);
 }
 
-var styles$d = function styles(theme) {
+var styles$e = function styles(theme) {
   return {
     /* Styles applied to the root element. */
     root: _extends$1({
@@ -13303,11 +12770,11 @@ process.env.NODE_ENV !== "production" ? FormLabel.propTypes = {
    */
   required: propTypes.bool
 } : void 0;
-var FormLabel$1 = withStyles$1(styles$d, {
+var FormLabel$1 = withStyles$1(styles$e, {
   name: 'MuiFormLabel'
 })(FormLabel);
 
-var styles$e = function styles(theme) {
+var styles$f = function styles(theme) {
   return {
     /* Styles applied to the root element. */
     root: {
@@ -13492,11 +12959,11 @@ process.env.NODE_ENV !== "production" ? InputLabel.propTypes = {
    */
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
-var InputLabel$1 = withStyles$1(styles$e, {
+var InputLabel$1 = withStyles$1(styles$f, {
   name: 'MuiInputLabel'
 })(InputLabel);
 
-var styles$f = {
+var styles$g = {
   /* Styles applied to the root element. */
   root: {
     display: 'inline-flex',
@@ -13743,11 +13210,11 @@ process.env.NODE_ENV !== "production" ? FormControl.propTypes = {
    */
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
-var FormControl$1 = withStyles$1(styles$f, {
+var FormControl$1 = withStyles$1(styles$g, {
   name: 'MuiFormControl'
 })(FormControl);
 
-var styles$g = function styles(theme) {
+var styles$h = function styles(theme) {
   return {
     /* Styles applied to the root element. */
     root: _extends$1({
@@ -13878,7 +13345,7 @@ process.env.NODE_ENV !== "production" ? FormHelperText.propTypes = {
    */
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
-var FormHelperText$1 = withStyles$1(styles$g, {
+var FormHelperText$1 = withStyles$1(styles$h, {
   name: 'MuiFormHelperText'
 })(FormHelperText);
 
@@ -14410,7 +13877,7 @@ process.env.NODE_ENV !== "production" ? TrapFocus.propTypes = {
   open: propTypes.bool.isRequired
 } : void 0;
 
-var styles$h = {
+var styles$i = {
   /* Styles applied to the root element. */
   root: {
     zIndex: -1,
@@ -14445,7 +13912,7 @@ var SimpleBackdrop = React__default.forwardRef(function SimpleBackdrop(props, re
     "aria-hidden": true,
     ref: ref
   }, other, {
-    style: _extends$1({}, styles$h.root, {}, invisible ? styles$h.invisible : {}, {}, other.style)
+    style: _extends$1({}, styles$i.root, {}, invisible ? styles$i.invisible : {}, {}, other.style)
   })) : null;
 });
 process.env.NODE_ENV !== "production" ? SimpleBackdrop.propTypes = {
@@ -14473,7 +13940,7 @@ function getHasTransition(props) {
 
 
 var defaultManager = new ModalManager();
-var styles$i = function styles(theme) {
+var styles$j = function styles(theme) {
   return {
     /* Styles applied to the root element. */
     root: {
@@ -14668,7 +14135,7 @@ var Modal = React__default.forwardRef(function Modal(props, ref) {
     }
   };
 
-  var inlineStyle = styles$i(theme || {
+  var inlineStyle = styles$j(theme || {
     zIndex: zIndex
   });
   var childProps = {}; // FixMe: Always apply document role. Revisit once React Flare is released
@@ -14849,7 +14316,7 @@ function getScale(value) {
   return "scale(".concat(value, ", ").concat(Math.pow(value, 2), ")");
 }
 
-var styles$j = {
+var styles$k = {
   entering: {
     opacity: 1,
     transform: getScale(1)
@@ -14972,7 +14439,7 @@ var Grow = React__default.forwardRef(function Grow(props, ref) {
         opacity: 0,
         transform: getScale(0.75),
         visibility: state === 'exited' && !inProp ? 'hidden' : undefined
-      }, styles$j[state], {}, style, {}, children.props.style),
+      }, styles$k[state], {}, style, {}, children.props.style),
       ref: handleRef
     }, childProps));
   });
@@ -15016,7 +14483,7 @@ process.env.NODE_ENV !== "production" ? Grow.propTypes = {
 } : void 0;
 Grow.muiSupportAuto = true;
 
-var styles$k = function styles(theme) {
+var styles$l = function styles(theme) {
   var elevations = {};
   theme.shadows.forEach(function (shadow, index) {
     elevations["elevation".concat(index)] = {
@@ -15089,7 +14556,7 @@ process.env.NODE_ENV !== "production" ? Paper.propTypes = {
    */
   square: propTypes.bool
 } : void 0;
-var Paper$1 = withStyles$1(styles$k, {
+var Paper$1 = withStyles$1(styles$l, {
   name: 'MuiPaper'
 })(Paper);
 
@@ -15143,7 +14610,7 @@ function getAnchorEl(anchorEl) {
   return typeof anchorEl === 'function' ? anchorEl() : anchorEl;
 }
 
-var styles$l = {
+var styles$m = {
   /* Styles applied to the `Paper` component. */
   paper: {
     position: 'absolute',
@@ -15583,7 +15050,7 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes = {
    */
   TransitionProps: propTypes.object
 } : void 0;
-var Popover$1 = withStyles$1(styles$l, {
+var Popover$1 = withStyles$1(styles$m, {
   name: 'MuiPopover'
 })(Popover);
 
@@ -15593,7 +15060,7 @@ var Popover$1 = withStyles$1(styles$l, {
 
 var ListContext = React__default.createContext({});
 
-var styles$m = {
+var styles$n = {
   /* Styles applied to the root element. */
   root: {
     listStyle: 'none',
@@ -15681,7 +15148,7 @@ process.env.NODE_ENV !== "production" ? List.propTypes = {
    */
   subheader: propTypes.node
 } : void 0;
-var List$1 = withStyles$1(styles$m, {
+var List$1 = withStyles$1(styles$n, {
   name: 'MuiList'
 })(List);
 
@@ -15917,7 +15384,7 @@ var LTR_ORIGIN = {
   vertical: 'top',
   horizontal: 'left'
 };
-var styles$n = {
+var styles$o = {
   /* Styles applied to the `Paper` component. */
   paper: {
     // specZ: The maximum height of a simple menu should be one or more rows less than the view
@@ -16160,7 +15627,7 @@ process.env.NODE_ENV !== "production" ? Menu.propTypes = {
    */
   variant: propTypes.oneOf(['menu', 'selectedMenu'])
 } : void 0;
-var Menu$1 = withStyles$1(styles$n, {
+var Menu$1 = withStyles$1(styles$o, {
   name: 'MuiMenu',
   withTheme: true
 })(Menu);
@@ -16619,7 +16086,7 @@ process.env.NODE_ENV !== "production" ? SelectInput.propTypes = {
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
 
-var styles$o = function styles(theme) {
+var styles$p = function styles(theme) {
   return {
     /* Styles applied to the root element. */
     root: {
@@ -16764,13 +16231,13 @@ process.env.NODE_ENV !== "production" ? SvgIcon.propTypes = {
   viewBox: propTypes.string
 } : void 0;
 SvgIcon.muiName = 'SvgIcon';
-var require$$2 = withStyles$1(styles$o, {
+var SvgIcon$1 = withStyles$1(styles$p, {
   name: 'MuiSvgIcon'
 })(SvgIcon);
 
 function createSvgIcon(path, displayName) {
   var Component = React__default.memo(React__default.forwardRef(function (props, ref) {
-    return React__default.createElement(require$$2, _extends$1({}, props, {
+    return React__default.createElement(SvgIcon$1, _extends$1({}, props, {
       ref: ref
     }), path);
   }));
@@ -16779,7 +16246,7 @@ function createSvgIcon(path, displayName) {
     Component.displayName = "".concat(displayName, "Icon");
   }
 
-  Component.muiName = require$$2.muiName;
+  Component.muiName = SvgIcon$1.muiName;
   return Component;
 }
 
@@ -16874,7 +16341,7 @@ process.env.NODE_ENV !== "production" ? NativeSelectInput.propTypes = {
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
 
-var styles$p = function styles(theme) {
+var styles$q = function styles(theme) {
   return {
     /* Styles applied to the select component `root` class. */
     root: {},
@@ -17032,11 +16499,11 @@ process.env.NODE_ENV !== "production" ? NativeSelect.propTypes = {
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
 NativeSelect.muiName = 'Select';
-withStyles$1(styles$p, {
+withStyles$1(styles$q, {
   name: 'MuiNativeSelect'
 })(NativeSelect);
 
-var styles$q = styles$p;
+var styles$r = styles$q;
 var defaultInput$1 = React__default.createElement(Input$1, null);
 var Select = React__default.forwardRef(function Select(props, ref) {
   var _props$autoWidth = props.autoWidth,
@@ -17218,7 +16685,7 @@ process.env.NODE_ENV !== "production" ? Select.propTypes = {
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
 Select.muiName = 'Select';
-var Select$1 = withStyles$1(styles$q, {
+var Select$1 = withStyles$1(styles$r, {
   name: 'MuiSelect'
 })(Select);
 
@@ -17227,7 +16694,7 @@ var variantComponent = {
   filled: FilledInput$1,
   outlined: OutlinedInput$1
 };
-var styles$r = {
+var styles$s = {
   /* Styles applied to the root element. */
   root: {}
 };
@@ -17543,2407 +17010,9 @@ process.env.NODE_ENV !== "production" ? TextField.propTypes = {
    */
   variant: propTypes.oneOf(['standard', 'outlined', 'filled'])
 } : void 0;
-var TextField$1 = withStyles$1(styles$r, {
+var TextField$1 = withStyles$1(styles$s, {
   name: 'MuiTextField'
 })(TextField);
-
-var AddressSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(AddressSceneComponent, _Component);
-
-  function AddressSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = AddressSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Provide your home address."), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Address",
-      type: "text",
-      tabIndex: "0",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {},
-      autoFocus: true
-    }), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Unit (optional)",
-      type: "text",
-      tabIndex: "1",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {}
-    }), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "City",
-      type: "text",
-      tabIndex: "2",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {}
-    }), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "State",
-      type: "text",
-      tabIndex: "3",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {}
-    }), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Postal Code",
-      type: "tel",
-      tabIndex: "4",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {}
-    }))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return AddressSceneComponent;
-}(React.Component);
-
-var styles$s = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    textField: {
-      position: 'relative',
-      selfAlign: 'center'
-    },
-    resize: {
-      fontSize: 17
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 33,
-      width: '100%',
-      fontSize: 17,
-      height: 40,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var AddressScene = withStyles$1(styles$s)(AddressSceneComponent);
-
-var NOT_STARTED = 'NOT_STARTED';
-var PENDING = 'PENDING';
-
-var ADDRESS_ROUTE = '/address';
-var BANK_CONNECT_ROUTE = '/bank';
-var DOC_UPLOAD_ROUTE = '/docUpload';
-var PHONE_ROUTE = '/phone';
-var SOCIAL_ROUTE = '/social';
-var THANK_YOU_ROUTE = '/thanks';
-var TRANSACTION_CONFIRM_ROUTE = '/transaction_confirm';
-var TRANSACTION_SUCCESS_ROUTE = '/transaction_success';
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(DOC_UPLOAD_ROUTE);
-    }
-  };
-};
-
-var AddressConnector = reactRedux.connect(mapStateToProps, mapDispatchToProps)(AddressScene);
-
-var ChooseWalletButton =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(ChooseWalletButton, _Component);
-
-  function ChooseWalletButton() {
-    return _Component.apply(this, arguments) || this;
-  }
-
-  var _proto = ChooseWalletButton.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.buttonContainer
-    }, React__default.createElement("img", {
-      src: this.props.image,
-      className: classes.image,
-      alt: 'logo'
-    }), React__default.createElement("div", {
-      className: classes.shim
-    }), React__default.createElement("div", {
-      className: classes.whiteText
-    }, this.props.text));
-  };
-
-  return ChooseWalletButton;
-}(React.Component);
-
-var styles$t = function styles(theme) {
-  return {
-    buttonContainer: {
-      position: 'relative',
-      display: 'flex',
-      width: '100%',
-      height: '100%',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    image: {
-      width: '30px',
-      height: '30px'
-    },
-    shim: {
-      width: '14px'
-    },
-    whiteText: {
-      fontSize: 17,
-      color: THEME.COLORS.WHITE
-    }
-  };
-};
-
-var ChooseWalletButton$1 = withStyles(styles$t)(ChooseWalletButton);
-
-var getStyle = function getStyle(lineColor, isCustom, isDisabled) {
-  if (isCustom === void 0) {
-    isCustom = false;
-  }
-
-  if (isDisabled === void 0) {
-    isDisabled = false;
-  }
-
-  if (isCustom) {
-    return _extends({}, buttonStyleHollow, {
-      backgroundColor: THEME.COLORS.CLEAR,
-      height: '50px',
-      color: THEME.COLORS.ACCENT_MINT,
-      border: "1px solid " + lineColor
-    });
-  }
-
-  if (isDisabled) {
-    return _extends({}, buttonStyle, {
-      backgroundColor: THEME.COLORS.CLEAR,
-      height: '50px',
-      color: THEME.COLORS.GRAY_2,
-      border: "1px solid " + THEME.COLORS.GRAY_2
-    });
-  }
-
-  return _extends({}, buttonStyle, {
-    backgroundColor: THEME.COLORS.CLEAR,
-    color: THEME.COLORS.ACCENT_MINT,
-    border: "1px solid " + lineColor,
-    height: '50px',
-    disabledButton: {
-      border: "1px solid " + THEME.COLORS.GRAY_2,
-      color: THEME.COLORS.GRAY_2
-    }
-  });
-};
-
-var TertiaryButton = function TertiaryButton(props) {
-  return React__default.createElement(Button$1, {
-    variant: "raised",
-    onClick: props.onClick,
-    disabled: props.disabled,
-    style: getStyle(props.lineColor, props.isCustom, props.disabled),
-    fullWidth: true
-  }, props.children);
-};
-
-var limitStyles = function limitStyles(theme) {
-  return {
-    container: {
-      position: 'relative',
-      display: 'flex',
-      width: '100%',
-      border: '1px solid #FFFFFF',
-      boxSizing: 'border-box',
-      borderRadius: '6px',
-      marginBottom: '14px',
-      paddingTop: '9px',
-      paddingBottom: '9px',
-      paddingLeft: '11px',
-      paddingRight: '11px',
-      flexDirection: 'row'
-    },
-    containerLeft: {
-      flex: 1,
-      display: 'flex'
-    },
-    containerRight: {
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'flex-end'
-    },
-    columnStuff: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
-    transactionTypeText: {
-      marginBottom: '5px',
-      fontSize: '13px',
-      color: THEME.COLORS.WHITE
-    },
-    cryptoAmountTextSell: {
-      marginBottom: '5px',
-      fontSize: '13px',
-      color: THEME.COLORS.ACCENT_RED,
-      textAlign: 'right'
-    },
-    cryptoAmountTextBuy: {
-      marginBottom: '5px',
-      fontSize: '13px',
-      color: THEME.COLORS.ACCENT_MINT,
-      textAlign: 'right'
-    },
-    dateText: {
-      fontSize: '11px',
-      color: THEME.COLORS.WHITE
-    },
-    fiatAmountText: {
-      fontSize: '11px',
-      color: THEME.COLORS.WHITE,
-      textAlign: 'right'
-    }
-  };
-};
-
-var TransactionItem = withStyles(limitStyles)(function (props) {
-  var transaction = props.transaction,
-      classes = props.classes;
-  var transactionType = transaction.destCurrency === 'USD' ? 'Sell' : 'Buy';
-  var moneyClass = transactionType === 'Sell' ? classes.cryptoAmountTextSell : classes.cryptoAmountTextBuy;
-  /*  window.edgeProvider.consoleLog('-- TRANSACTION --')
-   window.edgeProvider.consoleLog(transaction) */
-
-  var date = new Date(transaction.createdAt);
-  var dateString = date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
-  var upDown = transactionType === 'Sell' ? '-' : '+';
-  var cryptoCode = transactionType === 'Sell' ? transaction.sourceCurrency : transaction.destCurrency;
-  var cryptoAmount = transactionType === 'Sell' ? transaction.sourceAmount : transaction.destAmount;
-  var fiatAmount = transactionType === 'Sell' ? transaction.destAmount : transaction.sourceAmount;
-  return React__default.createElement("div", {
-    className: classes.container
-  }, React__default.createElement("div", {
-    className: classes.containerLeft
-  }, React__default.createElement("div", {
-    className: classes.columnStuff
-  }, React__default.createElement("div", {
-    className: classes.transactionTypeText
-  }, transactionType, ": ", transaction.status), React__default.createElement("div", {
-    className: classes.dateText
-  }, dateString))), React__default.createElement("div", {
-    className: classes.containerRight
-  }, React__default.createElement("div", {
-    className: classes.columnStuff
-  }, React__default.createElement("div", {
-    className: moneyClass
-  }, upDown, " ", cryptoAmount, " ", cryptoCode), React__default.createElement("div", {
-    className: classes.fiatAmountText
-  }, "$ ", fiatAmount))));
-});
-/*
- return (
-    <Typography component="p" className={props.classes.p}>
-      Daily Limit: {formatRate(dailyLimit, fiat)} / Monthly Limit: {formatRate(monthlyLimit, fiat)}
-    </Typography>
-  )
-  */
-
-var BuySellSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(BuySellSceneComponent, _Component);
-
-  function BuySellSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "renderButtonInsides", function () {
-      var _this$props = _this.props,
-          classes = _this$props.classes,
-          wallet = _this$props.wallet;
-
-      if (wallet) {
-        return React__default.createElement(ChooseWalletButton$1, {
-          text: wallet.name,
-          image: wallet.currencyIcon
-        });
-      }
-
-      return React__default.createElement("div", {
-        className: classes.whiteText
-      }, "Choose Wallet");
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderItems", function () {
-      var transactions = _this.props.transactions;
-      var items = transactions.map(function (transaction) {
-        return React__default.createElement(TransactionItem, {
-          transaction: transaction
-        });
-      });
-      return items;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "renderTransactions", function () {
-      var _this$props2 = _this.props,
-          classes = _this$props2.classes,
-          transactions = _this$props2.transactions;
-
-      if (transactions.length > 0) {
-        return React__default.createElement("div", {
-          className: classes.scroller
-        }, _this.renderItems());
-      }
-
-      return null;
-    });
-
-    return _this;
-  }
-
-  var _proto = BuySellSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var _this$props3 = this.props,
-        classes = _this$props3.classes,
-        wallet = _this$props3.wallet,
-        partnerName = _this$props3.partnerName;
-    var currencyCode = wallet ? wallet.currencyCode : '';
-    var buyText = this.props.wallet ? 'Buy ' + currencyCode + ' with ' + partnerName : 'Buy';
-    var sellText = this.props.wallet ? 'Sell ' + currencyCode + ' with ' + partnerName : 'Sell';
-    var textStyle = this.props.isSellDisabled ? classes.disableText : classes.greenText;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy
-    })), React__default.createElement("div", {
-      className: classes.buttonsContainer
-    }, React__default.createElement(TertiaryButton, {
-      onClick: this.props.selectWallet,
-      lineColor: THEME.COLORS.WHITE,
-      disabled: false,
-      isCustom: true
-    }, this.renderButtonInsides()), React__default.createElement("div", {
-      className: classes.space40
-    }), React__default.createElement(TertiaryButton, {
-      onClick: this.props.onBuyClick,
-      lineColor: THEME.COLORS.ACCENT_MINT,
-      disabled: this.props.isBuyDisabled
-    }, React__default.createElement("div", {
-      className: textStyle
-    }, buyText)), React__default.createElement("div", {
-      className: classes.space10
-    }), React__default.createElement(TertiaryButton, {
-      onClick: this.props.onSellClick,
-      lineColor: THEME.COLORS.ACCENT_MINT,
-      disabled: this.props.isSellDisabled
-    }, React__default.createElement("div", {
-      className: textStyle
-    }, sellText))), React__default.createElement("div", {
-      className: classes.transactionsContainer
-    }, React__default.createElement("div", {
-      className: classes.transactionsTitle
-    }, "Transaction History"), this.renderTransactions())));
-  };
-
-  return BuySellSceneComponent;
-}(React.Component);
-
-var styles$u = function styles(theme) {
-  return {
-    container: sceneContainerNoHeight,
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    scroller: {
-      flexGrow: 1,
-      position: 'relative',
-      width: '100%'
-    },
-    buttonsContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexGrow: 1,
-      width: '100%',
-      minHeight: '200px',
-      maxHeight: '200px',
-      marginTop: 14
-    },
-    greenText: {
-      fontSize: 17,
-      color: THEME.COLORS.ACCENT_MINT
-    },
-    disableText: {
-      fontSize: 17,
-      color: THEME.COLORS.GRAY_2
-    },
-    space40: {
-      height: '40px'
-    },
-    space10: {
-      height: '10px'
-    },
-    transactionsContainer: {
-      paddingTop: '25px',
-      display: 'flex',
-      flexGrow: 1,
-      flexDirection: 'column',
-      width: '100%',
-      fontSize: '17px',
-      paddingBottom: '20px'
-    },
-    transactionsTitle: {
-      flexGrow: 1,
-      minHeight: '20px',
-      maxHeight: '20px',
-      color: THEME.COLORS.WHITE,
-      paddingBottom: '17px',
-      width: '100%',
-      textAlign: 'center'
-    }
-  };
-};
-
-var BuySellScene = withStyles$1(styles$u)(BuySellSceneComponent);
-
-var mapStateToProps$1 = function mapStateToProps(state) {
-  return {
-    wallet: {
-      name: 'Allen Wallet',
-      receiveAddress: {
-        publicAddress: 'string'
-      },
-      currencyCode: 'BTC',
-      fiatCurrencyCode: 'USD',
-      currencyIcon: 'string',
-      currencyIconDark: 'string'
-    },
-    transactions: state.Transactions.transactions,
-    isBuyDisabled: true,
-    isSellDisabled: true,
-    partnerName: 'Wyre',
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$1 = function mapDispatchToProps(dispatch) {
-  return {
-    onSellClick: function onSellClick() {},
-    selectWallet: function selectWallet() {},
-    onBuyClick: function onBuyClick() {}
-  };
-};
-
-var BuySellConnector = reactRedux.connect(mapStateToProps$1, mapDispatchToProps$1)(BuySellScene);
-
-var DocumentUploadScreenComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(DocumentUploadScreenComponent, _Component);
-
-  function DocumentUploadScreenComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = DocumentUploadScreenComponent.prototype;
-
-  _proto.render = function render() {
-    var image = this.props.camera;
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Upload your passport or driver\u2019s license."), React__default.createElement("div", {
-      className: classes.dashBox
-    }, React__default.createElement("img", {
-      src: image,
-      className: classes.camera,
-      alt: ''
-    })), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, "Please note:"), React__default.createElement("div", {
-      className: classes.bulletPoints
-    }, " - Identification cannot be expired"), React__default.createElement("div", {
-      className: classes.bulletPoints
-    }, " - No glare or reflection"), React__default.createElement("div", {
-      className: classes.bulletPoints
-    }, " - All details and corners in frame"), React__default.createElement("div", {
-      className: classes.bulletPoints
-    }, " - Photo must be in focus"))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return DocumentUploadScreenComponent;
-}(React.Component);
-
-var styles$v = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 34,
-      width: '100%',
-      fontSize: 17,
-      height: 40,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    },
-    subHeaderText: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: 33,
-      width: '80%',
-      fontSize: 17,
-      color: THEME.COLORS.BLACK
-    },
-    bulletPoints: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '80%',
-      fontSize: 17,
-      color: THEME.COLORS.BLACK
-    },
-    dashBox: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      width: 178,
-      height: 178,
-      borderRadius: 6,
-      borderColor: THEME.COLORS.ACCENT_BLUE,
-      borderWidth: 6,
-      borderStyle: 'dashed',
-      marginTop: 30
-    },
-    camera: {
-      padding: 0,
-      width: 98,
-      height: 72
-    }
-  };
-};
-
-var DocumentUploadScreen = withStyles$1(styles$v)(DocumentUploadScreenComponent);
-
-var mapStateToProps$2 = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    },
-    camera: '../assets/camera.png'
-  };
-};
-
-var mapDispatchToProps$2 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(SOCIAL_ROUTE);
-    }
-  };
-};
-
-var DocUploadConnector = reactRedux.connect(mapStateToProps$2, mapDispatchToProps$2)(DocumentUploadScreen);
-
-var mapStateToProps$3 = function mapStateToProps(state) {
-  var logo = ''; ///require('../assets/logo.png')
-
-  var cards = [{
-    title: 'Headline',
-    body: 'The following fees are applied for buying and selling cryptocurrency with Wyre:',
-    list: []
-  }, {
-    title: 'Headline',
-    body: 'The following fees are applied for buying and selling cryptocurrency with Wyre:',
-    list: ['Edge Wallet 0.5%', 'Wyre 0.5%']
-  }];
-  return {
-    logo: logo,
-    cards: cards,
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$3 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(THANK_YOU_ROUTE);
-    }
-  };
-};
-
-var IntroConnector = reactRedux.connect(mapStateToProps$3, mapDispatchToProps$3)(IntroScene);
-
-var PendingSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(PendingSceneComponent, _Component);
-
-  function PendingSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = PendingSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Please bear with us\u2026"), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, "Your application is still being reviewed."), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, "We will email you once we are done processing."), React__default.createElement("div", {
-      className: classes.subHeaderText2
-    }, "Thank you for your patience"))));
-  };
-
-  return PendingSceneComponent;
-}(React.Component);
-
-var styles$w = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 62,
-      marginBottom: 16,
-      width: '100%',
-      fontSize: 27,
-      height: 40,
-      color: THEME.COLORS.BLACK
-    },
-    subHeaderText: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '90%',
-      fontSize: 17,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    },
-    subHeaderText2: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '90%',
-      marginTop: 17,
-      fontSize: 17,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var PendingScene = withStyles$1(styles$w)(PendingSceneComponent);
-
-var mapStateToProps$4 = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$4 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(ADDRESS_ROUTE);
-    }
-  };
-};
-
-var PendingConnector = reactRedux.connect(mapStateToProps$4, mapDispatchToProps$4)(PendingScene);
-
-var PhoneSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(PhoneSceneComponent, _Component);
-
-  function PhoneSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = PhoneSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Tell us more about yourself."), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Phone Number",
-      type: "tel",
-      tabIndex: "0",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {},
-      autoFocus: true
-    }), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Date of Birth",
-      type: "date",
-      tabIndex: "1",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {}
-    }))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return PhoneSceneComponent;
-}(React.Component);
-
-var styles$x = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    textField: {
-      position: 'relative',
-      selfAlign: 'center'
-    },
-    resize: {
-      fontSize: 17
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 34,
-      width: '100%',
-      fontSize: 17,
-      height: 40,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var PhoneScene = withStyles$1(styles$x)(PhoneSceneComponent);
-
-var mapStateToProps$5 = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$5 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(THANK_YOU_ROUTE);
-    }
-  };
-};
-
-var PhoneConnector = reactRedux.connect(mapStateToProps$5, mapDispatchToProps$5)(PhoneScene);
-
-var _extends_1 = createCommonjsModule(function (module) {
-  function _extends() {
-    module.exports = _extends = Object.assign || function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
-        }
-      }
-
-      return target;
-    };
-
-    return _extends.apply(this, arguments);
-  }
-
-  module.exports = _extends;
-});
-
-var createSvgIcon_1 = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = createSvgIcon;
-
-  var _extends2 = interopRequireDefault(_extends_1);
-
-  var _react = interopRequireDefault(React__default);
-
-  var _SvgIcon = interopRequireDefault(require$$2);
-
-  function createSvgIcon(path, displayName) {
-    var Component = _react.default.memo(_react.default.forwardRef(function (props, ref) {
-      return _react.default.createElement(_SvgIcon.default, (0, _extends2.default)({
-        ref: ref
-      }, props), path);
-    }));
-
-    if (process.env.NODE_ENV !== 'production') {
-      Component.displayName = "".concat(displayName, "Icon");
-    }
-
-    Component.muiName = _SvgIcon.default.muiName;
-    return Component;
-  }
-});
-unwrapExports(createSvgIcon_1);
-
-var CheckBox = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _react = interopRequireDefault(React__default);
-
-  var _createSvgIcon = interopRequireDefault(createSvgIcon_1);
-
-  var _default = (0, _createSvgIcon.default)(_react.default.createElement("path", {
-    d: "M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-  }), 'CheckBox');
-
-  exports.default = _default;
-});
-var CheckBoxIcon = unwrapExports(CheckBox);
-
-var CheckBoxOutlineBlank = createCommonjsModule(function (module, exports) {
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.default = void 0;
-
-  var _react = interopRequireDefault(React__default);
-
-  var _createSvgIcon = interopRequireDefault(createSvgIcon_1);
-
-  var _default = (0, _createSvgIcon.default)(_react.default.createElement("path", {
-    d: "M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-  }), 'CheckBoxOutlineBlank');
-
-  exports.default = _default;
-});
-var CheckBoxOutlineBlankIcon = unwrapExports(CheckBoxOutlineBlank);
-
-var styles$y = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      textAlign: 'center',
-      flex: '0 0 auto',
-      fontSize: theme.typography.pxToRem(24),
-      padding: 12,
-      borderRadius: '50%',
-      overflow: 'visible',
-      // Explicitly set the default value to solve a bug on IE 11.
-      color: theme.palette.action.active,
-      transition: theme.transitions.create('background-color', {
-        duration: theme.transitions.duration.shortest
-      }),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.action.active, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: 'transparent'
-        }
-      },
-      '&$disabled': {
-        backgroundColor: 'transparent',
-        color: theme.palette.action.disabled
-      }
-    },
-
-    /* Styles applied to the root element if `edge="start"`. */
-    edgeStart: {
-      marginLeft: -12,
-      '$sizeSmall&': {
-        marginLeft: -3
-      }
-    },
-
-    /* Styles applied to the root element if `edge="end"`. */
-    edgeEnd: {
-      marginRight: -12,
-      '$sizeSmall&': {
-        marginRight: -3
-      }
-    },
-
-    /* Styles applied to the root element if `color="inherit"`. */
-    colorInherit: {
-      color: 'inherit'
-    },
-
-    /* Styles applied to the root element if `color="primary"`. */
-    colorPrimary: {
-      color: theme.palette.primary.main,
-      '&:hover': {
-        backgroundColor: fade(theme.palette.primary.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: 'transparent'
-        }
-      }
-    },
-
-    /* Styles applied to the root element if `color="secondary"`. */
-    colorSecondary: {
-      color: theme.palette.secondary.main,
-      '&:hover': {
-        backgroundColor: fade(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
-        // Reset on touch devices, it doesn't add specificity
-        '@media (hover: none)': {
-          backgroundColor: 'transparent'
-        }
-      }
-    },
-
-    /* Pseudo-class applied to the root element if `disabled={true}`. */
-    disabled: {},
-
-    /* Styles applied to the root element if `size="small"`. */
-    sizeSmall: {
-      padding: 3,
-      fontSize: theme.typography.pxToRem(18)
-    },
-
-    /* Styles applied to the children container element. */
-    label: {
-      width: '100%',
-      display: 'flex',
-      alignItems: 'inherit',
-      justifyContent: 'inherit'
-    }
-  };
-};
-/**
- * Refer to the [Icons](/components/icons/) section of the documentation
- * regarding the available icon options.
- */
-
-var IconButton = React__default.forwardRef(function IconButton(props, ref) {
-  var _props$edge = props.edge,
-      edge = _props$edge === void 0 ? false : _props$edge,
-      children = props.children,
-      classes = props.classes,
-      className = props.className,
-      _props$color = props.color,
-      color = _props$color === void 0 ? 'default' : _props$color,
-      _props$disabled = props.disabled,
-      disabled = _props$disabled === void 0 ? false : _props$disabled,
-      _props$disableFocusRi = props.disableFocusRipple,
-      disableFocusRipple = _props$disableFocusRi === void 0 ? false : _props$disableFocusRi,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 'medium' : _props$size,
-      other = _objectWithoutProperties(props, ["edge", "children", "classes", "className", "color", "disabled", "disableFocusRipple", "size"]);
-
-  return React__default.createElement(ButtonBase$1, _extends$1({
-    className: clsx(classes.root, className, color !== 'default' && classes["color".concat(capitalize(color))], disabled && classes.disabled, {
-      small: classes["size".concat(capitalize(size))]
-    }[size], {
-      start: classes.edgeStart,
-      end: classes.edgeEnd
-    }[edge]),
-    centerRipple: true,
-    focusRipple: !disableFocusRipple,
-    disabled: disabled,
-    ref: ref
-  }, other), React__default.createElement("span", {
-    className: classes.label
-  }, children));
-});
-process.env.NODE_ENV !== "production" ? IconButton.propTypes = {
-  /**
-   * The icon element.
-   */
-  children: chainPropTypes(propTypes.node, function (props) {
-    var found = React__default.Children.toArray(props.children).some(function (child) {
-      return React__default.isValidElement(child) && child.props.onClick;
-    });
-
-    if (found) {
-      return new Error(['Material-UI: you are providing an onClick event listener ' + 'to a child of a button element.', 'Firefox will never trigger the event.', 'You should move the onClick listener to the parent button element.', 'https://github.com/mui-org/material-ui/issues/13957'].join('\n'));
-    }
-
-    return null;
-  }),
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: propTypes.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: propTypes.string,
-
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
-  color: propTypes.oneOf(['default', 'inherit', 'primary', 'secondary']),
-
-  /**
-   * If `true`, the button will be disabled.
-   */
-  disabled: propTypes.bool,
-
-  /**
-   * If `true`, the  keyboard focus ripple will be disabled.
-   * `disableRipple` must also be true.
-   */
-  disableFocusRipple: propTypes.bool,
-
-  /**
-   * If `true`, the ripple effect will be disabled.
-   */
-  disableRipple: propTypes.bool,
-
-  /**
-   * If given, uses a negative margin to counteract the padding on one
-   * side (this is often helpful for aligning the left or right
-   * side of the icon with content above or below, without ruining the border
-   * size and shape).
-   */
-  edge: propTypes.oneOf(['start', 'end', false]),
-
-  /**
-   * The size of the button.
-   * `small` is equivalent to the dense button styling.
-   */
-  size: propTypes.oneOf(['small', 'medium'])
-} : void 0;
-var IconButton$1 = withStyles$1(styles$y, {
-  name: 'MuiIconButton'
-})(IconButton);
-
-var styles$z = {
-  root: {
-    padding: 9
-  },
-  checked: {},
-  disabled: {},
-  input: {
-    cursor: 'inherit',
-    position: 'absolute',
-    opacity: 0,
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    margin: 0,
-    padding: 0
-  }
-};
-/**
- * @ignore - internal component.
- */
-
-var SwitchBase = React__default.forwardRef(function SwitchBase(props, ref) {
-  var autoFocus = props.autoFocus,
-      checkedProp = props.checked,
-      checkedIcon = props.checkedIcon,
-      classes = props.classes,
-      classNameProp = props.className,
-      defaultChecked = props.defaultChecked,
-      disabledProp = props.disabled,
-      icon = props.icon,
-      id = props.id,
-      inputProps = props.inputProps,
-      inputRef = props.inputRef,
-      name = props.name,
-      onBlur = props.onBlur,
-      onChange = props.onChange,
-      onFocus = props.onFocus,
-      readOnly = props.readOnly,
-      required = props.required,
-      tabIndex = props.tabIndex,
-      type = props.type,
-      value = props.value,
-      other = _objectWithoutProperties(props, ["autoFocus", "checked", "checkedIcon", "classes", "className", "defaultChecked", "disabled", "icon", "id", "inputProps", "inputRef", "name", "onBlur", "onChange", "onFocus", "readOnly", "required", "tabIndex", "type", "value"]);
-
-  var _React$useRef = React__default.useRef(checkedProp != null),
-      isControlled = _React$useRef.current;
-
-  var _React$useState = React__default.useState(Boolean(defaultChecked)),
-      _React$useState2 = _slicedToArray(_React$useState, 2),
-      checkedState = _React$useState2[0],
-      setCheckedState = _React$useState2[1];
-
-  var muiFormControl = useFormControl$1();
-
-  var handleFocus = function handleFocus(event) {
-    if (onFocus) {
-      onFocus(event);
-    }
-
-    if (muiFormControl && muiFormControl.onFocus) {
-      muiFormControl.onFocus(event);
-    }
-  };
-
-  var handleBlur = function handleBlur(event) {
-    if (onBlur) {
-      onBlur(event);
-    }
-
-    if (muiFormControl && muiFormControl.onBlur) {
-      muiFormControl.onBlur(event);
-    }
-  };
-
-  var handleInputChange = function handleInputChange(event) {
-    var checked = event.target.checked;
-
-    if (!isControlled) {
-      setCheckedState(checked);
-    }
-
-    if (onChange) {
-      onChange(event, checked);
-    }
-  };
-
-  var disabled = disabledProp;
-
-  if (muiFormControl) {
-    if (typeof disabled === 'undefined') {
-      disabled = muiFormControl.disabled;
-    }
-  }
-
-  var checked = isControlled ? checkedProp : checkedState;
-  var hasLabelFor = type === 'checkbox' || type === 'radio';
-  return React__default.createElement(IconButton$1, _extends$1({
-    component: "span",
-    className: clsx(classes.root, classNameProp, checked && classes.checked, disabled && classes.disabled),
-    disabled: disabled,
-    tabIndex: null,
-    role: undefined,
-    onFocus: handleFocus,
-    onBlur: handleBlur,
-    ref: ref
-  }, other), checked ? checkedIcon : icon, React__default.createElement("input", _extends$1({
-    autoFocus: autoFocus,
-    checked: checkedProp,
-    defaultChecked: defaultChecked,
-    className: classes.input,
-    disabled: disabled,
-    id: hasLabelFor && id,
-    name: name,
-    onChange: handleInputChange,
-    readOnly: readOnly,
-    ref: inputRef,
-    required: required,
-    tabIndex: tabIndex,
-    type: type,
-    value: value
-  }, inputProps)));
-}); // NB: If changed, please update Checkbox, Switch and Radio
-// so that the API documentation is updated.
-
-process.env.NODE_ENV !== "production" ? SwitchBase.propTypes = {
-  /**
-   * If `true`, the `input` element will be focused during the first mount.
-   */
-  autoFocus: propTypes.bool,
-
-  /**
-   * If `true`, the component is checked.
-   */
-  checked: propTypes.bool,
-
-  /**
-   * The icon to display when the component is checked.
-   */
-  checkedIcon: propTypes.node.isRequired,
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: propTypes.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: propTypes.string,
-
-  /**
-   * @ignore
-   */
-  defaultChecked: propTypes.bool,
-
-  /**
-   * If `true`, the switch will be disabled.
-   */
-  disabled: propTypes.bool,
-
-  /**
-   * The icon to display when the component is unchecked.
-   */
-  icon: propTypes.node.isRequired,
-
-  /**
-   * The id of the `input` element.
-   */
-  id: propTypes.string,
-
-  /**
-   * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes) applied to the `input` element.
-   */
-  inputProps: propTypes.object,
-
-  /**
-   * This prop can be used to pass a ref callback to the `input` element.
-   */
-  inputRef: propTypes.oneOfType([propTypes.func, propTypes.object]),
-
-  /*
-   * @ignore
-   */
-  name: propTypes.string,
-
-  /**
-   * @ignore
-   */
-  onBlur: propTypes.func,
-
-  /**
-   * Callback fired when the state is changed.
-   *
-   * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
-   */
-  onChange: propTypes.func,
-
-  /**
-   * @ignore
-   */
-  onFocus: propTypes.func,
-
-  /**
-   * It prevents the user from changing the value of the field
-   * (not from interacting with the field).
-   */
-  readOnly: propTypes.bool,
-
-  /**
-   * If `true`, the `input` element will be required.
-   */
-  required: propTypes.bool,
-
-  /**
-   * @ignore
-   */
-  tabIndex: propTypes.oneOfType([propTypes.number, propTypes.string]),
-
-  /**
-   * The input component prop `type`.
-   */
-  type: propTypes.string.isRequired,
-
-  /**
-   * The value of the component.
-   */
-  value: propTypes.any
-} : void 0;
-var SwitchBase$1 = withStyles$1(styles$z, {
-  name: 'PrivateSwitchBase'
-})(SwitchBase);
-
-/**
- * @ignore - internal component.
- */
-
-var CheckBoxOutlineBlankIcon$1 = createSvgIcon(React__default.createElement("path", {
-  d: "M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-}), 'CheckBoxOutlineBlank');
-
-/**
- * @ignore - internal component.
- */
-
-var CheckBoxIcon$1 = createSvgIcon(React__default.createElement("path", {
-  d: "M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-}), 'CheckBox');
-
-/**
- * @ignore - internal component.
- */
-
-var IndeterminateCheckBoxIcon = createSvgIcon(React__default.createElement("path", {
-  d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"
-}), 'IndeterminateCheckBox');
-
-var styles$A = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      color: theme.palette.text.secondary
-    },
-
-    /* Pseudo-class applied to the root element if `checked={true}`. */
-    checked: {},
-
-    /* Pseudo-class applied to the root element if `disabled={true}`. */
-    disabled: {},
-
-    /* Pseudo-class applied to the root element if `indeterminate={true}`. */
-    indeterminate: {},
-
-    /* Styles applied to the root element if `color="primary"`. */
-    colorPrimary: {
-      '&$checked': {
-        color: theme.palette.primary.main,
-        '&:hover': {
-          backgroundColor: fade(theme.palette.primary.main, theme.palette.action.hoverOpacity),
-          // Reset on touch devices, it doesn't add specificity
-          '@media (hover: none)': {
-            backgroundColor: 'transparent'
-          }
-        }
-      },
-      '&$disabled': {
-        color: theme.palette.action.disabled
-      }
-    },
-
-    /* Styles applied to the root element if `color="secondary"`. */
-    colorSecondary: {
-      '&$checked': {
-        color: theme.palette.secondary.main,
-        '&:hover': {
-          backgroundColor: fade(theme.palette.secondary.main, theme.palette.action.hoverOpacity),
-          // Reset on touch devices, it doesn't add specificity
-          '@media (hover: none)': {
-            backgroundColor: 'transparent'
-          }
-        }
-      },
-      '&$disabled': {
-        color: theme.palette.action.disabled
-      }
-    }
-  };
-};
-var defaultCheckedIcon = React__default.createElement(CheckBoxIcon$1, null);
-var defaultIcon = React__default.createElement(CheckBoxOutlineBlankIcon$1, null);
-var defaultIndeterminateIcon = React__default.createElement(IndeterminateCheckBoxIcon, null);
-var Checkbox = React__default.forwardRef(function Checkbox(props, ref) {
-  var _props$checkedIcon = props.checkedIcon,
-      checkedIcon = _props$checkedIcon === void 0 ? defaultCheckedIcon : _props$checkedIcon,
-      classes = props.classes,
-      _props$color = props.color,
-      color = _props$color === void 0 ? 'secondary' : _props$color,
-      _props$icon = props.icon,
-      icon = _props$icon === void 0 ? defaultIcon : _props$icon,
-      _props$indeterminate = props.indeterminate,
-      indeterminate = _props$indeterminate === void 0 ? false : _props$indeterminate,
-      _props$indeterminateI = props.indeterminateIcon,
-      indeterminateIcon = _props$indeterminateI === void 0 ? defaultIndeterminateIcon : _props$indeterminateI,
-      inputProps = props.inputProps,
-      other = _objectWithoutProperties(props, ["checkedIcon", "classes", "color", "icon", "indeterminate", "indeterminateIcon", "inputProps"]);
-
-  return React__default.createElement(SwitchBase$1, _extends$1({
-    type: "checkbox",
-    checkedIcon: indeterminate ? indeterminateIcon : checkedIcon,
-    classes: {
-      root: clsx(classes.root, classes["color".concat(capitalize(color))], indeterminate && classes.indeterminate),
-      checked: classes.checked,
-      disabled: classes.disabled
-    },
-    color: color,
-    inputProps: _extends$1({
-      'data-indeterminate': indeterminate
-    }, inputProps),
-    icon: indeterminate ? indeterminateIcon : icon,
-    ref: ref
-  }, other));
-});
-process.env.NODE_ENV !== "production" ? Checkbox.propTypes = {
-  /**
-   * If `true`, the component is checked.
-   */
-  checked: propTypes.bool,
-
-  /**
-   * The icon to display when the component is checked.
-   */
-  checkedIcon: propTypes.node,
-
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: propTypes.object.isRequired,
-
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
-  color: propTypes.oneOf(['primary', 'secondary', 'default']),
-
-  /**
-   * If `true`, the switch will be disabled.
-   */
-  disabled: propTypes.bool,
-
-  /**
-   * If `true`, the ripple effect will be disabled.
-   */
-  disableRipple: propTypes.bool,
-
-  /**
-   * The icon to display when the component is unchecked.
-   */
-  icon: propTypes.node,
-
-  /**
-   * The id of the `input` element.
-   */
-  id: propTypes.string,
-
-  /**
-   * If `true`, the component appears indeterminate.
-   * This does not set the native input element to indeterminate due
-   * to inconsistent behavior across browsers.
-   * However, we set a `data-indeterminate` attribute on the input.
-   */
-  indeterminate: propTypes.bool,
-
-  /**
-   * The icon to display when the component is indeterminate.
-   */
-  indeterminateIcon: propTypes.node,
-
-  /**
-   * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Attributes) applied to the `input` element.
-   */
-  inputProps: propTypes.object,
-
-  /**
-   * This prop can be used to pass a ref callback to the `input` element.
-   */
-  inputRef: propTypes.oneOfType([propTypes.func, propTypes.object]),
-
-  /**
-   * Callback fired when the state is changed.
-   *
-   * @param {object} event The event source of the callback.
-   * You can pull out the new value by accessing `event.target.checked`.
-   * @param {boolean} checked The `checked` value of the switch
-   */
-  onChange: propTypes.func,
-
-  /**
-   * If `true`, the `input` element will be required.
-   */
-  required: propTypes.bool,
-
-  /**
-   * The input component prop `type`.
-   */
-  type: propTypes.string,
-
-  /**
-   * The value of the component. The DOM API casts this to a string.
-   */
-  value: propTypes.any
-} : void 0;
-var Checkbox$1 = withStyles$1(styles$A, {
-  name: 'MuiCheckbox'
-})(Checkbox);
-
-var SignatureSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(SignatureSceneComponent, _Component);
-
-  function SignatureSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = SignatureSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Provide your electronic signature."), React__default.createElement(TextField$1, {
-      id: "standard-uncontrolled",
-      label: "Full Name",
-      fullWidth: true,
-      InputProps: {
-        classes: {
-          input: classes.resize
-        }
-      },
-      className: classes.textField,
-      margin: "normal",
-      onChange: function onChange() {},
-      autoFocus: true
-    })), React__default.createElement("div", {
-      className: classes.twoColumn
-    }, React__default.createElement("div", {
-      className: classes.left
-    }, React__default.createElement(Checkbox$1, {
-      icon: React__default.createElement(CheckBoxOutlineBlankIcon, {
-        style: {
-          width: 26,
-          height: 26
-        }
-      }),
-      checkedIcon: React__default.createElement(CheckBoxIcon, {
-        style: {
-          width: 26,
-          height: 26
-        },
-        backgroundColor: THEME.COLORS.ACCENT_BLUE
-      }),
-      value: "checkedI",
-      color: "primary"
-    })), React__default.createElement("div", {
-      className: classes.right
-    }, React__default.createElement("div", {
-      className: classes.disclaimer
-    }, "I confirm that all information submitted, to the best of my knowledge, is true, accurate, and up to date.")))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return SignatureSceneComponent;
-}(React.Component);
-
-var styles$B = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    clear: {
-      backgroundColor: THEME.COLORS.WHITE
-    },
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    textField: {
-      position: 'relative',
-      selfAlign: 'center'
-    },
-    resize: {
-      fontSize: 17
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 34,
-      width: '100%',
-      fontSize: 17,
-      height: 40,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    },
-    twoColumn: {
-      display: 'flex',
-      flexDirection: 'row',
-      marginTop: 47
-    },
-    checkbox: {
-      width: 100,
-      height: 100,
-      fontSize: 90
-    },
-    left: {
-      flexShrink: 1,
-      maxWidth: 50
-    },
-    right: {
-      flexGrow: 1
-    },
-    disclaimer: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      fontSize: 17,
-      marginTop: 9,
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var SignatureScene = withStyles$1(styles$B)(SignatureSceneComponent);
-
-var mapStateToProps$6 = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$6 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(THANK_YOU_ROUTE);
-    }
-  };
-};
-
-var SignatureConnector = reactRedux.connect(mapStateToProps$6, mapDispatchToProps$6)(SignatureScene);
-
-/* import Typography from 'material-ui/Typography' */
-
-var SocialScreenComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(SocialScreenComponent, _Component);
-
-  function SocialScreenComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = SocialScreenComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy,
-      useBlack: true
-    })), React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Provide your social security number."), React__default.createElement(TextField$1, {
-      id: "filled-email-input",
-      label: "Social Security Number",
-      className: classes.textField,
-      type: "number",
-      fullWidth: true,
-      name: "security",
-      autoComplete: "email",
-      margin: "normal",
-      onChange: function onChange() {},
-      autoFocus: true
-    }))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return SocialScreenComponent;
-}(React.Component);
-
-var styles$C = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    textField: {
-      position: 'relative',
-      selfAlign: 'center'
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 34,
-      width: '100%',
-      fontSize: 17,
-      height: 40,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var SocialScreen = withStyles$1(styles$C)(SocialScreenComponent);
-/*
-<TextField
-              id="cryptoInput"
-              type="number"
-              label={'Enter amount you wish to sell'}
-              margin="none"
-              fullWidth
-              disabled={this.state.cryptoLoading}
-              InputLabelProps={{
-                shrink: true
-              }}
-              tabIndex={1}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {this.state.cryptoLoading && <CircularProgress size={25} />}
-                    {!this.state.cryptoLoading && this.state.currentWalletCurrencyCode}
-                  </InputAdornment>
-                )
-              }}
-              onChange={this.calcFiat}
-            />*/
-
-var mapStateToProps$7 = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$7 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(BANK_CONNECT_ROUTE);
-    }
-  };
-};
-
-var SocialConnector = reactRedux.connect(mapStateToProps$7, mapDispatchToProps$7)(SocialScreen);
-
-var mapStateToProps$8 = function mapStateToProps(state) {
-  return {
-    accountStatus: NOT_STARTED,
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$8 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(THANK_YOU_ROUTE);
-    },
-    initInfo: function initInfo() {}
-  };
-};
-
-var StartSceneConnector = reactRedux.connect(mapStateToProps$8, mapDispatchToProps$8)(StartScene);
-
-var ThankYouScreenComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(ThankYouScreenComponent, _Component);
-
-  function ThankYouScreenComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = ThankYouScreenComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Thank You"), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, this.props.thanksMessage))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Done ")));
-  };
-
-  return ThankYouScreenComponent;
-}(React.Component);
-
-var styles$D = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 62,
-      width: '100%',
-      fontSize: 27,
-      height: 40,
-      color: THEME.COLORS.BLACK
-    },
-    subHeaderText: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: 16,
-      width: '90%',
-      fontSize: 17,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    }
-  };
-};
-
-var ThankYouScreen = withStyles$1(styles$D)(ThankYouScreenComponent);
-
-var mapStateToProps$9 = function mapStateToProps(state) {
-  return {
-    thanksMessage: 'We’re reviewing your information right now, pending approval. Check your email in the next few days for next steps.',
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$9 = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(SOCIAL_ROUTE);
-    }
-  };
-};
-
-var ThankYouConnector = reactRedux.connect(mapStateToProps$9, mapDispatchToProps$9)(ThankYouScreen);
-
-var SIZE = 44;
-
-function getRelativeValue(value, min, max) {
-  var clampedValue = Math.min(Math.max(min, value), max);
-  return (clampedValue - min) / (max - min);
-}
-
-function easeOut(t) {
-  t = getRelativeValue(t, 0, 1); // https://gist.github.com/gre/1650294
-
-  t = (t -= 1) * t * t + 1;
-  return t;
-}
-
-function easeIn(t) {
-  return t * t;
-}
-
-var styles$E = function styles(theme) {
-  return {
-    /* Styles applied to the root element. */
-    root: {
-      display: 'inline-block',
-      lineHeight: 1 // Keep the progress centered
-
-    },
-
-    /* Styles applied to the root element if `variant="static"`. */
-    static: {
-      transition: theme.transitions.create('transform')
-    },
-
-    /* Styles applied to the root element if `variant="indeterminate"`. */
-    indeterminate: {
-      animation: '$mui-progress-circular-rotate 1.4s linear infinite'
-    },
-
-    /* Styles applied to the root element if `color="primary"`. */
-    colorPrimary: {
-      color: theme.palette.primary.main
-    },
-
-    /* Styles applied to the root element if `color="secondary"`. */
-    colorSecondary: {
-      color: theme.palette.secondary.main
-    },
-
-    /* Styles applied to the `svg` element. */
-    svg: {},
-
-    /* Styles applied to the `circle` svg path. */
-    circle: {
-      stroke: 'currentColor' // Use butt to follow the specification, by chance, it's already the default CSS value.
-      // strokeLinecap: 'butt',
-
-    },
-
-    /* Styles applied to the `circle` svg path if `variant="static"`. */
-    circleStatic: {
-      transition: theme.transitions.create('stroke-dashoffset')
-    },
-
-    /* Styles applied to the `circle` svg path if `variant="indeterminate"`. */
-    circleIndeterminate: {
-      animation: '$mui-progress-circular-dash 1.4s ease-in-out infinite',
-      // Some default value that looks fine waiting for the animation to kicks in.
-      strokeDasharray: '80px, 200px',
-      strokeDashoffset: '0px' // Add the unit to fix a Edge 16 and below bug.
-
-    },
-    '@keyframes mui-progress-circular-rotate': {
-      '100%': {
-        transform: 'rotate(360deg)'
-      }
-    },
-    '@keyframes mui-progress-circular-dash': {
-      '0%': {
-        strokeDasharray: '1px, 200px',
-        strokeDashoffset: '0px'
-      },
-      '50%': {
-        strokeDasharray: '100px, 200px',
-        strokeDashoffset: '-15px'
-      },
-      '100%': {
-        strokeDasharray: '100px, 200px',
-        strokeDashoffset: '-125px'
-      }
-    },
-
-    /* Styles applied to the `circle` svg path if `disableShrink={true}`. */
-    circleDisableShrink: {
-      animation: 'none'
-    }
-  };
-};
-/**
- * ## ARIA
- *
- * If the progress bar is describing the loading progress of a particular region of a page,
- * you should use `aria-describedby` to point to the progress bar, and set the `aria-busy`
- * attribute to `true` on that region until it has finished loading.
- */
-
-var CircularProgress = React__default.forwardRef(function CircularProgress(props, ref) {
-  var classes = props.classes,
-      className = props.className,
-      _props$color = props.color,
-      color = _props$color === void 0 ? 'primary' : _props$color,
-      _props$disableShrink = props.disableShrink,
-      disableShrink = _props$disableShrink === void 0 ? false : _props$disableShrink,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 40 : _props$size,
-      style = props.style,
-      _props$thickness = props.thickness,
-      thickness = _props$thickness === void 0 ? 3.6 : _props$thickness,
-      _props$value = props.value,
-      value = _props$value === void 0 ? 0 : _props$value,
-      _props$variant = props.variant,
-      variant = _props$variant === void 0 ? 'indeterminate' : _props$variant,
-      other = _objectWithoutProperties(props, ["classes", "className", "color", "disableShrink", "size", "style", "thickness", "value", "variant"]);
-
-  var circleStyle = {};
-  var rootStyle = {};
-  var rootProps = {};
-
-  if (variant === 'determinate' || variant === 'static') {
-    var circumference = 2 * Math.PI * ((SIZE - thickness) / 2);
-    circleStyle.strokeDasharray = circumference.toFixed(3);
-    rootProps['aria-valuenow'] = Math.round(value);
-
-    if (variant === 'static') {
-      circleStyle.strokeDashoffset = "".concat(((100 - value) / 100 * circumference).toFixed(3), "px");
-      rootStyle.transform = 'rotate(-90deg)';
-    } else {
-      circleStyle.strokeDashoffset = "".concat((easeIn((100 - value) / 100) * circumference).toFixed(3), "px");
-      rootStyle.transform = "rotate(".concat((easeOut(value / 70) * 270).toFixed(3), "deg)");
-    }
-  }
-
-  return React__default.createElement("div", _extends$1({
-    className: clsx(classes.root, className, color !== 'inherit' && classes["color".concat(capitalize(color))], {
-      indeterminate: classes.indeterminate,
-      static: classes.static
-    }[variant]),
-    style: _extends$1({
-      width: size,
-      height: size
-    }, rootStyle, {}, style),
-    ref: ref,
-    role: "progressbar"
-  }, rootProps, other), React__default.createElement("svg", {
-    className: classes.svg,
-    viewBox: "".concat(SIZE / 2, " ").concat(SIZE / 2, " ").concat(SIZE, " ").concat(SIZE)
-  }, React__default.createElement("circle", {
-    className: clsx(classes.circle, disableShrink && classes.circleDisableShrink, {
-      indeterminate: classes.circleIndeterminate,
-      static: classes.circleStatic
-    }[variant]),
-    style: circleStyle,
-    cx: SIZE,
-    cy: SIZE,
-    r: (SIZE - thickness) / 2,
-    fill: "none",
-    strokeWidth: thickness
-  })));
-});
-process.env.NODE_ENV !== "production" ? CircularProgress.propTypes = {
-  /**
-   * Override or extend the styles applied to the component.
-   * See [CSS API](#css) below for more details.
-   */
-  classes: propTypes.object.isRequired,
-
-  /**
-   * @ignore
-   */
-  className: propTypes.string,
-
-  /**
-   * The color of the component. It supports those theme colors that make sense for this component.
-   */
-  color: propTypes.oneOf(['primary', 'secondary', 'inherit']),
-
-  /**
-   * If `true`, the shrink animation is disabled.
-   * This only works if variant is `indeterminate`.
-   */
-  disableShrink: chainPropTypes(propTypes.bool, function (props) {
-    if (props.disableShrink && props.variant && props.variant !== 'indeterminate') {
-      return new Error('Material-UI: you have provided the `disableShrink` prop ' + 'with a variant other than `indeterminate`. This will have no effect.');
-    }
-
-    return null;
-  }),
-
-  /**
-   * The size of the circle.
-   */
-  size: propTypes.oneOfType([propTypes.number, propTypes.string]),
-
-  /**
-   * @ignore
-   */
-  style: propTypes.object,
-
-  /**
-   * The thickness of the circle.
-   */
-  thickness: propTypes.number,
-
-  /**
-   * The value of the progress indicator for the determinate and static variants.
-   * Value between 0 and 100.
-   */
-  value: propTypes.number,
-
-  /**
-   * The variant to use.
-   * Use indeterminate when there is no progress value.
-   */
-  variant: propTypes.oneOf(['determinate', 'indeterminate', 'static'])
-} : void 0;
-var CircularProgress$1 = withStyles$1(styles$E, {
-  name: 'MuiCircularProgress',
-  flip: false
-})(CircularProgress);
 
 var TransactionAmountScreenComponent =
 /*#__PURE__*/
@@ -20101,7 +17170,7 @@ function (_Component) {
   return TransactionAmountScreenComponent;
 }(React.Component);
 
-var styles$F = function styles(theme) {
+var styles$t = function styles(theme) {
   return {
     container: sceneContainer,
     poweredByRow: poweredByRow,
@@ -20211,618 +17280,8 @@ var styles$F = function styles(theme) {
   };
 };
 
-var TransactionAmountScreen = withStyles$1(styles$F)(TransactionAmountScreenComponent);
-
-var mapStateToProps$a = function mapStateToProps(state) {
-  return {
-    wallet: {
-      name: 'Allen Wallet',
-      receiveAddress: {
-        publicAddress: 'string'
-      },
-      currencyCode: 'BTC',
-      fiatCurrencyCode: 'USD',
-      currencyIcon: 'string',
-      currencyIconDark: 'string'
-    },
-    exchangeRatesFrom: 10,
-    buyOrSell: 'sell',
-    cryptoAmount: '.00345',
-    fiatAmount: '50',
-    bankName: 'Allen\'s Amazing Banks XX007',
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$a = function mapDispatchToProps(dispatch) {
-  return {
-    getExchangeRate: function getExchangeRate() {// dispatch(getExchangeRate())
-    },
-    confirmQuote: function confirmQuote(crypto, fiat, history) {
-      // dispatch(confirmQuote(crypto,fiat, history))
-      history.push(TRANSACTION_CONFIRM_ROUTE);
-    },
-    changeCrypto: function changeCrypto(amount, exchangeRate) {},
-    changeFiat: function changeFiat(amount, exchangeRate) {}
-    /*
-    changeCrypto = (arg: string) => {
-      window.edgeProvider.consoleLog('arg: ' + arg)
-      window.edgeProvider.consoleLog('this.props.exchangeRatesFrom: ' + this.props.exchangeRatesFrom)
-      window.edgeProvider.consoleLog(Number(arg) * this.props.exchangeRatesFrom)
-      const fiat = Number(arg) * this.props.exchangeRatesFrom
-      const fiatRound = Math.round(fiat * 100) / 100
-      this.setState({
-        cryptoAmount: arg,
-        fiatAmount: fiatRound.toString()
-      })
-    }
-    changeFiat = (arg: string) => {
-      const crypto = this.props.wallet.currencyCode === 'BTC'
-        ? Math.round((Number(arg) * this.props.exchangeRatesTo) * 1000000) / 1000000
-        : Number(arg) * this.props.exchangeRatesTo
-      this.setState({
-        fiatAmount: arg,
-        cryptoAmount: crypto.toString()
-      })
-    }
-    */
-
-  };
-};
-
-var TransactionAmountConnector = reactRedux.connect(mapStateToProps$a, mapDispatchToProps$a)(TransactionAmountScreen);
-
-var TransactionConfirmationScreenComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(TransactionConfirmationScreenComponent, _Component);
-
-  function TransactionConfirmationScreenComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = TransactionConfirmationScreenComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy
-    })), React__default.createElement("div", {
-      className: classes.amountContainer
-    }, React__default.createElement("div", {
-      className: classes.innerDiv
-    }, React__default.createElement("div", {
-      className: classes.doRow
-    }, React__default.createElement("div", {
-      className: classes.dollar
-    }, "$"), React__default.createElement("div", {
-      className: classes.inputWrapper
-    }, this.props.fiatAmount)))), React__default.createElement("div", {
-      className: classes.receiveAmount
-    }, "You will ", this.props.buyOrSell, " ", this.props.cryptoAmount, " ", this.props.wallet.currencyCode), React__default.createElement("div", {
-      className: classes.shim
-    }), React__default.createElement("div", {
-      className: classes.box1
-    }, React__default.createElement("div", {
-      className: classes.b1l
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, "Price ", this.props.wallet.currencyCode)), React__default.createElement("div", {
-      className: classes.b1r
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, this.props.onOfCurrencyCodeInFiat))), React__default.createElement("div", {
-      className: classes.shim
-    }), React__default.createElement("div", {
-      className: classes.box1
-    }, React__default.createElement("div", {
-      className: classes.b1l
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, "Withdrawal from:")), React__default.createElement("div", {
-      className: classes.b1r
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, this.props.withdrawFrom))), React__default.createElement("div", {
-      className: classes.shim
-    }), React__default.createElement("div", {
-      className: classes.box1
-    }, React__default.createElement("div", {
-      className: classes.b1l
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, "Deposit fo:")), React__default.createElement("div", {
-      className: classes.b1r
-    }, React__default.createElement("div", {
-      className: classes.whiteText
-    }, this.props.depositTo))), React__default.createElement("div", {
-      className: classes.shim
-    }), React__default.createElement("div", {
-      className: classes.box1
-    }, React__default.createElement("div", {
-      className: classes.b1l
-    }, React__default.createElement("div", {
-      className: classes.twoRow
-    }, React__default.createElement("div", {
-      className: classes.greenText
-    }, "Fees"), React__default.createElement("div", {
-      className: classes.greenText
-    }, "Total"))), React__default.createElement("div", {
-      className: classes.b1r
-    }, React__default.createElement("div", {
-      className: classes.twoRow
-    }, React__default.createElement("div", {
-      className: classes.greenTextRight
-    }, this.props.fees), React__default.createElement("div", {
-      className: classes.greenTextRight
-    }, this.props.total))))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return TransactionConfirmationScreenComponent;
-}(React.Component);
-
-var styles$G = function styles(theme) {
-  return {
-    container: sceneContainer,
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    amountContainer: {
-      position: 'relative',
-      display: 'flex',
-      flexShrink: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      width: '100%',
-      borderRadius: 6
-    },
-    innerDiv: {
-      display: 'flex',
-      flexDirection: 'row',
-      position: 'relative',
-      flexShrink: 1,
-      fontSize: 50,
-      color: THEME.COLORS.WHITE
-    },
-    doRow: {
-      display: 'flex',
-      position: 'relative',
-      flexDirection: 'row'
-    },
-    dollar: {
-      paddingTop: 10,
-      fontSize: 40,
-      marginRight: 3
-    },
-    inputWrapper: {
-      fontSize: 68
-    },
-    receiveAmount: {
-      flexShrink: 1,
-      display: 'flex',
-      fontSize: 13,
-      width: '100%',
-      textAlign: 'center',
-      marginTop: 0,
-      color: THEME.COLORS.WHITE,
-      flexDirection: 'column'
-    },
-    box1: {
-      display: 'flex',
-      flexDirection: 'row',
-      position: 'relative',
-      nimHHeight: 31,
-      width: '100%',
-      borderColor: THEME.COLORS.WHITE,
-      borderBottomWidth: 1,
-      borderTopWidth: 0,
-      borderRightWidth: 0,
-      borderLeftWidth: 0,
-      borderStyle: 'solid'
-    },
-    b1l: {
-      display: 'flex',
-      flex: 1
-    },
-    b1r: {
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'flex-end'
-    },
-    whiteText: {
-      fontSize: 16,
-      height: 19,
-      color: THEME.COLORS.WHITE,
-      marginBottom: 6
-    },
-    greenText: {
-      fontSize: 16,
-      height: 19,
-      color: THEME.COLORS.ACCENT_MINT,
-      marginBottom: 6
-    },
-    greenTextRight: {
-      fontSize: 16,
-      height: 19,
-      color: THEME.COLORS.ACCENT_MINT,
-      marginBottom: 6,
-      textAlign: 'right'
-    },
-    shim: {
-      height: 38
-    },
-    twoRow: {
-      display: 'flex',
-      flexDirection: 'column'
-    }
-  };
-};
-
-var TransactionConfirmationScreen = withStyles$1(styles$G)(TransactionConfirmationScreenComponent);
-
-var mapStateToProps$b = function mapStateToProps(state) {
-  return {
-    wallet: {
-      name: 'Allen Wallet',
-      receiveAddress: {
-        publicAddress: 'string'
-      },
-      currencyCode: 'BTC',
-      fiatCurrencyCode: 'USD',
-      currencyIcon: 'string',
-      currencyIconDark: 'string'
-    },
-    isSell: true,
-    cryptoAmount: '.00345',
-    fiatAmount: '50',
-    withdrawFrom: 'Western Bank',
-    depositTo: 'My Wallet',
-    fees: '$2.99',
-    total: '$1,027.01',
-    onOfCurrencyCodeInFiat: '$5,1023',
-    buyOrSell: 'sell',
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$b = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(TRANSACTION_SUCCESS_ROUTE);
-    }
-  };
-};
-
-var TransactionConfirmationConnector = reactRedux.connect(mapStateToProps$b, mapDispatchToProps$b)(TransactionConfirmationScreen);
-
-var TransactionSuccessComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(TransactionSuccessComponent, _Component);
-
-  function TransactionSuccessComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = TransactionSuccessComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.poweredByRow
-    }, React__default.createElement(PoweredBy, {
-      poweredBy: this.props.poweredBy
-    })), React__default.createElement("div", {
-      className: classes.headerText
-    }, "Congratulations!"), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, "Transaction was successful")), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Next ")));
-  };
-
-  return TransactionSuccessComponent;
-}(React.Component);
-
-var styles$H = function styles(theme) {
-  return {
-    container: sceneContainer,
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 147,
-      width: '100%',
-      fontSize: 30,
-      height: 40,
-      color: THEME.COLORS.WHITE
-    },
-    subHeaderText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 16,
-      width: '100%',
-      fontSize: 16,
-      height: 20,
-      color: THEME.COLORS.WHITE
-    }
-  };
-};
-
-var TransactionSuccess = withStyles$1(styles$H)(TransactionSuccessComponent);
-
-var mapStateToProps$c = function mapStateToProps(state) {
-  return {
-    poweredBy: {
-      email: 'support@wyre.com',
-      logo: '../assets/poweredByLogo.png'
-    }
-  };
-};
-
-var mapDispatchToProps$c = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(PHONE_ROUTE);
-    }
-  };
-};
-
-var TransactionSuccessConnector = reactRedux.connect(mapStateToProps$c, mapDispatchToProps$c)(TransactionSuccess);
-
-var BankConnectSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(BankConnectSceneComponent, _Component);
-
-  function BankConnectSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = BankConnectSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var image = this.props.bankGraphic; // require('../assets/bankGraphic.png')
-
-    var image2 = this.props.twoChecks; // require('../assets/twoChecks.png') require('../assets/bankGraphic.png')
-
-    var classes = this.props.classes;
-    return React__default.createElement("div", {
-      className: classes.container
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
-      className: classes.inset
-    }, React__default.createElement("div", {
-      className: classes.headerText
-    }, "Great!"), React__default.createElement("div", {
-      className: classes.subHeaderText
-    }, "Now that we have your details, we can connect your bank account using Plaid."), React__default.createElement("img", {
-      src: image,
-      className: classes.bankGraphic,
-      alt: ''
-    }), React__default.createElement("img", {
-      src: image2,
-      className: classes.checkedGraphic,
-      alt: ''
-    }))), React__default.createElement("div", {
-      className: classes.containerBottom
-    }, React__default.createElement(PrimaryButton, {
-      onClick: this.onNext
-    }, "Connect to bank account ")));
-  };
-
-  return BankConnectSceneComponent;
-}(React.Component);
-
-var styles$I = function styles(theme) {
-  return {
-    container: _extends({}, sceneContainer, {
-      backgroundColor: THEME.COLORS.WHITE
-    }),
-    poweredByRow: poweredByRow,
-    containerMain: sceneMainContainer,
-    containerBottom: sceneButtonBottom,
-    inset: {
-      display: 'flex',
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    headerText: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      marginTop: 65,
-      width: '100%',
-      fontSize: 27,
-      height: 40,
-      color: THEME.COLORS.BLACK
-    },
-    subHeaderText: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: 16,
-      width: '90%',
-      fontSize: 17,
-      textAlign: 'center',
-      alignItems: 'center',
-      color: THEME.COLORS.BLACK
-    },
-    bankGraphic: {
-      padding: 0,
-      marginTop: 37
-    },
-    checkedGraphic: {
-      padding: 0,
-      marginTop: 18
-    }
-  };
-};
-
-var BankConnectScene = withStyles$1(styles$I)(BankConnectSceneComponent);
-
-var mapStateToProps$d = function mapStateToProps(state) {
-  return {
-    bankGraphic: 'any',
-    //  require('../assets/twoChecks.png') ,
-    twoChecks: 'any' // require('../assets/bankGraphic.png'),
-
-  };
-};
-
-var mapDispatchToProps$d = function mapDispatchToProps(dispatch) {
-  return {
-    onNext: function onNext(history) {
-      history.push(ADDRESS_ROUTE);
-    }
-  };
-};
-
-var BankConnector = reactRedux.connect(mapStateToProps$d, mapDispatchToProps$d)(BankConnectScene);
-
-var StartSceneComponent =
-/*#__PURE__*/
-function (_Component) {
-  _inheritsLoose(StartSceneComponent, _Component);
-
-  function StartSceneComponent() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "componentDidMount",
-    /*#__PURE__*/
-    _asyncToGenerator(
-    /*#__PURE__*/
-    regenerator.mark(function _callee() {
-      return regenerator.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _this.props.initInfo();
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    })));
-
-    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.props.history);
-    });
-
-    return _this;
-  }
-
-  var _proto = StartSceneComponent.prototype;
-
-  _proto.render = function render() {
-    var classes = this.props.classes;
-
-    if (!this.props.accountStatus) {
-      return React__default.createElement("div", {
-        className: classes.containerSpinner
-      }, React__default.createElement(CircularProgress$1, {
-        size: 60
-      }));
-    }
-
-    if (this.props.accountStatus === NOT_STARTED) {
-      return React__default.createElement(IntroConnector, {
-        history: this.props.history
-      });
-    }
-
-    if (this.props.accountStatus === PENDING) {
-      return React__default.createElement(PendingConnector, {
-        history: this.props.history
-      });
-    }
-
-    return React__default.createElement(BuySellConnector, {
-      history: this.props.history
-    });
-  };
-
-  return StartSceneComponent;
-}(React.Component);
-
-var styles$J = function styles(theme) {
-  return {
-    containerSpinner: containerSpinner
-  };
-};
-
-var StartScene = withStyles$1(styles$J)(StartSceneComponent);
+var TransactionAmountScreen = withStyles$1(styles$t)(TransactionAmountScreenComponent);
 
 exports.IntroScene = IntroScene;
-exports.StartScene = StartScene;
 exports.TransactionAmountScreen = TransactionAmountScreen;
 //# sourceMappingURL=main.js.map
