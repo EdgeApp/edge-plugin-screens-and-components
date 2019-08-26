@@ -21,14 +21,12 @@ type State = {
 
 class StartSceneComponent extends Component<Props, State> {
   componentDidMount = async () => {
-    window.edgeProvider.consoleLog('Sign In Screen ')
     this.props.initInfo()
   }
   onNext = () => {
     this.props.onNext(this.props.history)
   }
   render() {
-    window.edgeProvider.consoleLog('Sign In Screen Props: ', this.props.accountStatus)
     const classes = this.props.classes
     if (!this.props.accountStatus) {
       return <div className={classes.containerSpinner}>
