@@ -10,7 +10,8 @@ const mapStateToProps = (state: State) => {
     poweredBy: {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
-    }
+    },
+    camera: '../assets/camera.png'
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

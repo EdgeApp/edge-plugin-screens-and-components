@@ -16,6 +16,7 @@ type Props = {
   history: Object,
   classes: Object,
   poweredBy: PoweredByType,
+  camera: any,
   onNext(Object): void
 }
 type State = {
@@ -26,7 +27,7 @@ class DocumentUploadScreenComponent extends Component<Props, State> {
     this.props.onNext(this.props.history)
   }
   render () {
-    const image = require('../assets/camera.png')
+    const image = this.props.camera
     const { classes } = this.props
     return <div className={classes.container} >
       <div className={classes.containerMain}>

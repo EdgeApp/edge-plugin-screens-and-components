@@ -18162,8 +18162,7 @@ function (_Component) {
   var _proto = DocumentUploadScreenComponent.prototype;
 
   _proto.render = function render() {
-    var image = require('../assets/camera.png');
-
+    var image = this.props.camera;
     var classes = this.props.classes;
     return React__default.createElement("div", {
       className: classes.container
@@ -18271,7 +18270,8 @@ var mapStateToProps$2 = function mapStateToProps(state) {
     poweredBy: {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
-    }
+    },
+    camera: '../assets/camera.png'
   };
 };
 
