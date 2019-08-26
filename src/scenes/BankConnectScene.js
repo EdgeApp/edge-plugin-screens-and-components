@@ -15,6 +15,8 @@ import { withStyles } from '@material-ui/core/styles'
 type Props = {
   history: Object,
   classes: Object,
+  bankGraphic: any,
+  twoChecks: any,
   onNext(Object): void
 }
 type State = {
@@ -25,8 +27,8 @@ class BankConnectSceneComponent extends Component<Props, State> {
     this.props.onNext(this.props.history)
   }
   render () {
-    const image = require('../assets/bankGraphic.png')
-    const image2 = require('../assets/twoChecks.png')
+    const image = this.props.bankGraphic   // require('../assets/bankGraphic.png')
+    const image2 = this.props.twoChecks // require('../assets/twoChecks.png') require('../assets/bankGraphic.png')
     const { classes } = this.props
     return <div className={classes.container} >
       <div className={classes.containerMain}>

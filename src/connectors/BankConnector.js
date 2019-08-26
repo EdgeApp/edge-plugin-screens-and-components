@@ -6,7 +6,10 @@ import { BankConnectScene } from '../scenes/BankConnectScene'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  return {}
+  return {
+    bankGraphic: 'any', //  require('../assets/twoChecks.png') ,
+    twoChecks: 'any' // require('../assets/bankGraphic.png'),
+  }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {

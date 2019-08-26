@@ -20643,9 +20643,9 @@ function (_Component) {
   var _proto = BankConnectSceneComponent.prototype;
 
   _proto.render = function render() {
-    var image = require('../assets/bankGraphic.png');
+    var image = this.props.bankGraphic; // require('../assets/bankGraphic.png')
 
-    var image2 = require('../assets/twoChecks.png');
+    var image2 = this.props.twoChecks; // require('../assets/twoChecks.png') require('../assets/bankGraphic.png')
 
     var classes = this.props.classes;
     return React__default.createElement("div", {
@@ -20723,7 +20723,12 @@ var styles$I = function styles(theme) {
 var BankConnectScene = withStyles$1(styles$I)(BankConnectSceneComponent);
 
 var mapStateToProps$d = function mapStateToProps(state) {
-  return {};
+  return {
+    bankGraphic: 'any',
+    //  require('../assets/twoChecks.png') ,
+    twoChecks: 'any' // require('../assets/bankGraphic.png'),
+
+  };
 };
 
 var mapDispatchToProps$d = function mapDispatchToProps(dispatch) {
