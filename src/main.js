@@ -18286,7 +18286,7 @@ var mapDispatchToProps$2 = function mapDispatchToProps(dispatch) {
 var DocUploadConnector = reactRedux.connect(mapStateToProps$2, mapDispatchToProps$2)(DocumentUploadScreen);
 
 var mapStateToProps$3 = function mapStateToProps(state) {
-  var logo = require('../assets/logo.png');
+  var logo = ''; ///require('../assets/logo.png')
 
   var cards = [{
     title: 'Headline',

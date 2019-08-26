@@ -6,7 +6,7 @@ import {THANK_YOU_ROUTE} from '../constants'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
-  const logo = require('../assets/logo.png')
+  const logo = '' ///require('../assets/logo.png')
   const cards = [
     {
       title: 'Headline',
