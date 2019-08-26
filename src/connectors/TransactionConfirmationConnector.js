@@ -28,7 +28,7 @@ const mapStateToProps = (state: State) => {
     buyOrSell: 'sell',
     poweredBy: {
       email: 'support@wyre.com',
-      logo: require('../assets/poweredByLogo.png')
+      logo: '../assets/poweredByLogo.png'
     }
   }
 }
