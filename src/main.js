@@ -20764,10 +20764,11 @@ function (_Component) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              // window.edgeProvider.consoleLog('Sign In Screen ')
+              window.edgeProvider.consoleLog('Sign In Screen ');
+
               _this.props.initInfo();
 
-            case 1:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -20785,6 +20786,7 @@ function (_Component) {
   var _proto = StartSceneComponent.prototype;
 
   _proto.render = function render() {
+    window.edgeProvider.consoleLog('Sign In Screen Props: ', this.props.accountStatus);
     var classes = this.props.classes;
 
     if (!this.props.accountStatus) {
