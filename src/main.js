@@ -17892,4 +17892,5 @@ exports.IntroScene = IntroScene;
 exports.PoweredBy = PoweredBy;
 exports.PrimaryButton = PrimaryButton;
 exports.TransactionAmountScreen = TransactionAmountScreen;
+exports.TransactionConfirmationScreen = TransactionConfirmationScreen;
 //# sourceMappingURL=main.js.map

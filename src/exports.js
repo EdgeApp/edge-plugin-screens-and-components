@@ -10,6 +10,7 @@ export {
   TransactionAmountScreen,
   IntroScene,
   PrimaryButton,
-  PoweredBy
+  PoweredBy,
+  TransactionConfirmationScreen
 }
 
