@@ -24,9 +24,9 @@ type Props = {
   isBuyDisabled: boolean,
   poweredBy: PoweredByType,
   isSellDisabled: boolean,
-  onSellClick(): void,
+  onSellClick(Object): void,
   selectWallet(): void,
-  onBuyClick(): void
+  onBuyClick(Object): void
 }
 type State = {
 }
@@ -57,6 +57,12 @@ class BuySellSceneComponent extends Component<Props, State> {
     }
     return null
   }
+  onSellClick = () => {
+    this.props.onSellClick(this.props.history)
+  }
+  onBuyClick = () => {
+    this.props.onBuyClick(this.props.history)
+  }
   render () {
     const { classes, wallet, partnerName} = this.props
     const currencyCode = wallet ? wallet.currencyCode : ''
@@ -78,7 +84,7 @@ class BuySellSceneComponent extends Component<Props, State> {
           </TertiaryButton>
           <div className={classes.space40} />
           <TertiaryButton
-            onClick={this.props.onBuyClick}
+            onClick={this.onBuyClick}
             lineColor={THEME.COLORS.ACCENT_MINT}
             disabled={this.props.isBuyDisabled}>
             <div className={textStyle} >
@@ -87,7 +93,7 @@ class BuySellSceneComponent extends Component<Props, State> {
           </TertiaryButton>
           <div className={classes.space10} />
           <TertiaryButton
-            onClick={this.props.onSellClick}
+            onClick={this.onSellClick}
             lineColor={THEME.COLORS.ACCENT_MINT}
             disabled={this.props.isSellDisabled}>
             <div className={textStyle}>

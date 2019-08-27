@@ -10767,6 +10767,14 @@ function (_Component) {
       return null;
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onSellClick", function () {
+      _this.props.onSellClick(_this.props.history);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onBuyClick", function () {
+      _this.props.onBuyClick(_this.props.history);
+    });
+
     return _this;
   }
 
@@ -10799,7 +10807,7 @@ function (_Component) {
     }, this.renderButtonInsides()), React__default.createElement("div", {
       className: classes.space40
     }), React__default.createElement(TertiaryButton, {
-      onClick: this.props.onBuyClick,
+      onClick: this.onBuyClick,
       lineColor: THEME.COLORS.ACCENT_MINT,
       disabled: this.props.isBuyDisabled
     }, React__default.createElement("div", {
@@ -10807,7 +10815,7 @@ function (_Component) {
     }, buyText)), React__default.createElement("div", {
       className: classes.space10
     }), React__default.createElement(TertiaryButton, {
-      onClick: this.props.onSellClick,
+      onClick: this.onSellClick,
       lineColor: THEME.COLORS.ACCENT_MINT,
       disabled: this.props.isSellDisabled
     }, React__default.createElement("div", {
