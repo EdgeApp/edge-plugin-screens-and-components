@@ -17439,7 +17439,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "renderReceive", function () {
       var classes = _this.props.classes;
 
-      if (_this.props.cryptoAmount !== '') {
+      if (_this.props.cryptoAmount !== '' && _this.props.useExchangeRate) {
         return React__default.createElement("div", {
           className: classes.receiveAmount
         }, "You will ", _this.props.buyOrSell, " ", _this.props.cryptoAmount, " ", _this.props.wallet.currencyCode);

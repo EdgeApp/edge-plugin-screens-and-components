@@ -76,7 +76,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
   }//
   renderReceive = () => {
     const { classes } = this.props
-    if(this.props.cryptoAmount !== '') {
+    if(this.props.cryptoAmount !== '' && this.props.useExchangeRate) {
       return <div className={classes.receiveAmount} >
       You will {this.props.buyOrSell} {this.props.cryptoAmount} {this.props.wallet.currencyCode}
     </div>
