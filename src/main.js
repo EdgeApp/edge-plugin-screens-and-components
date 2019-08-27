@@ -17666,6 +17666,217 @@ var styles$v = function styles(theme) {
 
 var TransactionAmountScreen = withStyles$1(styles$v)(TransactionAmountScreenComponent);
 
+var TransactionConfirmationScreenComponent =
+/*#__PURE__*/
+function (_Component) {
+  _inheritsLoose(TransactionConfirmationScreenComponent, _Component);
+
+  function TransactionConfirmationScreenComponent() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+
+    _defineProperty(_assertThisInitialized(_this), "onNext", function () {
+      _this.props.onNext(_this.props.history);
+    });
+
+    return _this;
+  }
+
+  var _proto = TransactionConfirmationScreenComponent.prototype;
+
+  _proto.render = function render() {
+    var classes = this.props.classes;
+    return React__default.createElement("div", {
+      className: classes.container
+    }, React__default.createElement("div", {
+      className: classes.containerMain
+    }, React__default.createElement("div", {
+      className: classes.poweredByRow
+    }, React__default.createElement(PoweredBy, {
+      poweredBy: this.props.poweredBy
+    })), React__default.createElement("div", {
+      className: classes.amountContainer
+    }, React__default.createElement("div", {
+      className: classes.innerDiv
+    }, React__default.createElement("div", {
+      className: classes.doRow
+    }, React__default.createElement("div", {
+      className: classes.dollar
+    }, "$"), React__default.createElement("div", {
+      className: classes.inputWrapper
+    }, this.props.fiatAmount)))), React__default.createElement("div", {
+      className: classes.receiveAmount
+    }, "You will ", this.props.buyOrSell, " ", this.props.cryptoAmount, " ", this.props.wallet.currencyCode), React__default.createElement("div", {
+      className: classes.shim
+    }), React__default.createElement("div", {
+      className: classes.box1
+    }, React__default.createElement("div", {
+      className: classes.b1l
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, "Price ", this.props.wallet.currencyCode)), React__default.createElement("div", {
+      className: classes.b1r
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, this.props.onOfCurrencyCodeInFiat))), React__default.createElement("div", {
+      className: classes.shim
+    }), React__default.createElement("div", {
+      className: classes.box1
+    }, React__default.createElement("div", {
+      className: classes.b1l
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, "Withdrawal from:")), React__default.createElement("div", {
+      className: classes.b1r
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, this.props.withdrawFrom))), React__default.createElement("div", {
+      className: classes.shim
+    }), React__default.createElement("div", {
+      className: classes.box1
+    }, React__default.createElement("div", {
+      className: classes.b1l
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, "Deposit fo:")), React__default.createElement("div", {
+      className: classes.b1r
+    }, React__default.createElement("div", {
+      className: classes.whiteText
+    }, this.props.depositTo))), React__default.createElement("div", {
+      className: classes.shim
+    }), React__default.createElement("div", {
+      className: classes.box1
+    }, React__default.createElement("div", {
+      className: classes.b1l
+    }, React__default.createElement("div", {
+      className: classes.twoRow
+    }, React__default.createElement("div", {
+      className: classes.greenText
+    }, "Fees"), React__default.createElement("div", {
+      className: classes.greenText
+    }, "Total"))), React__default.createElement("div", {
+      className: classes.b1r
+    }, React__default.createElement("div", {
+      className: classes.twoRow
+    }, React__default.createElement("div", {
+      className: classes.greenTextRight
+    }, this.props.fees), React__default.createElement("div", {
+      className: classes.greenTextRight
+    }, this.props.total))))), React__default.createElement("div", {
+      className: classes.containerBottom
+    }, React__default.createElement(PrimaryButton, {
+      onClick: this.onNext
+    }, "Next ")));
+  };
+
+  return TransactionConfirmationScreenComponent;
+}(React.Component);
+
+var styles$w = function styles(theme) {
+  return {
+    container: sceneContainer,
+    poweredByRow: poweredByRow,
+    containerMain: sceneMainContainer,
+    containerBottom: sceneButtonBottom,
+    amountContainer: {
+      position: 'relative',
+      display: 'flex',
+      flexShrink: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+      borderRadius: 6
+    },
+    innerDiv: {
+      display: 'flex',
+      flexDirection: 'row',
+      position: 'relative',
+      flexShrink: 1,
+      fontSize: 50,
+      color: THEME.COLORS.WHITE
+    },
+    doRow: {
+      display: 'flex',
+      position: 'relative',
+      flexDirection: 'row'
+    },
+    dollar: {
+      paddingTop: 10,
+      fontSize: 40,
+      marginRight: 3
+    },
+    inputWrapper: {
+      fontSize: 68
+    },
+    receiveAmount: {
+      flexShrink: 1,
+      display: 'flex',
+      fontSize: 13,
+      width: '100%',
+      textAlign: 'center',
+      marginTop: 0,
+      color: THEME.COLORS.WHITE,
+      flexDirection: 'column'
+    },
+    box1: {
+      display: 'flex',
+      flexDirection: 'row',
+      position: 'relative',
+      nimHHeight: 31,
+      width: '100%',
+      borderColor: THEME.COLORS.WHITE,
+      borderBottomWidth: 1,
+      borderTopWidth: 0,
+      borderRightWidth: 0,
+      borderLeftWidth: 0,
+      borderStyle: 'solid'
+    },
+    b1l: {
+      display: 'flex',
+      flex: 1
+    },
+    b1r: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'flex-end'
+    },
+    whiteText: {
+      fontSize: 16,
+      height: 19,
+      color: THEME.COLORS.WHITE,
+      marginBottom: 6
+    },
+    greenText: {
+      fontSize: 16,
+      height: 19,
+      color: THEME.COLORS.ACCENT_MINT,
+      marginBottom: 6
+    },
+    greenTextRight: {
+      fontSize: 16,
+      height: 19,
+      color: THEME.COLORS.ACCENT_MINT,
+      marginBottom: 6,
+      textAlign: 'right'
+    },
+    shim: {
+      height: 38
+    },
+    twoRow: {
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  };
+};
+
+var TransactionConfirmationScreen = withStyles$1(styles$w)(TransactionConfirmationScreenComponent);
+
 exports.BuySellScene = BuySellScene;
 exports.IntroScene = IntroScene;
 exports.PoweredBy = PoweredBy;
