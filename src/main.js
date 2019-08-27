@@ -165,7 +165,7 @@ var sceneButtonBottom = {
   width: '100%',
   maxHeight: 70
 };
-var containerSpinner = {
+var containerSpinner$1 = {
   display: 'flex',
   flex: '1',
   width: '100%',
@@ -17560,7 +17560,7 @@ var styles$v = function styles(theme) {
     poweredByRow: poweredByRow,
     containerMain: sceneMainContainer,
     containerBottom: sceneButtonBottom,
-    containerSpinner: containerSpinner,
+    containerSpinner: containerSpinner$1,
     amountContainer: {
       position: 'relative',
       display: 'flex',
@@ -17691,6 +17691,15 @@ function (_Component) {
 
   _proto.render = function render() {
     var classes = this.props.classes;
+
+    if (!this.props.cryptoAmount) {
+      return React__default.createElement("div", {
+        className: classes.containerSpinner
+      }, React__default.createElement(CircularProgress$1, {
+        size: 60
+      }));
+    }
+
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
@@ -17783,6 +17792,7 @@ var styles$w = function styles(theme) {
     poweredByRow: poweredByRow,
     containerMain: sceneMainContainer,
     containerBottom: sceneButtonBottom,
+    containerSpinner: containerSpinner,
     amountContainer: {
       position: 'relative',
       display: 'flex',

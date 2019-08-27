@@ -9,6 +9,7 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+import CircularProgress from '@material-ui/core/CircularProgress'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -37,6 +38,11 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
   }
   render () {
     const { classes } = this.props
+    if(!this.props.cryptoAmount) {
+      return <div className={classes.containerSpinner}>
+        <CircularProgress size={60} />
+      </div>
+    }
     return <div className={classes.container} >
       <div className={classes.containerMain}>
         <div className={classes.poweredByRow}>
@@ -128,6 +134,7 @@ const styles = theme => ({
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
+  containerSpinner: containerSpinner,
   amountContainer: {
     position: 'relative',
     display: 'flex',
