@@ -55,75 +55,6 @@ function _assertThisInitialized(self) {
   return self;
 }
 
-// import THEME from '../constants/themeConstants'
-var buttonStyle = {
-  textTransform: 'none',
-  paddingRight: '15px',
-  paddingLeft: '15px',
-  height: '50px',
-  borderRadius: '5px'
-};
-var buttonStyleHollow = {
-  textTransform: 'none',
-  borderRadius: '5px'
-};
-var poweredByRow = {
-  display: 'flex',
-  flexShrink: 1,
-  position: 'relative',
-  width: '100%',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  height: 50,
-  marginTop: 10
-};
-var sceneContainer = {
-  display: 'flex',
-  flex: 1,
-  height: '100%',
-  alignItems: 'center',
-  flexDirection: 'column',
-  paddingLeft: 20,
-  paddingRight: 20
-};
-var sceneContainerNoHeight = {
-  display: 'flex',
-  flex: 1,
-  minHeight: '100%',
-  alignItems: 'center',
-  flexDirection: 'column',
-  paddingLeft: 20,
-  paddingRight: 20
-};
-var sceneMainContainer = {
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'relative',
-  flex: 3,
-  width: '100%'
-};
-var sceneButtonBottom = {
-  display: 'flex',
-  position: 'relative',
-  flexShrink: 1,
-  minHeight: 60,
-  width: '100%',
-  maxHeight: 70
-};
-var containerSpinner = {
-  display: 'flex',
-  flex: '1',
-  width: '100%',
-  height: '100%',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-around'
-};
-var logo = {
-  position: 'relative',
-  width: '100%'
-};
-
 var THEME = {
   FOOTER_TABS_HEIGHT: 50,
   FONTS: {
@@ -176,6 +107,76 @@ var THEME = {
     ROW_PRESSED: '#D9E3ED' // same as GRAY_3
 
   }
+};
+
+var buttonStyle = {
+  textTransform: 'none',
+  paddingRight: '15px',
+  paddingLeft: '15px',
+  height: '50px',
+  borderRadius: '5px'
+};
+var buttonStyleHollow = {
+  textTransform: 'none',
+  borderRadius: '5px'
+};
+var poweredByRow = {
+  display: 'flex',
+  flexShrink: 1,
+  position: 'relative',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  height: 50,
+  marginTop: 10
+};
+var sceneContainer = {
+  display: 'flex',
+  flex: 1,
+  height: '100%',
+  alignItems: 'center',
+  flexDirection: 'column',
+  paddingLeft: 20,
+  paddingRight: 20
+};
+var sceneContainerNoHeight = {
+  display: 'flex',
+  flex: 1,
+  minHeight: '100%',
+  alignItems: 'center',
+  flexDirection: 'column',
+  paddingLeft: 20,
+  paddingRight: 20,
+  backgroundColor: THEME.COLORS.ACCENT_ORANGE
+};
+var sceneMainContainer = {
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  flex: 3,
+  width: '100%',
+  backgroundColor: THEME.COLORS.ACCENT_BLUE
+};
+var sceneButtonBottom = {
+  display: 'flex',
+  position: 'relative',
+  flexShrink: 1,
+  minHeight: 60,
+  width: '100%',
+  maxHeight: 70
+};
+var containerSpinner = {
+  display: 'flex',
+  flex: '1',
+  width: '100%',
+  height: '100%',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-around'
+};
+var logo = {
+  position: 'relative',
+  width: '100%'
 };
 
 function chainPropTypes(propType1, propType2) {
