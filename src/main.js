@@ -165,7 +165,7 @@ var sceneButtonBottom = {
   width: '100%',
   maxHeight: 70
 };
-var containerSpinner$1 = {
+var containerSpinner = {
   display: 'flex',
   flex: '1',
   width: '100%',
@@ -17560,7 +17560,7 @@ var styles$v = function styles(theme) {
     poweredByRow: poweredByRow,
     containerMain: sceneMainContainer,
     containerBottom: sceneButtonBottom,
-    containerSpinner: containerSpinner$1,
+    containerSpinner: containerSpinner,
     amountContainer: {
       position: 'relative',
       display: 'flex',

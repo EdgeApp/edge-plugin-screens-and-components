@@ -3,6 +3,7 @@ import { PoweredBy, PrimaryButton } from '../components/indexComponents'
 import type { PoweredByType, WalletDetails } from '../types/AppTypes'
 import React, { Component } from 'react'
 import {
+  containerSpinner,
   poweredByRow,
   sceneButtonBottom,
   sceneContainer,
