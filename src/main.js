@@ -145,8 +145,8 @@ var sceneContainerNoHeight = {
   minHeight: '100%',
   alignItems: 'center',
   flexDirection: 'column',
-  paddingLeft: 20,
-  paddingRight: 20,
+  paddingLeft: '20px',
+  paddingRight: '20px',
   backgroundColor: THEME.COLORS.ACCENT_ORANGE
 };
 var sceneMainContainer = {
