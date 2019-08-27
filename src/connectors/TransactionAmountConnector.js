@@ -17,6 +17,7 @@ const mapStateToProps = (state: State) => {
       currencyIcon: 'string',
       currencyIconDark: 'string'
     },
+    useExchangeRate: true,
     exchangeRatesFrom: 10,
     buyOrSell: 'sell',
     cryptoAmount: '.00345',

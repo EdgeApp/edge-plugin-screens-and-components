@@ -26,9 +26,9 @@ type Props = {
   exchangeRatesFrom: number,
   exchangeRatesTo: number,
   poweredBy: PoweredByType,
+  useExchangeRate: boolean,
   getExchangeRate(): void,
   confirmQuote(string,string, Object): void,
-  changeCrypto(string, number): void,
   changeFiat(string, number): void
 }
 type State = {
@@ -93,7 +93,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
   render () {
     const { classes } = this.props
     console.log('exchange Rates From ', this.props.exchangeRatesFrom)
-    if (!this.props.exchangeRatesFrom) {
+    if (!this.props.exchangeRatesFrom && this.props.useExchangeRate) {
       return <div className={classes.containerSpinner}>
       <CircularProgress size={60} />
     </div>

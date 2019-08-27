@@ -17513,7 +17513,7 @@ function (_Component) {
     var classes = this.props.classes;
     console.log('exchange Rates From ', this.props.exchangeRatesFrom);
 
-    if (!this.props.exchangeRatesFrom) {
+    if (!this.props.exchangeRatesFrom && this.props.useExchangeRate) {
       return React__default.createElement("div", {
         className: classes.containerSpinner
       }, React__default.createElement(CircularProgress$1, {

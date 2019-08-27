@@ -1,4 +1,3 @@
-// @flow
 import { BuySellScene } from './scenes/BuySellScene'
 import { IntroScene } from './scenes/IntroScene'
 import { PoweredBy } from './components/PoweredBy'
