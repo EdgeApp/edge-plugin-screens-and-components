@@ -17489,7 +17489,7 @@ function (_Component) {
     });
 
     _this.state = {
-      value: '50',
+      value: '',
       clicked: 1 // $FlowFixMe
 
     };

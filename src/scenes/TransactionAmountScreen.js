@@ -41,7 +41,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      value: '50',
+      value: '',
       clicked: 1
     }
     // $FlowFixMe
