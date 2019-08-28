@@ -46,12 +46,14 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
   }
   renderFeeLabel = () => {
     if (!this.props.fees) return null
+    const { classes } = this.props
     return <div className={classes.greenText}>
       Fees
     </div>
   }
   renderFeeAmount = () => {
     if (!this.props.fees) return null
+    const { classes } = this.props
     return <div className={classes.greenTextRight}>
       {this.props.fees}
     </div>
