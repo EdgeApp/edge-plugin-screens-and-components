@@ -10841,8 +10841,11 @@ var styles$7 = function styles(theme) {
     containerInner: {
       position: 'relative',
       display: 'flex',
+      flex: 1,
       flexDirection: 'column',
-      width: '90%'
+      width: '90%',
+      height: '100%',
+      backgroundColor: THEME.COLORS.ACCENT_RED
     },
     scroller: {
       flexGrow: 1,
@@ -10854,8 +10857,8 @@ var styles$7 = function styles(theme) {
       flexDirection: 'column',
       flexGrow: 1,
       width: '100%',
-      minHeight: '200px',
-      maxHeight: '200px',
+      minHeight: 200,
+      maxHeight: 200,
       marginTop: 14
     },
     greenText: {
@@ -10867,26 +10870,26 @@ var styles$7 = function styles(theme) {
       color: THEME.COLORS.GRAY_2
     },
     space40: {
-      height: '40px'
+      height: 40
     },
     space10: {
-      height: '10px'
+      height: 10
     },
     transactionsContainer: {
-      paddingTop: '25px',
+      paddingTop: 25,
       display: 'flex',
       flexGrow: 1,
       flexDirection: 'column',
       width: '100%',
-      fontSize: '17px',
-      paddingBottom: '20px'
+      fontSize: 17,
+      paddingBottom: 20
     },
     transactionsTitle: {
       flexGrow: 1,
-      minHeight: '20px',
-      maxHeight: '20px',
+      minHeight: 20,
+      maxHeight: 20,
       color: THEME.COLORS.WHITE,
-      paddingBottom: '17px',
+      paddingBottom: 17,
       width: '100%',
       textAlign: 'center'
     }
