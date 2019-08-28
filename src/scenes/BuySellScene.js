@@ -124,7 +124,7 @@ const styles = theme => ({
     display: 'flex',
     flex: 1,
     flexDirection:'column',
-    width: '90%',
+    width: '100%',
     height: '100%',
     backgroundColor: THEME.COLORS.ACCENT_RED
   },
