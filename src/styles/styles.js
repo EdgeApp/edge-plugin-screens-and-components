@@ -45,8 +45,8 @@ export const sceneContainerNoHeight = {
   minHeight: '100%',
   alignItems: 'center',
   flexDirection: 'column',
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  paddingLeft: 20,
+  paddingRight: 20,
   backgroundColor: THEME.COLORS.ACCENT_ORANGE
 }
 
@@ -58,7 +58,6 @@ export const sceneMainContainer = {
   width: '100%',
   backgroundColor:THEME.COLORS.ACCENT_BLUE
 }
-
 export const sceneButtonBottom = {
   display: 'flex',
     position: 'relative',

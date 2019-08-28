@@ -70,44 +70,47 @@ class BuySellSceneComponent extends Component<Props, State> {
     const sellText = this.props.wallet ? 'Sell ' + currencyCode + ' with ' + partnerName : 'Sell'
     const textStyle = this.props.isSellDisabled ? classes.disableText : classes.greenText
     return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy}/>
-        </div>
-        <div className={classes.buttonsContainer} >
-          <TertiaryButton
-            onClick={this.props.selectWallet}
-            lineColor={THEME.COLORS.WHITE}
-            disabled={false}
-            isCustom  >
-              {this.renderButtonInsides()}
-          </TertiaryButton>
-          <div className={classes.space40} />
-          <TertiaryButton
-            onClick={this.onBuyClick}
-            lineColor={THEME.COLORS.ACCENT_MINT}
-            disabled={this.props.isBuyDisabled}>
-            <div className={textStyle} >
-              {buyText}
-            </div>
-          </TertiaryButton>
-          <div className={classes.space10} />
-          <TertiaryButton
-            onClick={this.onSellClick}
-            lineColor={THEME.COLORS.ACCENT_MINT}
-            disabled={this.props.isSellDisabled}>
-            <div className={textStyle}>
-              {sellText}
-            </div>
-          </TertiaryButton>
-        </div>
-        <div className={classes.transactionsContainer} >
-          <div className={classes.transactionsTitle} >
-            Transaction History
+      <div className={classes.containerInner} >
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy}/>
           </div>
-          {this.renderTransactions()}
+          <div className={classes.buttonsContainer} >
+            <TertiaryButton
+              onClick={this.props.selectWallet}
+              lineColor={THEME.COLORS.WHITE}
+              disabled={false}
+              isCustom  >
+                {this.renderButtonInsides()}
+            </TertiaryButton>
+            <div className={classes.space40} />
+            <TertiaryButton
+              onClick={this.onBuyClick}
+              lineColor={THEME.COLORS.ACCENT_MINT}
+              disabled={this.props.isBuyDisabled}>
+              <div className={textStyle} >
+                {buyText}
+              </div>
+            </TertiaryButton>
+            <div className={classes.space10} />
+            <TertiaryButton
+              onClick={this.onSellClick}
+              lineColor={THEME.COLORS.ACCENT_MINT}
+              disabled={this.props.isSellDisabled}>
+              <div className={textStyle}>
+                {sellText}
+              </div>
+            </TertiaryButton>
+          </div>
+          <div className={classes.transactionsContainer} >
+            <div className={classes.transactionsTitle} >
+              Transaction History
+            </div>
+            {this.renderTransactions()}
+          </div>
         </div>
       </div>
+
     </div>
   }
 }
@@ -116,6 +119,12 @@ const styles = theme => ({
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
+  containerInner: {
+    position:'relative',
+    display: 'flex',
+    flexDirection:'column',
+    width: '90%',
+  },
   scroller: {
     flexGrow: 1,
     position: 'relative',

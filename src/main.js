@@ -145,8 +145,8 @@ var sceneContainerNoHeight = {
   minHeight: '100%',
   alignItems: 'center',
   flexDirection: 'column',
-  paddingLeft: '20px',
-  paddingRight: '20px',
+  paddingLeft: 20,
+  paddingRight: 20,
   backgroundColor: THEME.COLORS.ACCENT_ORANGE
 };
 var sceneMainContainer = {
@@ -10792,6 +10792,8 @@ function (_Component) {
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
+      className: classes.containerInner
+    }, React__default.createElement("div", {
       className: classes.containerMain
     }, React__default.createElement("div", {
       className: classes.poweredByRow
@@ -10824,7 +10826,7 @@ function (_Component) {
       className: classes.transactionsContainer
     }, React__default.createElement("div", {
       className: classes.transactionsTitle
-    }, "Transaction History"), this.renderTransactions())));
+    }, "Transaction History"), this.renderTransactions()))));
   };
 
   return BuySellSceneComponent;
@@ -10836,6 +10838,12 @@ var styles$7 = function styles(theme) {
     poweredByRow: poweredByRow,
     containerMain: sceneMainContainer,
     containerBottom: sceneButtonBottom,
+    containerInner: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      width: '90%'
+    },
     scroller: {
       flexGrow: 1,
       position: 'relative',
@@ -17702,6 +17710,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderFeeLabel", function () {
       if (!_this.props.fees) return null;
+      var classes = _this.props.classes;
       return React__default.createElement("div", {
         className: classes.greenText
       }, "Fees");
@@ -17709,6 +17718,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderFeeAmount", function () {
       if (!_this.props.fees) return null;
+      var classes = _this.props.classes;
       return React__default.createElement("div", {
         className: classes.greenTextRight
       }, _this.props.fees);
