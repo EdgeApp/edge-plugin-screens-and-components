@@ -19,6 +19,7 @@ type Props = {
   history: Object,
   classes: Object,
   buyOrSell: string,
+  fiatSymbol?:string,
   cryptoAmount: string,
   fiatAmount: string,
   wallet: WalletDetails,
@@ -71,7 +72,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     this.setState({
       value: val
     })
-    const exchangeRate = this.props.buyOrSell === 'sel' ? this.props.exchangeRatesFrom : this.props.exchangeRatesTo
+    const exchangeRate = this.props.buyOrSell === 'sell' ? this.props.exchangeRatesFrom : this.props.exchangeRatesTo
     this.props.changeFiat(val, exchangeRate)
   }//
   renderReceive = () => {
@@ -83,10 +84,16 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     }
     return <div className={classes.receiveAmount} />
   }
+  renderFiatCode = () => {
+    if(this.props.fiatSymbol) {
+      return this.props.fiatSymbol
+    }
+    return '$'
+  }
   renderOptions = () => {
     const { classes } = this.props
     return <div className={classes.doRow}>
-        <div className={classes.dollar}>$</div>
+        <div className={classes.dollar}>{this.renderFiatCode()}</div>
         <div className={classes.inputWrapper}>{this.state.value}</div>
     </div>
   }

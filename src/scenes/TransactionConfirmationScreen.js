@@ -18,6 +18,7 @@ type Props = {
   history: Object,
   classes: Object,
   wallet: WalletDetails,
+  fiatSymbol?:string,
   cryptoAmount: string,
   fiatAmount: string,
   withdrawFrom: string,
@@ -37,6 +38,24 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
   }
+  renderFiatCode = () => {
+    if(this.props.fiatSymbol) {
+      return this.props.fiatSymbol
+    }
+    return '$'
+  }
+  renderFeeLabel = () => {
+    if (!this.props.fees) return null
+    return <div className={classes.greenText}>
+      Fees
+    </div>
+  }
+  renderFeeAmount = () => {
+    if (!this.props.fees) return null
+    return <div className={classes.greenTextRight}>
+      {this.props.fees}
+    </div>
+  }
   render () {
     const { classes } = this.props
     if(!this.props.cryptoAmount) {
@@ -52,7 +71,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
         <div className={classes.amountContainer}>
           <div className={classes.innerDiv} >
             <div className={classes.doRow}>
-                <div className={classes.dollar}>$</div>
+                <div className={classes.dollar}>{this.renderFiatCode()}</div>
                 <div className={classes.inputWrapper}>{this.props.fiatAmount}</div>
             </div>
           </div>
@@ -103,9 +122,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
         <div className={classes.box1} >
           <div className={classes.b1l}>
             <div className={classes.twoRow}>
-              <div className={classes.greenText}>
-                Fees
-              </div>
+              {this.renderFeeLabel()}
               <div className={classes.greenText}>
                 Total
               </div>
@@ -113,9 +130,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
           </div>
           <div className={classes.b1r}>
             <div className={classes.twoRow}>
-              <div className={classes.greenTextRight}>
-                {this.props.fees}
-              </div>
+              {this.renderFeeAmount()}
               <div className={classes.greenTextRight}>
                 {this.props.total}
               </div>

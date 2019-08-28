@@ -17431,7 +17431,7 @@ function (_Component) {
         value: val
       });
 
-      var exchangeRate = _this.props.buyOrSell === 'sel' ? _this.props.exchangeRatesFrom : _this.props.exchangeRatesTo;
+      var exchangeRate = _this.props.buyOrSell === 'sell' ? _this.props.exchangeRatesFrom : _this.props.exchangeRatesTo;
 
       _this.props.changeFiat(val, exchangeRate);
     });
@@ -17450,13 +17450,21 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "renderFiatCode", function () {
+      if (_this.props.fiatSymbol) {
+        return _this.props.fiatSymbol;
+      }
+
+      return '$';
+    });
+
     _defineProperty(_assertThisInitialized(_this), "renderOptions", function () {
       var classes = _this.props.classes;
       return React__default.createElement("div", {
         className: classes.doRow
       }, React__default.createElement("div", {
         className: classes.dollar
-      }, "$"), React__default.createElement("div", {
+      }, _this.renderFiatCode()), React__default.createElement("div", {
         className: classes.inputWrapper
       }, _this.state.value));
     });
@@ -17684,6 +17692,28 @@ function (_Component) {
       _this.props.onNext(_this.props.history);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "renderFiatCode", function () {
+      if (_this.props.fiatSymbol) {
+        return _this.props.fiatSymbol;
+      }
+
+      return '$';
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderFeeLabel", function () {
+      if (!_this.props.fees) return null;
+      return React__default.createElement("div", {
+        className: classes.greenText
+      }, "Fees");
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderFeeAmount", function () {
+      if (!_this.props.fees) return null;
+      return React__default.createElement("div", {
+        className: classes.greenTextRight
+      }, _this.props.fees);
+    });
+
     return _this;
   }
 
@@ -17716,7 +17746,7 @@ function (_Component) {
       className: classes.doRow
     }, React__default.createElement("div", {
       className: classes.dollar
-    }, "$"), React__default.createElement("div", {
+    }, this.renderFiatCode()), React__default.createElement("div", {
       className: classes.inputWrapper
     }, this.props.fiatAmount)))), React__default.createElement("div", {
       className: classes.receiveAmount
@@ -17764,17 +17794,13 @@ function (_Component) {
       className: classes.b1l
     }, React__default.createElement("div", {
       className: classes.twoRow
-    }, React__default.createElement("div", {
-      className: classes.greenText
-    }, "Fees"), React__default.createElement("div", {
+    }, this.renderFeeLabel(), React__default.createElement("div", {
       className: classes.greenText
     }, "Total"))), React__default.createElement("div", {
       className: classes.b1r
     }, React__default.createElement("div", {
       className: classes.twoRow
-    }, React__default.createElement("div", {
-      className: classes.greenTextRight
-    }, this.props.fees), React__default.createElement("div", {
+    }, this.renderFeeAmount(), React__default.createElement("div", {
       className: classes.greenTextRight
     }, this.props.total))))), React__default.createElement("div", {
       className: classes.containerBottom
