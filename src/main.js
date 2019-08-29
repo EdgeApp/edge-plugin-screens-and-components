@@ -124,10 +124,9 @@ var poweredByRow = {
   display: 'flex',
   flexShrink: 1,
   position: 'relative',
-  width: '100%',
   flexDirection: 'column',
   alignItems: 'flex-end',
-  height: 50,
+  maxHeight: 50,
   marginTop: 10
 };
 var sceneContainer = {
@@ -146,16 +145,14 @@ var sceneContainerNoHeight = {
   alignItems: 'center',
   flexDirection: 'column',
   paddingLeft: 20,
-  paddingRight: 20,
-  backgroundColor: THEME.COLORS.ACCENT_ORANGE
+  paddingRight: 20
 };
 var sceneMainContainer = {
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
   flex: 3,
-  width: '100%',
-  backgroundColor: THEME.COLORS.ACCENT_BLUE
+  width: '100%'
 };
 var sceneButtonBottom = {
   display: 'flex',
@@ -10792,14 +10789,12 @@ function (_Component) {
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
-      className: classes.containerInner
-    }, React__default.createElement("div", {
-      className: classes.containerMain
-    }, React__default.createElement("div", {
       className: classes.poweredByRow
     }, React__default.createElement(PoweredBy, {
       poweredBy: this.props.poweredBy
     })), React__default.createElement("div", {
+      className: classes.containerInner
+    }, React__default.createElement("div", {
       className: classes.buttonsContainer
     }, React__default.createElement(TertiaryButton, {
       onClick: this.props.selectWallet,
@@ -10826,7 +10821,7 @@ function (_Component) {
       className: classes.transactionsContainer
     }, React__default.createElement("div", {
       className: classes.transactionsTitle
-    }, "Transaction History"), this.renderTransactions()))));
+    }, "Transaction History"), this.renderTransactions())));
   };
 
   return BuySellSceneComponent;
@@ -10834,18 +10829,24 @@ function (_Component) {
 
 var styles$7 = function styles(theme) {
   return {
-    container: sceneContainerNoHeight,
-    poweredByRow: poweredByRow,
+    container: {
+      height: '100%',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column'
+    },
+    poweredByRow: _extends({}, poweredByRow, {
+      width: '96%'
+    }),
     containerMain: sceneMainContainer,
     containerBottom: sceneButtonBottom,
     containerInner: {
       position: 'relative',
       display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      width: '100%',
-      height: '100%',
-      backgroundColor: THEME.COLORS.ACCENT_RED
+      width: '96%',
+      flexGrow: 1,
+      flexDirection: 'column'
     },
     scroller: {
       flexGrow: 1,

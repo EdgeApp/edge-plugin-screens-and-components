@@ -24,10 +24,9 @@ export const poweredByRow = {
   display: 'flex',
   flexShrink: 1,
   position: 'relative',
-  width: '100%',
   flexDirection: 'column',
   alignItems: 'flex-end',
-  height: 50,
+  maxHeight: 50,
   marginTop: 10
 }
 export const sceneContainer = {
@@ -46,8 +45,7 @@ export const sceneContainerNoHeight = {
   alignItems: 'center',
   flexDirection: 'column',
   paddingLeft: 20,
-  paddingRight: 20,
-  backgroundColor: THEME.COLORS.ACCENT_ORANGE
+  paddingRight: 20
 }
 
 export const sceneMainContainer = {
@@ -55,8 +53,7 @@ export const sceneMainContainer = {
   flexDirection: 'column',
   position: 'relative',
   flex: 3,
-  width: '100%',
-  backgroundColor:THEME.COLORS.ACCENT_BLUE
+  width: '100%'
 }
 export const sceneButtonBottom = {
   display: 'flex',
