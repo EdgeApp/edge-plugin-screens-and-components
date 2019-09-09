@@ -32,7 +32,7 @@ class IntroSceneComponent extends Component<Props, State> {
     let counter = 0
     const cards = this.props.cards.map((card: Card) => {
       counter++
-      return <IntroItemComponent card={card} key={counter} />
+      return <IntroItemComponent card={card} key={counter} removeDivider={counter === this.props.cards.length}/>
     })
     return cards
   }
@@ -68,7 +68,8 @@ const styles = theme => ({
     flexShrink: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginBottom: 40
+    marginBottom: 40,
+    marginTop: 10
   },
   h3: {
     color: theme.palette.primary.main,

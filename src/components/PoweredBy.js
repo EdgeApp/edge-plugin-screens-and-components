@@ -15,6 +15,12 @@ const powerThemes = theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-around'
   },
+  logoWrapperClear: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
   logo: {
     height: 30,
     padding: 0,
@@ -58,6 +64,7 @@ const PoweredBy = withStyles(powerThemes)((props: Props) => {
   const p = props.useBlack
     ? props.classes.pDark
     : props.classes.p
+  const logoWrap = props.poweredBy.useBackground ? props.classes.logoWrapper : props.classes.logoWrapperClear
   return (
     <div className={props.classes.container} onClick={() => {
       onClick(props.poweredBy.email)
@@ -73,8 +80,10 @@ const PoweredBy = withStyles(powerThemes)((props: Props) => {
         </div>
       </div>
       <div className={props.classes.shim} />
-      <div className={props.classes.logoWrapper} >
-        <img src={props.poweredBy.logo} className={props.classes.logo} alt={''}/>
+      <div className={props.classes.containerInner} >
+        <div className={logoWrap} style={{width: props.poweredBy.width, height: props.poweredBy.height}}>
+          <img src={props.poweredBy.logo} className={props.classes.logo} alt={''} />
+        </div>
       </div>
     </div>
   )

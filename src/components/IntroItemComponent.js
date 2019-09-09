@@ -9,7 +9,8 @@ import { withStyles } from '@material-ui/core/styles'
 
 type ParagraphProps = {
   classes: Object,
-  card: Card
+  card: Card,
+  removeDivider: boolean
 }
 const renderListItems = (list: Array<string>) =>{
   const items = list.map((item: string) => {
@@ -25,6 +26,11 @@ const renderList = (tempList :Array<string>, classes: Object) => {
     {renderListItems(tempList)}
   </ul>
 }
+
+const renderDivider = (removeDivider, classes) => {
+  if(removeDivider) return null
+  return <Divider className={classes.divider} />
+}
 const IntroItem = (props: ParagraphProps) => {
 
   return (
@@ -36,7 +42,7 @@ const IntroItem = (props: ParagraphProps) => {
           </StartParagraph>
           {renderList(props.card.list, props.classes)}
         </div>
-        <Divider className={props.classes.divider} />
+        {renderDivider(props.removeDivider ,props.classes)}
     </Fragment>
   )
 }

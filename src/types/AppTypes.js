@@ -13,7 +13,10 @@ export type LocalStorage = {
 
 export type PoweredByType = {
   logo: any,
-  email: string
+  width: number,
+  height: number,
+  email: string,
+  useBackground: boolean
 }
 
 export type Card = {

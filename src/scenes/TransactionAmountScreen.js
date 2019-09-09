@@ -50,6 +50,14 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
   }
   componentDidMount () {
     this.props.getExchangeRate()
+    if (this.props.fiatAmount !== null) {
+      this.setState({
+        value: this.props.fiatAmount
+      })
+      if(this.inputRef.current) {
+        this.inputRef.current.focus()
+      }
+    }
   }
   componentDidUpdate() {
     if(this.inputRef.current) {
@@ -151,7 +159,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
           input: classes.resize,
         },
       }}
-      style={{width: '2px', height: '2px', opacity: 0}}
+      style={{width: '2px', height: '2px', opacity: 0, position: 'absolute', top: -17}}
       value={this.state.value}
       className={classes.textField}
       margin="normal"
