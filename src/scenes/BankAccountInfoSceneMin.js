@@ -17,27 +17,33 @@ type Props = {
   history: Object,
   classes: Object,
   poweredBy: PoweredByType,
+  iban?: string,
+  swift?: string,
+  owner?: string,
   onNext(Object): void
 }
 type State = {
   iban: string,
-  swift: string
+  swift: string,
+  owner: string
 }
 
 class BankAccountInfoSceneMinComponent extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      iban: '',
-      swift: ''
+      iban:  this.props.iban ? this.props.iban :'',
+      swift:  this.props.swift ? this.props.swift : '',
+      owner: this.props.owner ? this.props.owner : ''
     }
   }
   onNext = () => {
-    const { iban, swift } = this.state
-    if (iban && swift) {
+    const { iban, swift, owner } = this.state
+    if (iban && swift && owner) {
       this.props.onNext({
         iban,
         swift,
+        owner,
         history: this.props.history
       })
     }
@@ -46,6 +52,11 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
   changeIban = (event) => {
     this.setState({
       iban: event.target.value
+    })
+  }
+  changeOwner = (event) => {
+    this.setState({
+      owner: event.target.value
     })
   }
   changeSwift = (event) => {
@@ -66,8 +77,8 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
           </div>
           <TextField
             id="standard-uncontrolled"
-            label="IBAN"
-            type="number"
+            label="Account Owner"
+            type="text"
             tabIndex='0'
             fullWidth
             InputProps={{
@@ -77,13 +88,14 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
             }}
             className={classes.textField}
             margin="normal"
-            onChange={this.changeIban}
+            onChange={this.changeOwner}
+            value={this.state.owner}
             autoFocus
           />
           <TextField
             id="standard-uncontrolled"
-            label="Swift Code"
-            type="number"
+            label="IBAN"
+            type="text"
             tabIndex='1'
             fullWidth
             InputProps={{
@@ -93,12 +105,29 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
             }}
             className={classes.textField}
             margin="normal"
+            onChange={this.changeIban}
+            value={this.state.iban}
+          />
+          <TextField
+            id="standard-uncontrolled"
+            label="Swift Code"
+            type="text"
+            tabIndex='2'
+            fullWidth
+            InputProps={{
+              classes: {
+                input: classes.resize,
+              },
+            }}
+            className={classes.textField}
+            margin="normal"
             onChange={this.changeSwift}
+            value={this.state.swift}
           />
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.onNext} >Next</PrimaryButton>
       </div>
     </div>
   }

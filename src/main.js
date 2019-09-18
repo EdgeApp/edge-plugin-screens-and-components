@@ -16716,12 +16716,30 @@ function (_Component) {
     _this = _Component.call(this, props) || this;
 
     _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      _this.props.onNext(_this.state.iban, _this.state.swift, _this.props.history);
+      var _this$state = _this.state,
+          iban = _this$state.iban,
+          swift = _this$state.swift,
+          owner = _this$state.owner;
+
+      if (iban && swift && owner) {
+        _this.props.onNext({
+          iban: iban,
+          swift: swift,
+          owner: owner,
+          history: _this.props.history
+        });
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "changeIban", function (event) {
       _this.setState({
         iban: event.target.value
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "changeOwner", function (event) {
+      _this.setState({
+        owner: event.target.value
       });
     });
 
@@ -16732,8 +16750,9 @@ function (_Component) {
     });
 
     _this.state = {
-      iban: '',
-      swift: ''
+      iban: _this.props.iban ? _this.props.iban : '',
+      swift: _this.props.swift ? _this.props.swift : '',
+      owner: _this.props.owner ? _this.props.owner : ''
     };
     return _this;
   }
@@ -16757,8 +16776,8 @@ function (_Component) {
       className: classes.headerText
     }, "Enter Bank Account Information."), React__default.createElement(TextField$1, {
       id: "standard-uncontrolled",
-      label: "IBAN",
-      type: "number",
+      label: "Account Owner",
+      type: "text",
       tabIndex: "0",
       fullWidth: true,
       InputProps: {
@@ -16768,12 +16787,13 @@ function (_Component) {
       },
       className: classes.textField,
       margin: "normal",
-      onChange: this.changeIban,
+      onChange: this.changeOwner,
+      value: this.state.owner,
       autoFocus: true
     }), React__default.createElement(TextField$1, {
       id: "standard-uncontrolled",
-      label: "Swift Code",
-      type: "number",
+      label: "IBAN",
+      type: "text",
       tabIndex: "1",
       fullWidth: true,
       InputProps: {
@@ -16783,12 +16803,28 @@ function (_Component) {
       },
       className: classes.textField,
       margin: "normal",
-      onChange: this.changeSwift
+      onChange: this.changeIban,
+      value: this.state.iban
+    }), React__default.createElement(TextField$1, {
+      id: "standard-uncontrolled",
+      label: "Swift Code",
+      type: "text",
+      tabIndex: "2",
+      fullWidth: true,
+      InputProps: {
+        classes: {
+          input: classes.resize
+        }
+      },
+      className: classes.textField,
+      margin: "normal",
+      onChange: this.changeSwift,
+      value: this.state.swift
     }))), React__default.createElement("div", {
       className: classes.containerBottom
     }, React__default.createElement(PrimaryButton, {
       onClick: this.onNext
-    }, "Next ")));
+    }, "Next")));
   };
 
   return BankAccountInfoSceneMinComponent;
@@ -17576,6 +17612,10 @@ function (_Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "openBankAccountInfo", function () {
+      _this.props.openBankAccountInfo(_this.props.history);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onNext", function () {
       if (_this.props.fiatAmount !== '') {
         _this.props.confirmQuote(_this.props.cryptoAmount, _this.props.fiatAmount, _this.props.history);
@@ -17702,8 +17742,7 @@ function (_Component) {
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
-      className: classes.containerMain,
-      onClick: this.onClick
+      className: classes.containerMain
     }, React__default.createElement("div", {
       className: classes.poweredByRow
     }, React__default.createElement(PoweredBy, {
@@ -17711,11 +17750,13 @@ function (_Component) {
     })), React__default.createElement("div", {
       className: classes.chooseAmount
     }, "Choose Amount"), React__default.createElement("div", {
-      className: classes.amountContainer
+      className: classes.amountContainer,
+      onClick: this.onClick
     }, React__default.createElement("div", {
       className: classes.innerDiv
     }, this.renderOptions())), this.renderReceive(), React__default.createElement("div", {
-      className: classes.depositBox
+      className: classes.depositBox,
+      onClick: this.openBankAccountInfo
     }, React__default.createElement("div", {
       className: classes.dpLeft
     }, "Deposit To:"), React__default.createElement("div", {
@@ -18046,11 +18087,11 @@ var styles$x = function styles(theme) {
     },
     b1l: {
       display: 'flex',
-      flex: 1
+      flexShrink: 1
     },
     b1r: {
       display: 'flex',
-      flex: 1,
+      flexGrow: 1,
       flexDirection: 'column',
       alignItems: 'flex-end'
     },

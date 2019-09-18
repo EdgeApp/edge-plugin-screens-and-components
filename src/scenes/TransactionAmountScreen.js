@@ -30,7 +30,9 @@ type Props = {
   useExchangeRate: boolean,
   getExchangeRate(): void,
   confirmQuote(string,string, Object): void,
-  changeFiat(string, number): void
+  changeFiat(string, number): void,
+  openBankAccountInfo(Object):void
+
 }
 type State = {
   clicked: number,
@@ -69,6 +71,9 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     this.setState({
       clicked: cl
     })
+  }
+  openBankAccountInfo = () => {
+    this.props.openBankAccountInfo(this.props.history)
   }
   onNext = () => {
     if(this.props.fiatAmount !== ''){
@@ -114,20 +119,20 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     </div>
     }
     return <div className={classes.container}>
-      <div className={classes.containerMain} onClick={this.onClick}>
+      <div className={classes.containerMain}>
             <div className={classes.poweredByRow}>
               <PoweredBy poweredBy={this.props.poweredBy}/>
             </div>
             <div className={classes.chooseAmount} >
               Choose Amount
             </div>
-            <div className={classes.amountContainer}>
+            <div className={classes.amountContainer} onClick={this.onClick}>
               <div className={classes.innerDiv} >
                 {this.renderOptions()}
               </div>
             </div>
             {this.renderReceive()}
-            <div className={classes.depositBox} >
+            <div className={classes.depositBox} onClick={this.openBankAccountInfo}>
               <div className={classes.dpLeft} >
                 Deposit To:
               </div>

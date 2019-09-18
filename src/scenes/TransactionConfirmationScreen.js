@@ -95,7 +95,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
           </div>
         </div>
         <div className={classes.shim} />
-        <div className={classes.box1} >
+        <div className={classes.box1}>
           <div className={classes.b1l}>
             <div className={classes.whiteText}>
                 Withdrawal from:
@@ -208,11 +208,11 @@ const styles = theme => ({
   },
   b1l: {
     display: 'flex',
-    flex: 1,
+    flexShrink: 1,
   },
   b1r: {
     display: 'flex',
-    flex: 1,
+    flexGrow: 1,
     flexDirection:'column',
     alignItems: 'flex-end'
   },
