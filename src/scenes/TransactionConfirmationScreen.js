@@ -19,6 +19,7 @@ type Props = {
   classes: Object,
   wallet: WalletDetails,
   fiatSymbol?:string,
+  processing: boolean,
   cryptoAmount: string,
   fiatAmount: string,
   withdrawFrom: string,
@@ -60,7 +61,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
   }
   render () {
     const { classes } = this.props
-    if(!this.props.cryptoAmount) {
+    if(!this.props.cryptoAmount || this.props.processing) {
       return <div className={classes.containerSpinner}>
         <CircularProgress size={60} />
       </div>
@@ -137,7 +138,6 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
                 {this.props.total}
               </div>
             </div>
-
           </div>
         </div>
       </div>

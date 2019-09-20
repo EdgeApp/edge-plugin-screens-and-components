@@ -17617,7 +17617,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onNext", function () {
-      if (_this.props.fiatAmount !== '') {
+      if (_this.props.fiatAmount) {
         _this.props.confirmQuote(_this.props.cryptoAmount, _this.props.fiatAmount, _this.props.history);
       }
     });
@@ -17935,7 +17935,7 @@ function (_Component) {
   _proto.render = function render() {
     var classes = this.props.classes;
 
-    if (!this.props.cryptoAmount) {
+    if (!this.props.cryptoAmount || this.props.processing) {
       return React__default.createElement("div", {
         className: classes.containerSpinner
       }, React__default.createElement(CircularProgress$1, {

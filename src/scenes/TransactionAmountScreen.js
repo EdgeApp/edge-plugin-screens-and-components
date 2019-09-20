@@ -76,7 +76,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     this.props.openBankAccountInfo(this.props.history)
   }
   onNext = () => {
-    if(this.props.fiatAmount !== ''){
+    if(this.props.fiatAmount){
       this.props.confirmQuote(this.props.cryptoAmount, this.props.fiatAmount, this.props.history)
     }
   }
