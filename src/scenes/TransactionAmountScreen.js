@@ -111,13 +111,14 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     </div>
   }
   render () {
-    const { classes } = this.props
+    const { classes, buyOrSell } = this.props
     console.log('exchange Rates From ', this.props.exchangeRatesFrom)
     if (!this.props.exchangeRatesFrom && this.props.useExchangeRate) {
       return <div className={classes.containerSpinner}>
       <CircularProgress size={60} />
     </div>
     }
+    const buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase())
     return <div className={classes.container}>
       <div className={classes.containerMain}>
             <div className={classes.poweredByRow}>
@@ -141,7 +142,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
               </div>
             </div>
             <div className={classes.disclaimer} >
-              Sell amount is an estimate. Actual rate is determined at the time funds are received.
+              {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
             </div>
             {this.renderInvisible()}
       </div>
