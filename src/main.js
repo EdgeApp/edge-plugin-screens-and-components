@@ -17728,7 +17728,9 @@ function (_Component) {
   };
 
   _proto.render = function render() {
-    var classes = this.props.classes;
+    var _this$props = this.props,
+        classes = _this$props.classes,
+        buyOrSell = _this$props.buyOrSell;
     console.log('exchange Rates From ', this.props.exchangeRatesFrom);
 
     if (!this.props.exchangeRatesFrom && this.props.useExchangeRate) {
@@ -17739,6 +17741,7 @@ function (_Component) {
       }));
     }
 
+    var buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase());
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
@@ -17763,7 +17766,7 @@ function (_Component) {
       className: classes.dpRight
     }, this.props.bankName)), React__default.createElement("div", {
       className: classes.disclaimer
-    }, "Sell amount is an estimate. Actual rate is determined at the time funds are received."), this.renderInvisible()), React__default.createElement("div", {
+    }, buyOrSellSyntax + " amount is an estimate. Actual rate is determined at the time funds are received."), this.renderInvisible()), React__default.createElement("div", {
       className: classes.containerBottom
     }, React__default.createElement(PrimaryButton, {
       onClick: this.onNext
@@ -17995,7 +17998,7 @@ function (_Component) {
       className: classes.b1l
     }, React__default.createElement("div", {
       className: classes.whiteText
-    }, "Deposit fo:")), React__default.createElement("div", {
+    }, "Deposit to:")), React__default.createElement("div", {
       className: classes.b1r
     }, React__default.createElement("div", {
       className: classes.whiteText
