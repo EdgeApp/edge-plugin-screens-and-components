@@ -112,7 +112,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
         <div className={classes.box1} >
           <div className={classes.b1l}>
             <div className={classes.whiteText}>
-              Deposit fo:
+              Deposit to:
             </div>
           </div>
           <div className={classes.b1r}>
