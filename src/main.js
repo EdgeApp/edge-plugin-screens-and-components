@@ -17139,6 +17139,10 @@ function (_Component) {
 
   var _proto = BuySellSceneComponent.prototype;
 
+  _proto.componentDidMount = function componentDidMount() {
+    this.props.getPreviousOrders();
+  };
+
   _proto.render = function render() {
     var _this$props3 = this.props,
         classes = _this$props3.classes,
@@ -17742,6 +17746,7 @@ function (_Component) {
     }
 
     var buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase());
+    var depositOrWithdrawal = buyOrSell === 'buy' ? 'Withdrawal from' : 'Deposit To';
     return React__default.createElement("div", {
       className: classes.container
     }, React__default.createElement("div", {
@@ -17762,7 +17767,7 @@ function (_Component) {
       onClick: this.openBankAccountInfo
     }, React__default.createElement("div", {
       className: classes.dpLeft
-    }, "Deposit To:"), React__default.createElement("div", {
+    }, depositOrWithdrawal, ":"), React__default.createElement("div", {
       className: classes.dpRight
     }, this.props.bankName)), React__default.createElement("div", {
       className: classes.disclaimer
@@ -17852,7 +17857,7 @@ var styles$w = function styles(theme) {
       borderBottom: '0.5px solid #FFF'
     },
     dpLeft: {
-      flexGrow: 1,
+      flex: 1,
       display: 'flex',
       minWidth: 90,
       maxWidth: 90,
@@ -17862,7 +17867,7 @@ var styles$w = function styles(theme) {
       alignItems: 'center'
     },
     dpRight: {
-      flexGrow: 1,
+      flex: 1,
       display: 'flex',
       fontSize: 16,
       color: THEME.COLORS.WHITE,
@@ -17936,7 +17941,10 @@ function (_Component) {
   var _proto = TransactionConfirmationScreenComponent.prototype;
 
   _proto.render = function render() {
-    var classes = this.props.classes;
+    var _this$props = this.props,
+        classes = _this$props.classes,
+        buyOrSell = _this$props.buyOrSell;
+    var buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase());
 
     if (!this.props.cryptoAmount || this.props.processing) {
       return React__default.createElement("div", {
@@ -18018,7 +18026,9 @@ function (_Component) {
       className: classes.twoRow
     }, this.renderFeeAmount(), React__default.createElement("div", {
       className: classes.greenTextRight
-    }, this.props.total))))), React__default.createElement("div", {
+    }, this.props.total)))), React__default.createElement("div", {
+      className: classes.disclaimer
+    }, buyOrSellSyntax + " amount is an estimate. Actual rate is determined at the time funds are received.")), React__default.createElement("div", {
       className: classes.containerBottom
     }, React__default.createElement(PrimaryButton, {
       onClick: this.onNext
@@ -18123,6 +18133,16 @@ var styles$x = function styles(theme) {
     twoRow: {
       display: 'flex',
       flexDirection: 'column'
+    },
+    disclaimer: {
+      flex: 1,
+      display: 'flex',
+      fontSize: 12,
+      width: '100%',
+      textAlign: 'center',
+      color: THEME.COLORS.WHITE,
+      flexDirection: 'column',
+      marginTop: 20
     }
   };
 };

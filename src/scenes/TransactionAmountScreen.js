@@ -119,6 +119,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     </div>
     }
     const buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase())
+    const depositOrWithdrawal = buyOrSell === 'buy' ? 'Withdrawal from' : 'Deposit To'
     return <div className={classes.container}>
       <div className={classes.containerMain}>
             <div className={classes.poweredByRow}>
@@ -135,7 +136,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
             {this.renderReceive()}
             <div className={classes.depositBox} onClick={this.openBankAccountInfo}>
               <div className={classes.dpLeft} >
-                Deposit To:
+                {depositOrWithdrawal}:
               </div>
               <div className={classes.dpRight} >
                 {this.props.bankName}
@@ -249,7 +250,7 @@ const styles = theme => ({
     borderBottom: '0.5px solid #FFF'
   },
   dpLeft: {
-    flexGrow: 1,
+    flex: 1,
     display: 'flex',
     minWidth: 90,
     maxWidth: 90,
@@ -259,7 +260,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   dpRight: {
-    flexGrow: 1,
+    flex: 1,
     display: 'flex',
     fontSize: 16,
     color: THEME.COLORS.WHITE,

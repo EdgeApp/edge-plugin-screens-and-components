@@ -60,7 +60,9 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
     </div>
   }
   render () {
-    const { classes } = this.props
+    const { classes, buyOrSell } = this.props
+    const buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase())
+
     if(!this.props.cryptoAmount || this.props.processing) {
       return <div className={classes.containerSpinner}>
         <CircularProgress size={60} />
@@ -139,6 +141,9 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
               </div>
             </div>
           </div>
+        </div>
+        <div className={classes.disclaimer} >
+          {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
         </div>
       </div>
       <div className={classes.containerBottom}>
@@ -241,6 +246,16 @@ const styles = theme => ({
   twoRow: {
     display : 'flex',
     flexDirection: 'column',
+  },
+  disclaimer: {
+    flex: 1,
+    display: 'flex',
+    fontSize: 12,
+    width: '100%',
+    textAlign: 'center',
+    color: THEME.COLORS.WHITE,
+    flexDirection: 'column',
+    marginTop: 20
   },
 })
 const TransactionConfirmationScreen = withStyles(styles)(TransactionConfirmationScreenComponent)

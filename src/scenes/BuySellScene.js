@@ -26,12 +26,16 @@ type Props = {
   isSellDisabled: boolean,
   onSellClick(Object): void,
   selectWallet(): void,
-  onBuyClick(Object): void
+  onBuyClick(Object): void,
+  getPreviousOrders(): void
 }
 type State = {
 }
 
 class BuySellSceneComponent extends Component<Props, State> {
+  componentDidMount () {
+    this.props.getPreviousOrders()
+  }
   renderButtonInsides = () => {
     const { classes, wallet } = this.props
     if (wallet) {
