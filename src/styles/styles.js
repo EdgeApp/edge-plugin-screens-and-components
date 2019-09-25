@@ -31,10 +31,10 @@ export const poweredByRow = {
 }
 export const sceneContainer = {
   display: 'flex',
-  flex: 1,
-  height: '100%',
-  alignItems: 'center',
   flexDirection: 'column',
+  alignItems: 'center',
+  minHeight: '100vh',
+  boxSizing: 'border-box',
   paddingLeft: 20,
   paddingRight: 20
 }
