@@ -23,7 +23,8 @@ import {
   ThankYouConnector,
   TransactionAmountConnector,
   TransactionConfirmationConnector,
-  TransactionSuccessConnector
+  TransactionSuccessConnector,
+  WireInstructionsConnector
 } from '../connectors/indexConnectors'
 import React, { Component } from 'react'
 import { Route, HashRouter as Router } from 'react-router-dom'
@@ -49,7 +50,7 @@ const theme = createMuiTheme({
 
 export const routes = [{
   path: START_ROUTE,
-  main: StartSceneConnector,
+  main: WireInstructionsConnector,
   exact: true
 }, {
   path: ADDRESS_ROUTE,

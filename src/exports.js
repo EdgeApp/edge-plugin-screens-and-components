@@ -6,6 +6,7 @@ import { PrimaryButton } from './components/PrimaryButton'
 import { TransactionAmountScreen } from './scenes/TransactionAmountScreen'
 import { TransactionConfirmationScreen } from './scenes/TransactionConfirmationScreen'
 import { TransactionSuccess } from './scenes/TransactionSuccess'
+import { WireInstructions } from './scenes/WireInstructions'
 export {
   BuySellScene,
   BankAccountInfoSceneMin,
@@ -14,6 +15,7 @@ export {
   PrimaryButton,
   PoweredBy,
   TransactionConfirmationScreen,
-  TransactionSuccess
+  TransactionSuccess,
+  WireInstructions
 }
 

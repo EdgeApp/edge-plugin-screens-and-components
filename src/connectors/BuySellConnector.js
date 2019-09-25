@@ -32,6 +32,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   selectWallet: () => {
   },
   onBuyClick: () => {
+  },
+  getPreviousOrders: () => {
+
   }
 })
 export const BuySellConnector = connect(
