@@ -50,7 +50,7 @@ const theme = createMuiTheme({
 
 export const routes = [{
   path: START_ROUTE,
-  main: WireInstructionsConnector,
+  main: TransactionConfirmationConnector,
   exact: true
 }, {
   path: ADDRESS_ROUTE,

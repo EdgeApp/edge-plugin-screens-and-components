@@ -15,8 +15,8 @@ import { withStyles } from '@material-ui/core/styles'
 type Props = {
   history: Object,
   classes: Object,
-  poweredBy: PoweredByType,
   title: string,
+  poweredBy: PoweredByType,
   onNext(Object): void,
   message: Array<string>
 }
