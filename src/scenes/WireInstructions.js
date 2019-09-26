@@ -16,6 +16,7 @@ type Props = {
   history: Object,
   classes: Object,
   poweredBy: PoweredByType,
+  title: string,
   onNext(Object): void,
   message: Array<string>
 }
@@ -48,7 +49,7 @@ class WireInstructionsComponent extends Component<Props, State> {
           <PoweredBy poweredBy={this.props.poweredBy}/>
         </div>
         <div className={classes.headerText} >
-          Wire Instructions
+          {this.props.title}
         </div>
         {this.renderMessage()}
       </div>
@@ -64,29 +65,22 @@ const styles = theme => ({
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
   headerText: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    marginTop: 100,
+    textAlign: 'center',
+    marginTop: 50,
     width: '100%',
     fontSize: 30,
-    height: 40,
     color: THEME.COLORS.WHITE
   },
   subHeaderText: {
-    display: 'flex',
     marginTop: 16,
-    marginBottom: 36,
-    width: '95%',
+    marginBottom: 10,
     fontSize: 16,
-    height: 20,
     color: THEME.COLORS.WHITE
   },
   individualLinesText: {
-    display: 'flex',
     marginTop: 8,
     width: '100%',
     fontSize: 16,
-    height: 20,
     color: THEME.COLORS.WHITE
   }
 })

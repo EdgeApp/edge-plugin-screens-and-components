@@ -8,8 +8,9 @@ import { connect } from 'react-redux'
 const mapStateToProps = (state: State) => {
   const message = []
   message.push('To complete your purchase. wire funds to Bity.  You must include the reference')
-  message.push('Recipient: Bity SA Rue des Usines 44 20')
+  message.push('Recipient: Bity SA Rue des Usines 44 20 Bity SA Rue des Usines 44 20')
   message.push('Bank Address: Fidor Bank AG, Germany')
+  message.push('Bank Code: XCsDSFWDSD')
   message.push('Account: 0020041966')
   message.push('iban: DE07700222000020041966')
   message.push('swift bic: FDDODDEMXXX')
@@ -19,7 +20,8 @@ const mapStateToProps = (state: State) => {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
     },
-    message
+    message,
+    title: 'Wire Instructions'
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
