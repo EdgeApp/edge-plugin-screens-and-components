@@ -72,14 +72,12 @@ const styles = theme => ({
     color: THEME.COLORS.WHITE
   },
   subHeaderText: {
-    display: 'flex',
     marginTop: 16,
     marginBottom: 10,
     fontSize: 16,
     color: THEME.COLORS.WHITE
   },
   individualLinesText: {
-    display: 'flex',
     marginTop: 8,
     width: '100%',
     fontSize: 16,
