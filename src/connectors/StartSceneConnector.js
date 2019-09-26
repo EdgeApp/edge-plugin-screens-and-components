@@ -1,5 +1,5 @@
 // @flow
-import { APPROVED, NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
+import { APPROVED, THANK_YOU_ROUTE } from '../constants/index'
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { StartScene } from '../scenes/StartScene'
@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
   return {
-    accountStatus: NOT_STARTED,
+    accountStatus: APPROVED,
     poweredBy: {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
