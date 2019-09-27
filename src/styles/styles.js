@@ -31,6 +31,7 @@ export const poweredByRow = {
 }
 export const sceneContainer = {
   display: 'flex',
+  flex: 1,
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
@@ -52,8 +53,7 @@ export const sceneMainContainer = {
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
-  flex: 3,
-  width: '100%'
+  flex: 1
 }
 export const sceneButtonBottom = {
   display: 'flex',

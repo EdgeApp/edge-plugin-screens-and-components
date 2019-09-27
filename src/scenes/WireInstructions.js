@@ -29,9 +29,6 @@ class WireInstructionsComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
   }
-  copyToClipboard = (e) => {
-
-  };
   splitLine = (arg: string) => {
     const stringArray = arg.split(':')
     return stringArray[1]
@@ -53,9 +50,7 @@ class WireInstructionsComponent extends Component<Props, State> {
         {arg}
       </div>
       }
-      return <div className={classes.individualLinesText} onClick={() => {
-          navigator.clipboard.writeText(arg)
-        }}>
+      return <div className={classes.individualLinesText} >
         <CopyToClipboard text={this.splitLine(arg)}
           onCopy={() => console.log(this.splitLine(arg))}>
            <FontAwesomeIcon icon="copy" />
