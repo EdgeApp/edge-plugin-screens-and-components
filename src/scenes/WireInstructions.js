@@ -32,7 +32,10 @@ class WireInstructionsComponent extends Component<Props, State> {
   copyToClipboard = (e) => {
 
   };
-
+  splitLine = (arg: string) => {
+    const stringArray = arg.split(':')
+    return stringArray[1]
+  }
   renderMessage = () => {
     const { classes } = this.props
     const lines = this.props.message.map((arg: string, index: number) => {
@@ -45,11 +48,16 @@ class WireInstructionsComponent extends Component<Props, State> {
         return <div className={classes.subHeaderText}>
       </div>
       }
+      if(arg ==='Additional Data:' || arg.includes( 'Amount: €')) {
+        return <div className={classes.individualLinesText}>
+        {arg}
+      </div>
+      }
       return <div className={classes.individualLinesText} onClick={() => {
           navigator.clipboard.writeText(arg)
         }}>
-        <CopyToClipboard text={arg}
-          onCopy={() => console.log('I was copied')}>
+        <CopyToClipboard text={this.splitLine(arg)}
+          onCopy={() => console.log(this.splitLine(arg))}>
            <FontAwesomeIcon icon="copy" />
         </CopyToClipboard>
         {' '}{' '}{' '}{arg}
@@ -83,7 +91,7 @@ const styles = theme => ({
   containerBottom: sceneButtonBottom,
   headerText: {
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: 10,
     width: '100%',
     fontSize: 30,
     color: THEME.COLORS.WHITE
