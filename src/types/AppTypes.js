@@ -22,7 +22,9 @@ export type PoweredByType = {
 export type Card = {
   title: string,
   body: string,
-  list: Array<string>
+  list: Array<string>,
+  link?: string,
+  linkText?: string
 }
 export type WalletDetails = {
   name: string,
@@ -36,8 +38,9 @@ export type WalletDetails = {
 }
 
 export type Transaction = {
-  closedAt: number,
-  createdAt: number,
+  closedAt: Date,
+  createdAt: Date,
+  type: string,
   id: string,
   customId: string | null,
   source: string,
@@ -55,5 +58,6 @@ export type Transaction = {
   message: string | null,
   exchangeRate: number,
   blockchainTxId: string | null,
-  destNickname: string | null
+  destNickname: string | null,
+  link: string
 }

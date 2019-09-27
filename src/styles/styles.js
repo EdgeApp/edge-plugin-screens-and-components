@@ -74,6 +74,6 @@ export const containerSpinner = {
 }
 export const logo = {
   position: 'relative',
-  width: '100%'
+  maxWidth: '90%'
 }
 

@@ -8,6 +8,8 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
@@ -27,6 +29,10 @@ class WireInstructionsComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
   }
+  copyToClipboard = (e) => {
+
+  };
+
   renderMessage = () => {
     const { classes } = this.props
     const lines = this.props.message.map((arg: string, index: number) => {
@@ -35,9 +41,20 @@ class WireInstructionsComponent extends Component<Props, State> {
         {arg}
       </div>
       }
-      return <div className={classes.individualLinesText}>
-      {arg}
-    </div>
+      if(arg === '') {
+        return <div className={classes.subHeaderText}>
+      </div>
+      }
+      return <div className={classes.individualLinesText} onClick={() => {
+          navigator.clipboard.writeText(arg)
+        }}>
+        <CopyToClipboard text={arg}
+          onCopy={() => console.log('I was copied')}>
+           <FontAwesomeIcon icon="copy" />
+        </CopyToClipboard>
+        {' '}{' '}{' '}{arg}
+      </div>
+
     })
     return lines
   }
