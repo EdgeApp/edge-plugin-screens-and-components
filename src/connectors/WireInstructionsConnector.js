@@ -19,7 +19,8 @@ const mapStateToProps = (state: State) => {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
     },
-    message
+    message,
+    title: 'Wyre Instructions'
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({

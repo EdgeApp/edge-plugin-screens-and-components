@@ -30,6 +30,7 @@ type Props = {
   total: string,
   poweredBy: PoweredByType,
   onOfCurrencyCodeInFiat: string,
+  termsOfService: string,
   onNext(Object): void
 }
 type State = {
@@ -144,7 +145,11 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
         </div>
         <div className={classes.disclaimer} >
           {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
+          <div className={classes.terms} >
+            {this.props.termsOfService}
+          </div>
         </div>
+
       </div>
       <div className={classes.containerBottom}>
         <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
@@ -256,6 +261,15 @@ const styles = theme => ({
     color: THEME.COLORS.WHITE,
     flexDirection: 'column',
     marginTop: 20
+  },
+
+  terms: {
+    fontSize: 12,
+    width: '100%',
+    textAlign: 'center',
+    color: THEME.COLORS.WHITE,
+    flexDirection: 'column',
+    marginTop: 10
   },
 })
 const TransactionConfirmationScreen = withStyles(styles)(TransactionConfirmationScreenComponent)

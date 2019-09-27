@@ -29,7 +29,8 @@ const mapStateToProps = (state: State) => {
     poweredBy: {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
-    }
+    },
+    termsOfService: 'Hree is the terms of service it is a few lines'
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
