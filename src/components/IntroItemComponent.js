@@ -14,7 +14,7 @@ type ParagraphProps = {
 }
 const renderListItems = (list: Array<string>) =>{
   const items = list.map((item: string) => {
-    return <li>{item}</li>
+    return <li key={item}>{item}</li>
   })
   return items
 }

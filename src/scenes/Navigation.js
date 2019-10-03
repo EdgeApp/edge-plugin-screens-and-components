@@ -23,12 +23,11 @@ import {
   ThankYouConnector,
   TransactionAmountConnector,
   TransactionConfirmationConnector,
-  TransactionSuccessConnector,
-  WireInstructionsConnector
+  TransactionSuccessConnector
 } from '../connectors/indexConnectors'
 import React, { Component } from 'react'
 import { Route, HashRouter as Router } from 'react-router-dom'
-import { createMuiTheme, withStyles } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles'
 
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import history from '../history/history';

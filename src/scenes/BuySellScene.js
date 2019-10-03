@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import {
   poweredByRow,
   sceneButtonBottom,
-  sceneContainerNoHeight,
   sceneMainContainer
 } from '../styles/styles'
 
@@ -53,7 +52,7 @@ class BuySellSceneComponent extends Component<Props, State> {
   renderItems = () => {
     const { transactions } = this.props
     const items = transactions.map((transaction: Transaction) => {
-      return <TransactionItem transaction={transaction} link={this.linkOut} />
+      return <TransactionItem key={transaction.id} transaction={transaction} link={this.linkOut} />
     })
     return items
   }
@@ -66,11 +65,14 @@ class BuySellSceneComponent extends Component<Props, State> {
     }
     return null
   }
-  onSellClick = () => {
+  handleSellClick = () => {
     this.props.onSellClick(this.props.history)
   }
-  onBuyClick = () => {
+  handleBuyClick = () => {
     this.props.onBuyClick(this.props.history)
+  }
+  handleSelectWallet = () => {
+    this.props.selectWallet()
   }
   render () {
     const { classes, wallet, partnerName} = this.props
@@ -85,7 +87,7 @@ class BuySellSceneComponent extends Component<Props, State> {
       <div className={classes.containerInner}>
         <div className={classes.buttonsContainer} >
           <TertiaryButton
-            onClick={this.props.selectWallet}
+            onClick={this.handleSelectWallet}
             lineColor={THEME.COLORS.WHITE}
             disabled={false}
             isCustom  >
@@ -93,7 +95,7 @@ class BuySellSceneComponent extends Component<Props, State> {
           </TertiaryButton>
           <div className={classes.space40} />
           <TertiaryButton
-            onClick={this.onBuyClick}
+            onClick={this.handleBuyClick}
             lineColor={THEME.COLORS.ACCENT_MINT}
             disabled={this.props.isBuyDisabled}>
             <div className={textStyle} >
@@ -102,7 +104,7 @@ class BuySellSceneComponent extends Component<Props, State> {
           </TertiaryButton>
           <div className={classes.space10} />
           <TertiaryButton
-            onClick={this.onSellClick}
+            onClick={this.handleSellClick}
             lineColor={THEME.COLORS.ACCENT_MINT}
             disabled={this.props.isSellDisabled}>
             <div className={textStyle}>

@@ -26,7 +26,7 @@ type State = {
 }
 
 class WireInstructionsComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   splitLine = (arg: string) => {
@@ -42,15 +42,14 @@ class WireInstructionsComponent extends Component<Props, State> {
       </div>
       }
       if(arg === '') {
-        return <div className={classes.subHeaderText}>
-      </div>
+        return <div className={classes.subHeaderText} />
       }
       if(arg ==='Additional Data:' || arg.includes( 'Amount: €')) {
         return <div className={classes.individualLinesText}>
         {arg}
       </div>
       }
-      return <div className={classes.individualLinesText} >
+      return <div key={String(index)} className={classes.individualLinesText} >
         <CopyToClipboard text={this.splitLine(arg)}
           onCopy={() => console.log(this.splitLine(arg))}>
            <FontAwesomeIcon icon="copy" />
@@ -74,7 +73,7 @@ class WireInstructionsComponent extends Component<Props, State> {
         {this.renderMessage()}
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

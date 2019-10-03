@@ -37,7 +37,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
       owner: this.props.owner ? this.props.owner : ''
     }
   }
-  onNext = () => {
+  handleNext = () => {
     const { iban, swift, owner } = this.state
     if (iban && swift && owner) {
       this.props.onNext({
@@ -49,17 +49,17 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
     }
 
   }
-  changeIban = (event) => {
+  handleChangeIban = (event) => {
     this.setState({
       iban: event.target.value
     })
   }
-  changeOwner = (event) => {
+  handleChangeOwner = (event) => {
     this.setState({
       owner: event.target.value
     })
   }
-  changeSwift = (event) => {
+  handleChangeSwift = (event) => {
     this.setState({
       swift: event.target.value
     })
@@ -88,7 +88,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
             }}
             className={classes.textField}
             margin="normal"
-            onChange={this.changeOwner}
+            onChange={this.handleChangeOwner}
             value={this.state.owner}
             autoFocus
           />
@@ -105,7 +105,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
             }}
             className={classes.textField}
             margin="normal"
-            onChange={this.changeIban}
+            onChange={this.handleChangeIban}
             value={this.state.iban}
           />
           <TextField
@@ -121,13 +121,13 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
             }}
             className={classes.textField}
             margin="normal"
-            onChange={this.changeSwift}
+            onChange={this.handleChangeSwift}
             value={this.state.swift}
           />
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next</PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next</PrimaryButton>
       </div>
     </div>
   }
