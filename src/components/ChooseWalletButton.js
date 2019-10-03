@@ -1,7 +1,7 @@
 // @flow
 // import * as API from './api'
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/styles'
@@ -13,15 +13,15 @@ type Props = {
 }
 
 class ChooseWalletButton extends Component<Props> {
-  render () {
+  render() {
     const { classes } = this.props
-    return <div className={classes.buttonContainer}>
-    <img src={this.props.image} className={classes.image} alt="logo"/>
-    <div className={classes.shim} />
-    <div className={classes.whiteText} >
-      {this.props.text}
-    </div>
-  </div>
+    return (
+      <div className={classes.buttonContainer}>
+        <img src={this.props.image} className={classes.image} alt="logo" />
+        <div className={classes.shim} />
+        <div className={classes.whiteText}>{this.props.text}</div>
+      </div>
+    )
   }
 }
 
@@ -29,8 +29,8 @@ const styles = theme => ({
   buttonContainer: {
     position: 'relative',
     display: 'flex',
-    width:'100%',
-    height:'100%',
+    width: '100%',
+    height: '100%',
     flexDirection: 'row',
     alignItems: 'center'
   },
@@ -44,7 +44,7 @@ const styles = theme => ({
   whiteText: {
     fontSize: 17,
     color: THEME.COLORS.WHITE
-  },
+  }
 })
 
 export default withStyles(styles)(ChooseWalletButton)

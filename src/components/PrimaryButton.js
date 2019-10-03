@@ -23,7 +23,8 @@ export const PrimaryButton = (props: Props) => {
         backgroundColor: THEME.COLORS.SECONDARY,
         color: THEME.COLORS.WHITE
       }}
-      fullWidth>
+      fullWidth
+    >
       {props.children}
     </Button>
   )

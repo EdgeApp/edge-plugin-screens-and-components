@@ -1,5 +1,9 @@
 // @flow
-import type { PoweredByType, Transaction, WalletDetails } from '../types/AppTypes'
+import type {
+  PoweredByType,
+  Transaction,
+  WalletDetails
+} from '../types/AppTypes'
 import React, { Component } from 'react'
 import {
   poweredByRow,
@@ -29,97 +33,113 @@ type Props = {
   getPreviousOrders(): void,
   openLink(string, Object): void
 }
-type State = {
-}
+type State = {}
 
 class BuySellSceneComponent extends Component<Props, State> {
-  componentDidMount () {
+  componentDidMount() {
     this.props.getPreviousOrders()
   }
+
   linkOut = (arg: string) => {
     console.log('where am I going ', arg)
     this.props.openLink(arg, this.props.history)
   }
+
   renderButtonInsides = () => {
     const { classes, wallet } = this.props
     if (wallet) {
-      return <ChooseWalletButton text={wallet.name} image={wallet.currencyIcon}/>
+      return (
+        <ChooseWalletButton text={wallet.name} image={wallet.currencyIcon} />
+      )
     }
-    return <div className={classes.whiteText} >
-      Choose Wallet
-    </div>
+    return <div className={classes.whiteText}>Choose Wallet</div>
   }
+
   renderItems = () => {
     const { transactions } = this.props
     const items = transactions.map((transaction: Transaction) => {
-      return <TransactionItem key={transaction.id} transaction={transaction} link={this.linkOut} />
+      return (
+        <TransactionItem
+          key={transaction.id}
+          transaction={transaction}
+          link={this.linkOut}
+        />
+      )
     })
     return items
   }
+
   renderTransactions = () => {
     const { classes, transactions } = this.props
     if (transactions.length > 0) {
-      return <div className={classes.scroller} >
-        {this.renderItems()}
-      </div>
+      return <div className={classes.scroller}>{this.renderItems()}</div>
     }
     return null
   }
+
   handleSellClick = () => {
     this.props.onSellClick(this.props.history)
   }
+
   handleBuyClick = () => {
     this.props.onBuyClick(this.props.history)
   }
+
   handleSelectWallet = () => {
     this.props.selectWallet()
   }
-  render () {
-    const { classes, wallet, partnerName} = this.props
+
+  render() {
+    const { classes, wallet, partnerName } = this.props
     const currencyCode = wallet ? wallet.currencyCode : ''
-    const buyText = this.props.wallet ? 'Buy ' + currencyCode + ' with ' + partnerName : 'Buy'
-    const sellText = this.props.wallet ? 'Sell ' + currencyCode + ' with ' + partnerName : 'Sell'
-    const textStyle = this.props.isSellDisabled ? classes.disableText : classes.greenText
-    return <div className={classes.container} >
-      <div className={classes.poweredByRow}>
-        <PoweredBy poweredBy={this.props.poweredBy}/>
-      </div>
-      <div className={classes.containerInner}>
-        <div className={classes.buttonsContainer} >
-          <TertiaryButton
-            onClick={this.handleSelectWallet}
-            lineColor={THEME.COLORS.WHITE}
-            disabled={false}
-            isCustom  >
+    const buyText = this.props.wallet
+      ? 'Buy ' + currencyCode + ' with ' + partnerName
+      : 'Buy'
+    const sellText = this.props.wallet
+      ? 'Sell ' + currencyCode + ' with ' + partnerName
+      : 'Sell'
+    const textStyle = this.props.isSellDisabled
+      ? classes.disableText
+      : classes.greenText
+    return (
+      <div className={classes.container}>
+        <div className={classes.poweredByRow}>
+          <PoweredBy poweredBy={this.props.poweredBy} />
+        </div>
+        <div className={classes.containerInner}>
+          <div className={classes.buttonsContainer}>
+            <TertiaryButton
+              onClick={this.handleSelectWallet}
+              lineColor={THEME.COLORS.WHITE}
+              disabled={false}
+              isCustom
+            >
               {this.renderButtonInsides()}
-          </TertiaryButton>
-          <div className={classes.space40} />
-          <TertiaryButton
-            onClick={this.handleBuyClick}
-            lineColor={THEME.COLORS.ACCENT_MINT}
-            disabled={this.props.isBuyDisabled}>
-            <div className={textStyle} >
-              {buyText}
-            </div>
-          </TertiaryButton>
-          <div className={classes.space10} />
-          <TertiaryButton
-            onClick={this.handleSellClick}
-            lineColor={THEME.COLORS.ACCENT_MINT}
-            disabled={this.props.isSellDisabled}>
-            <div className={textStyle}>
-              {sellText}
-            </div>
-          </TertiaryButton>
-        </div>
-        <div className={classes.transactionsContainer} >
-          <div className={classes.transactionsTitle} >
-            Transaction History
+            </TertiaryButton>
+            <div className={classes.space40} />
+            <TertiaryButton
+              onClick={this.handleBuyClick}
+              lineColor={THEME.COLORS.ACCENT_MINT}
+              disabled={this.props.isBuyDisabled}
+            >
+              <div className={textStyle}>{buyText}</div>
+            </TertiaryButton>
+            <div className={classes.space10} />
+            <TertiaryButton
+              onClick={this.handleSellClick}
+              lineColor={THEME.COLORS.ACCENT_MINT}
+              disabled={this.props.isSellDisabled}
+            >
+              <div className={textStyle}>{sellText}</div>
+            </TertiaryButton>
           </div>
-          {this.renderTransactions()}
+          <div className={classes.transactionsContainer}>
+            <div className={classes.transactionsTitle}>Transaction History</div>
+            {this.renderTransactions()}
+          </div>
         </div>
       </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
@@ -130,15 +150,15 @@ const styles = theme => ({
     alignItems: 'center',
     flexDirection: 'column'
   },
-  poweredByRow: {...poweredByRow, width: '96%'},
+  poweredByRow: { ...poweredByRow, width: '96%' },
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
   containerInner: {
-    position:'relative',
+    position: 'relative',
     display: 'flex',
     width: '96%',
     flexGrow: 1,
-    flexDirection:'column'
+    flexDirection: 'column'
   },
   scroller: {
     flexGrow: 1,

@@ -19,7 +19,7 @@ type Props = {
   history: Object,
   classes: Object,
   buyOrSell: string,
-  fiatSymbol?:string,
+  fiatSymbol?: string,
   cryptoAmount: string,
   fiatAmount: string,
   wallet: WalletDetails,
@@ -29,10 +29,9 @@ type Props = {
   poweredBy: PoweredByType,
   useExchangeRate: boolean,
   getExchangeRate(): void,
-  confirmQuote(string,string, Object): void,
+  confirmQuote(string, string, Object): void,
   changeFiat(string, number): void,
-  openBankAccountInfo(Object):void
-
+  openBankAccountInfo(Object): void
 }
 type State = {
   clicked: number,
@@ -50,129 +49,164 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
     // $FlowFixMe
     this.inputRef = React.createRef()
   }
-  componentDidMount () {
+
+  componentDidMount() {
     this.props.getExchangeRate()
     if (this.props.fiatAmount !== null) {
       this.setState({
         value: this.props.fiatAmount
       })
-      if(this.inputRef.current) {
+      if (this.inputRef.current) {
         this.inputRef.current.focus()
       }
     }
   }
+
   componentDidUpdate() {
-    if(this.inputRef.current) {
+    if (this.inputRef.current) {
       this.inputRef.current.focus()
     }
   }
+
   handleClick = () => {
     const cl = this.state.clicked + 1
     this.setState({
       clicked: cl
     })
   }
+
   handleOpenBankAccountInfo = () => {
     this.props.openBankAccountInfo(this.props.history)
   }
+
   handleNext = () => {
-    if(this.props.fiatAmount){
-      this.props.confirmQuote(this.props.cryptoAmount, this.props.fiatAmount, this.props.history)
+    if (this.props.fiatAmount) {
+      this.props.confirmQuote(
+        this.props.cryptoAmount,
+        this.props.fiatAmount,
+        this.props.history
+      )
     }
   }
+
   handleChange = (event: Object) => {
     const val = event.target.value
     this.setState({
       value: val
     })
-    const exchangeRate = this.props.buyOrSell === 'sell' ? this.props.exchangeRatesFrom : this.props.exchangeRatesTo
+    const exchangeRate =
+      this.props.buyOrSell === 'sell'
+        ? this.props.exchangeRatesFrom
+        : this.props.exchangeRatesTo
     this.props.changeFiat(val, exchangeRate)
-  }//
+  }
+
+  //
   renderReceive = () => {
     const { classes } = this.props
-    if(this.props.cryptoAmount !== '' && this.props.useExchangeRate) {
-      return <div className={classes.receiveAmount} >
-      You will {this.props.buyOrSell} {this.props.cryptoAmount} {this.props.wallet.currencyCode}
-    </div>
+    if (this.props.cryptoAmount !== '' && this.props.useExchangeRate) {
+      return (
+        <div className={classes.receiveAmount}>
+          You will {this.props.buyOrSell} {this.props.cryptoAmount}{' '}
+          {this.props.wallet.currencyCode}
+        </div>
+      )
     }
     return <div className={classes.receiveAmount} />
   }
+
   renderFiatCode = () => {
-    if(this.props.fiatSymbol) {
+    if (this.props.fiatSymbol) {
       return this.props.fiatSymbol
     }
     return '$'
   }
+
   renderOptions = () => {
     const { classes } = this.props
-    return <div className={classes.doRow}>
+    return (
+      <div className={classes.doRow}>
         <div className={classes.dollar}>{this.renderFiatCode()}</div>
         <div className={classes.inputWrapper}>{this.state.value}</div>
-    </div>
+      </div>
+    )
   }
-  render () {
+
+  render() {
     const { classes, buyOrSell } = this.props
     console.log('exchange Rates From ', this.props.exchangeRatesFrom)
     if (!this.props.exchangeRatesFrom && this.props.useExchangeRate) {
-      return <div className={classes.containerSpinner}>
-      <CircularProgress size={60} />
-    </div>
+      return (
+        <div className={classes.containerSpinner}>
+          <CircularProgress size={60} />
+        </div>
+      )
     }
-    const buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase())
-    const depositOrWithdrawal = buyOrSell === 'buy' ? 'Withdrawal from' : 'Deposit To'
-    return <div className={classes.container}>
-      <div className={classes.containerMain}>
-            <div className={classes.poweredByRow}>
-              <PoweredBy poweredBy={this.props.poweredBy}/>
-            </div>
-            <div className={classes.chooseAmount} >
-              Choose Amount
-            </div>
-            <div className={classes.amountContainer} onClick={this.handleClick}>
-              <div className={classes.innerDiv} >
-                {this.renderOptions()}
-              </div>
-            </div>
-            {this.renderReceive()}
-            <div className={classes.depositBox} onClick={this.handleOpenBankAccountInfo}>
-              <div className={classes.dpLeft} >
-                {depositOrWithdrawal}:
-              </div>
-              <div className={classes.dpRight} >
-                {this.props.bankName}
-              </div>
-            </div>
-            <div className={classes.disclaimer} >
-              {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
-            </div>
-            {this.renderInvisible()}
+    const buyOrSellSyntax = buyOrSell.replace(
+      buyOrSell.slice(0, 1),
+      buyOrSell.slice(0, 1).toUpperCase()
+    )
+    const depositOrWithdrawal =
+      buyOrSell === 'buy' ? 'Withdrawal from' : 'Deposit To'
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} />
+          </div>
+          <div className={classes.chooseAmount}>Choose Amount</div>
+          <div className={classes.amountContainer} onClick={this.handleClick}>
+            <div className={classes.innerDiv}>{this.renderOptions()}</div>
+          </div>
+          {this.renderReceive()}
+          <div
+            className={classes.depositBox}
+            onClick={this.handleOpenBankAccountInfo}
+          >
+            <div className={classes.dpLeft}>{depositOrWithdrawal}:</div>
+            <div className={classes.dpRight}>{this.props.bankName}</div>
+          </div>
+          <div className={classes.disclaimer}>
+            {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
+          </div>
+          {this.renderInvisible()}
+        </div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
+        </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
+
   renderInvisible = () => {
     const { classes } = this.props
-   return  <TextField
-      inputRef={this.inputRef}
-      id="standard-uncontrolled"
-      label="Phone Number"
-      type="tel"
-      tabIndex='0'
-      fullWidth
-      InputProps={{
-        classes: {
-          input: classes.resize,
-        },
-      }}
-      style={{width: '2px', height: '2px', opacity: 0, position: 'absolute', top: -17}}
-      value={this.state.value}
-      className={classes.textField}
-      margin="normal"
-      onChange={this.handleChange}
-      autoFocus
-            />
+    return (
+      <TextField
+        inputRef={this.inputRef}
+        id="standard-uncontrolled"
+        label="Phone Number"
+        type="tel"
+        tabIndex="0"
+        fullWidth
+        InputProps={{
+          classes: {
+            input: classes.resize
+          }
+        }}
+        style={{
+          width: '2px',
+          height: '2px',
+          opacity: 0,
+          position: 'absolute',
+          top: -17
+        }}
+        value={this.state.value}
+        className={classes.textField}
+        margin="normal"
+        onChange={this.handleChange}
+        autoFocus
+      />
+    )
   }
 }
 const styles = theme => ({
@@ -215,7 +249,7 @@ const styles = theme => ({
     marginRight: 3
   },
   inputWrapper: {
-    fontSize: 68,
+    fontSize: 68
   },
   textField: {
     position: 'relative',
@@ -280,7 +314,9 @@ const styles = theme => ({
   },
   resize: {
     fontSize: 17
-  },
+  }
 })
-const TransactionAmountScreen = withStyles(styles)(TransactionAmountScreenComponent)
+const TransactionAmountScreen = withStyles(styles)(
+  TransactionAmountScreenComponent
+)
 export { TransactionAmountScreen }

@@ -2,7 +2,7 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { IntroScene } from '../scenes/IntroScene'
-import {THANK_YOU_ROUTE} from '../constants'
+import { THANK_YOU_ROUTE } from '../constants'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
@@ -10,20 +10,20 @@ const mapStateToProps = (state: State) => {
   const cards = [
     {
       title: 'Bity ',
-      body: 'Bity is a compliant fiat to crypto exchange allowing users to safely buy and sell cryptocurrency with a bank account or directly from Edge.',
+      body:
+        'Bity is a compliant fiat to crypto exchange allowing users to safely buy and sell cryptocurrency with a bank account or directly from Edge.',
       list: []
     },
     {
       title: 'Fee',
-      body: 'The following fees are applied for buying and selling cryptocurrency with Bity',
-      list: [
-        'Edge 0.15%',
-        'Bity 0.65%'
-      ]
+      body:
+        'The following fees are applied for buying and selling cryptocurrency with Bity',
+      list: ['Edge 0.15%', 'Bity 0.65%']
     },
     {
       title: 'No Personal Info ',
-      body: 'Users can trade up to €5000 per day without providing any personal info.',
+      body:
+        'Users can trade up to €5000 per day without providing any personal info.',
       list: []
     },
     {
@@ -35,7 +35,8 @@ const mapStateToProps = (state: State) => {
     },
     {
       title: 'Terms of Service',
-      body: 'Orders placed through the Bity Plugin are executed by bity. By creating orders you are agreeing to Bity\'s terms of service ',
+      body:
+        "Orders placed through the Bity Plugin are executed by bity. By creating orders you are agreeing to Bity's terms of service ",
       list: [],
       link: 'https://bity.com/legal/',
       linkText: 'Terms of Service'

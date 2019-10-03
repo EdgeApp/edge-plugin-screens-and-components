@@ -19,9 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
     history.push(THANK_YOU_ROUTE)
   },
-  initInfo: () => {
-
-  }
+  initInfo: () => {}
 })
 export const StartSceneConnector = connect(
   mapStateToProps,

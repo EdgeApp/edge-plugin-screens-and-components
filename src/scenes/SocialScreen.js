@@ -22,46 +22,48 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class SocialScreenComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
-        </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-           Provide your social security number.
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
           </div>
-          <TextField
-            id="filled-email-input"
-            label="Social Security Number"
-            className={classes.textField}
-            type="number"
-            fullWidth
-            name="security"
-            autoComplete="email"
-            margin="normal"
-            onChange={() => {}}
-            autoFocus
-          />
+          <div className={classes.inset}>
+            <div className={classes.headerText}>
+              Provide your social security number.
+            </div>
+            <TextField
+              id="filled-email-input"
+              label="Social Security Number"
+              className={classes.textField}
+              type="number"
+              fullWidth
+              name="security"
+              autoComplete="email"
+              margin="normal"
+              onChange={() => {}}
+              autoFocus
+            />
+          </div>
+        </div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
@@ -85,7 +87,7 @@ const styles = theme => ({
     textAlign: 'center',
     alignItems: 'center',
     color: THEME.COLORS.BLACK
-  },
+  }
 })
 const SocialScreen = withStyles(styles)(SocialScreenComponent)
 export { SocialScreen }

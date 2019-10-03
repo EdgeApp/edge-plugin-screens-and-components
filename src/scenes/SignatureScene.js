@@ -8,9 +8,9 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import Checkbox from '@material-ui/core/Checkbox';
+import CheckBoxIcon from '@material-ui/icons/CheckBox'
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
+import Checkbox from '@material-ui/core/Checkbox'
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import TextField from '@material-ui/core/TextField'
@@ -22,62 +22,73 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class SignatureSceneComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-        <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
-        </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Provide your electronic signature.
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
           </div>
-          <TextField
-            id="standard-uncontrolled"
-            label="Full Name"
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-            autoFocus
-          />
-        </div>
-        <div className={classes.twoColumn}>
-          <div className={classes.left}>
-            <Checkbox
-              icon={<CheckBoxOutlineBlankIcon style={{ width: 26, height: 26 }}/>}
-              checkedIcon={<CheckBoxIcon style={{ width: 26, height: 26 }} backgroundColor={THEME.COLORS.ACCENT_BLUE}/>}
-              value="checkedI"
-              color= 'primary'
+          <div className={classes.inset}>
+            <div className={classes.headerText}>
+              Provide your electronic signature.
+            </div>
+            <TextField
+              id="standard-uncontrolled"
+              label="Full Name"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+              autoFocus
             />
           </div>
-          <div className={classes.right} >
-            <div className={classes.disclaimer}>I confirm that all information submitted, to the best of my knowledge, is true, accurate, and up to date.</div>
+          <div className={classes.twoColumn}>
+            <div className={classes.left}>
+              <Checkbox
+                icon={
+                  <CheckBoxOutlineBlankIcon style={{ width: 26, height: 26 }} />
+                }
+                checkedIcon={
+                  <CheckBoxIcon
+                    style={{ width: 26, height: 26 }}
+                    backgroundColor={THEME.COLORS.ACCENT_BLUE}
+                  />
+                }
+                value="checkedI"
+                color="primary"
+              />
+            </div>
+            <div className={classes.right}>
+              <div className={classes.disclaimer}>
+                I confirm that all information submitted, to the best of my
+                knowledge, is true, accurate, and up to date.
+              </div>
+            </div>
           </div>
         </div>
-
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
+        </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
@@ -106,7 +117,7 @@ const styles = theme => ({
     height: 40,
     textAlign: 'center',
     alignItems: 'center',
-    color: THEME.COLORS.BLACK,
+    color: THEME.COLORS.BLACK
   },
   twoColumn: {
     display: 'flex',
@@ -132,7 +143,7 @@ const styles = theme => ({
     fontSize: 17,
     marginTop: 9,
     color: THEME.COLORS.BLACK
-  },
+  }
 })
 const SignatureScene = withStyles(styles)(SignatureSceneComponent)
 export { SignatureScene }
