@@ -82,7 +82,7 @@ const PoweredBy = withStyles(powerThemes)((props: Props) => {
       <div className={props.classes.shim} />
       <div className={props.classes.containerInner} >
         <div className={logoWrap} style={{width: props.poweredBy.width, height: props.poweredBy.height}}>
-          <img src={props.poweredBy.logo} className={props.classes.logo} alt={''} />
+          <img src={props.poweredBy.logo} className={props.classes.logo} alt="" />
         </div>
       </div>
     </div>

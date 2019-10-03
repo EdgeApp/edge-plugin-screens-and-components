@@ -23,7 +23,7 @@ type State = {
 }
 
 class AddressSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   render () {
@@ -116,7 +116,7 @@ class AddressSceneComponent extends Component<Props, State> {
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

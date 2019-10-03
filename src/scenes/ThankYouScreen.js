@@ -21,7 +21,7 @@ type State = {
 }
 
 class ThankYouScreenComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   render () {
@@ -38,7 +38,7 @@ class ThankYouScreenComponent extends Component<Props, State> {
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Done </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Done </PrimaryButton>
       </div>
     </div>
   }

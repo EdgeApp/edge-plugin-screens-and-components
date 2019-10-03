@@ -25,7 +25,7 @@ type State = {
 }
 
 class IntroSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   renderCards = () => {
@@ -47,13 +47,13 @@ class IntroSceneComponent extends Component<Props, State> {
           <img
             style={logo}
             src={this.props.logo}
-            alt={''}
+            alt=""
           />
         </div>
         {this.renderCards()}
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

@@ -26,7 +26,7 @@ type State = {
 }
 
 class SignatureSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   render () {
@@ -71,7 +71,7 @@ class SignatureSceneComponent extends Component<Props, State> {
 
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

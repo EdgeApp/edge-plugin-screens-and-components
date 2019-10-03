@@ -23,7 +23,7 @@ type State = {
 }
 
 class DocumentUploadScreenComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   render () {
@@ -39,7 +39,7 @@ class DocumentUploadScreenComponent extends Component<Props, State> {
             Upload your passport or driver’s license.
           </div>
           <div className={classes.dashBox} >
-            <img src={image} className={classes.camera} alt={''}/>
+            <img src={image} className={classes.camera} alt=""/>
           </div>
           <div className={classes.subHeaderText}>
             Please note:
@@ -51,7 +51,7 @@ class DocumentUploadScreenComponent extends Component<Props, State> {
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

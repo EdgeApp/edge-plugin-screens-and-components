@@ -1,5 +1,6 @@
 // @flow
-import { APPROVED, NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
+
+import { NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { StartScene } from '../scenes/StartScene'

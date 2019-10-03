@@ -1,4 +1,5 @@
 // @flow
+
 import { PoweredBy, PrimaryButton } from '../components/indexComponents'
 import type { PoweredByType, WalletDetails } from '../types/AppTypes'
 import React, { Component } from 'react'
@@ -39,7 +40,7 @@ type State = {
 }
 
 class TransactionConfirmationScreenComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   renderLinkItem = () => {
@@ -159,7 +160,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
 
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }

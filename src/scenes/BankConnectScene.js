@@ -23,7 +23,7 @@ type State = {
 }
 
 class BankConnectSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
   render () {
@@ -39,12 +39,12 @@ class BankConnectSceneComponent extends Component<Props, State> {
           <div className={classes.subHeaderText}>
             Now that we have your details, we can connect your bank account using Plaid.
           </div>
-          <img src={image} className={classes.bankGraphic} alt={''}/>
-          <img src={image2} className={classes.checkedGraphic} alt={''}/>
+          <img src={image} className={classes.bankGraphic} alt=""/>
+          <img src={image2} className={classes.checkedGraphic} alt=""/>
         </div>
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Connect to bank account </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Connect to bank account </PrimaryButton>
       </div>
     </div>
   }

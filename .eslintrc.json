@@ -1,13 +1,13 @@
 {
-  "extends": ["standard", "plugin:flowtype/recommended", "plugin:react/recommended", "standard"],
-  "parser": "babel-eslint",
-  "plugins": ["flowtype", "standard", "react"],
+  "extends": [
+    "standard-kit/lint",
+    "standard-kit/lint/flow",
+    "standard-kit/lint/jsx"
+  ],
+  "plugins": ["prettier"],
   "rules": {
-    "camelcase": "warn",
-    "flowtype/generic-spacing": "off",
-    "no-throw-literal": "error",
     "no-var": "error",
-    "prefer-const": "error",
-    "prefer-promise-reject-errors": "warn"
+    "prettier/prettier": "error",
+    "react/jsx-fragments": "off"
   }
 }

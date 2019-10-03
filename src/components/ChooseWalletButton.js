@@ -16,7 +16,7 @@ class ChooseWalletButton extends Component<Props> {
   render () {
     const { classes } = this.props
     return <div className={classes.buttonContainer}>
-    <img src={this.props.image} className={classes.image} alt={'logo'}/>
+    <img src={this.props.image} className={classes.image} alt="logo"/>
     <div className={classes.shim} />
     <div className={classes.whiteText} >
       {this.props.text}

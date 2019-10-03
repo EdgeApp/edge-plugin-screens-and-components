@@ -66,21 +66,21 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
       this.inputRef.current.focus()
     }
   }
-  onClick = () => {
+  handleClick = () => {
     const cl = this.state.clicked + 1
     this.setState({
       clicked: cl
     })
   }
-  openBankAccountInfo = () => {
+  handleOpenBankAccountInfo = () => {
     this.props.openBankAccountInfo(this.props.history)
   }
-  onNext = () => {
+  handleNext = () => {
     if(this.props.fiatAmount){
       this.props.confirmQuote(this.props.cryptoAmount, this.props.fiatAmount, this.props.history)
     }
   }
-  onChange = (event: Object) => {
+  handleChange = (event: Object) => {
     const val = event.target.value
     this.setState({
       value: val
@@ -128,13 +128,13 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
             <div className={classes.chooseAmount} >
               Choose Amount
             </div>
-            <div className={classes.amountContainer} onClick={this.onClick}>
+            <div className={classes.amountContainer} onClick={this.handleClick}>
               <div className={classes.innerDiv} >
                 {this.renderOptions()}
               </div>
             </div>
             {this.renderReceive()}
-            <div className={classes.depositBox} onClick={this.openBankAccountInfo}>
+            <div className={classes.depositBox} onClick={this.handleOpenBankAccountInfo}>
               <div className={classes.dpLeft} >
                 {depositOrWithdrawal}:
               </div>
@@ -148,7 +148,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
             {this.renderInvisible()}
       </div>
       <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
+        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
       </div>
     </div>
   }
@@ -170,7 +170,7 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
       value={this.state.value}
       className={classes.textField}
       margin="normal"
-      onChange={this.onChange}
+      onChange={this.handleChange}
       autoFocus
             />
   }

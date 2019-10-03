@@ -2,7 +2,7 @@
 /* export * from './ConfirmDialog.js'
 export * from './EdgeButton.js'
 export * from './DailyLimit'
-export * from './PaymentDetails'*/
+export * from './PaymentDetails' */
 export * from './PoweredBy'
 export * from './PrimaryButton'
 /* export * from './SecondaryButton'
