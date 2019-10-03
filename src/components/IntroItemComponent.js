@@ -26,7 +26,11 @@ const renderList = (tempList :Array<string>, classes: Object) => {
     {renderListItems(tempList)}
   </ul>
 }
-
+const renderLinkItem = (card) => {
+  console.log('render (card')
+  if(!card.link) return null
+  return <a href={card.link}>{card.linkText}</a>
+}
 const renderDivider = (removeDivider, classes) => {
   if(removeDivider) return null
   return <Divider className={classes.divider} />
@@ -41,6 +45,7 @@ const IntroItem = (props: ParagraphProps) => {
             {props.card.body}
           </StartParagraph>
           {renderList(props.card.list, props.classes)}
+          {renderLinkItem(props.card)}
         </div>
         {renderDivider(props.removeDivider ,props.classes)}
     </Fragment>

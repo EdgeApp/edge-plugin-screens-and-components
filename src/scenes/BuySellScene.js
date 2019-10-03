@@ -27,7 +27,8 @@ type Props = {
   onSellClick(Object): void,
   selectWallet(): void,
   onBuyClick(Object): void,
-  getPreviousOrders(): void
+  getPreviousOrders(): void,
+  openLink(string, Object): void
 }
 type State = {
 }
@@ -35,6 +36,10 @@ type State = {
 class BuySellSceneComponent extends Component<Props, State> {
   componentDidMount () {
     this.props.getPreviousOrders()
+  }
+  linkOut = (arg: string) => {
+    console.log('where am I going ', arg)
+    this.props.openLink(arg, this.props.history)
   }
   renderButtonInsides = () => {
     const { classes, wallet } = this.props
@@ -48,7 +53,7 @@ class BuySellSceneComponent extends Component<Props, State> {
   renderItems = () => {
     const { transactions } = this.props
     const items = transactions.map((transaction: Transaction) => {
-      return <TransactionItem transaction={transaction} />
+      return <TransactionItem transaction={transaction} link={this.linkOut} />
     })
     return items
   }

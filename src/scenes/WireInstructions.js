@@ -8,6 +8,8 @@ import {
   sceneMainContainer
 } from '../styles/styles'
 
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
 import { withStyles } from '@material-ui/core/styles'
@@ -27,6 +29,10 @@ class WireInstructionsComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
   }
+  splitLine = (arg: string) => {
+    const stringArray = arg.split(':')
+    return stringArray[1]
+  }
   renderMessage = () => {
     const { classes } = this.props
     const lines = this.props.message.map((arg: string, index: number) => {
@@ -35,9 +41,23 @@ class WireInstructionsComponent extends Component<Props, State> {
         {arg}
       </div>
       }
-      return <div className={classes.individualLinesText}>
-      {arg}
-    </div>
+      if(arg === '') {
+        return <div className={classes.subHeaderText}>
+      </div>
+      }
+      if(arg ==='Additional Data:' || arg.includes( 'Amount: €')) {
+        return <div className={classes.individualLinesText}>
+        {arg}
+      </div>
+      }
+      return <div className={classes.individualLinesText} >
+        <CopyToClipboard text={this.splitLine(arg)}
+          onCopy={() => console.log(this.splitLine(arg))}>
+           <FontAwesomeIcon icon="copy" />
+        </CopyToClipboard>
+        {' '}{' '}{' '}{arg}
+      </div>
+
     })
     return lines
   }
@@ -66,7 +86,7 @@ const styles = theme => ({
   containerBottom: sceneButtonBottom,
   headerText: {
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: 10,
     width: '100%',
     fontSize: 30,
     color: THEME.COLORS.WHITE

@@ -35,6 +35,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   },
   getPreviousOrders: () => {
 
+  },
+  openLink: (arg: string, history: Object) => {
+
   }
 })
 export const BuySellConnector = connect(

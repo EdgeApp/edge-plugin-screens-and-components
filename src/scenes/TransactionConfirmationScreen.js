@@ -31,7 +31,9 @@ type Props = {
   poweredBy: PoweredByType,
   onOfCurrencyCodeInFiat: string,
   termsOfService: string,
-  onNext(Object): void
+  onNext(Object): void,
+  link:string,
+  linkText: string
 }
 type State = {
 }
@@ -39,6 +41,10 @@ type State = {
 class TransactionConfirmationScreenComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
+  }
+  renderLinkItem = () => {
+    if(!this.props.link) return null
+    return <a href={this.props.link}>{this.props.linkText}</a>
   }
   renderFiatCode = () => {
     if(this.props.fiatSymbol) {
@@ -147,6 +153,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
           {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
           <div className={classes.terms} >
             {this.props.termsOfService}
+            {this.renderLinkItem()}
           </div>
         </div>
 
