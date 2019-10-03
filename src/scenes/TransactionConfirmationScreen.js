@@ -19,7 +19,7 @@ type Props = {
   history: Object,
   classes: Object,
   wallet: WalletDetails,
-  fiatSymbol?:string,
+  fiatSymbol?: string,
   processing: boolean,
   cryptoAmount: string,
   fiatAmount: string,
@@ -33,136 +33,133 @@ type Props = {
   onOfCurrencyCodeInFiat: string,
   termsOfService: string,
   onNext(Object): void,
-  link:string,
+  link: string,
   linkText: string
 }
-type State = {
-}
+type State = {}
 
 class TransactionConfirmationScreenComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
+
   renderLinkItem = () => {
-    if(!this.props.link) return null
+    if (!this.props.link) return null
     return <a href={this.props.link}>{this.props.linkText}</a>
   }
+
   renderFiatCode = () => {
-    if(this.props.fiatSymbol) {
+    if (this.props.fiatSymbol) {
       return this.props.fiatSymbol
     }
     return '$'
   }
+
   renderFeeLabel = () => {
     if (!this.props.fees) return null
     const { classes } = this.props
-    return <div className={classes.greenText}>
-      Fees
-    </div>
+    return <div className={classes.greenText}>Fees</div>
   }
+
   renderFeeAmount = () => {
     if (!this.props.fees) return null
     const { classes } = this.props
-    return <div className={classes.greenTextRight}>
-      {this.props.fees}
-    </div>
+    return <div className={classes.greenTextRight}>{this.props.fees}</div>
   }
-  render () {
+
+  render() {
     const { classes, buyOrSell } = this.props
-    const buyOrSellSyntax = buyOrSell.replace(buyOrSell.slice(0, 1), buyOrSell.slice(0, 1).toUpperCase())
+    const buyOrSellSyntax = buyOrSell.replace(
+      buyOrSell.slice(0, 1),
+      buyOrSell.slice(0, 1).toUpperCase()
+    )
 
-    if(!this.props.cryptoAmount || this.props.processing) {
-      return <div className={classes.containerSpinner}>
-        <CircularProgress size={60} />
-      </div>
+    if (!this.props.cryptoAmount || this.props.processing) {
+      return (
+        <div className={classes.containerSpinner}>
+          <CircularProgress size={60} />
+        </div>
+      )
     }
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy}/>
-        </div>
-        <div className={classes.amountContainer}>
-          <div className={classes.innerDiv} >
-            <div className={classes.doRow}>
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} />
+          </div>
+          <div className={classes.amountContainer}>
+            <div className={classes.innerDiv}>
+              <div className={classes.doRow}>
                 <div className={classes.dollar}>{this.renderFiatCode()}</div>
-                <div className={classes.inputWrapper}>{this.props.fiatAmount}</div>
+                <div className={classes.inputWrapper}>
+                  {this.props.fiatAmount}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={classes.receiveAmount} >
-          You will {this.props.buyOrSell} {this.props.cryptoAmount} {this.props.wallet.currencyCode}
-        </div>
-        <div className={classes.shim} />
-        <div className={classes.box1} >
-          <div className={classes.b1l}>
-            <div className={classes.whiteText}>
+          <div className={classes.receiveAmount}>
+            You will {this.props.buyOrSell} {this.props.cryptoAmount}{' '}
+            {this.props.wallet.currencyCode}
+          </div>
+          <div className={classes.shim} />
+          <div className={classes.box1}>
+            <div className={classes.b1l}>
+              <div className={classes.whiteText}>
                 Price {this.props.wallet.currencyCode}
+              </div>
             </div>
-          </div>
-          <div className={classes.b1r}>
-            <div className={classes.whiteText}>
-              {this.props.onOfCurrencyCodeInFiat}
-            </div>
-          </div>
-        </div>
-        <div className={classes.shim} />
-        <div className={classes.box1}>
-          <div className={classes.b1l}>
-            <div className={classes.whiteText}>
-                Withdrawal from:
-            </div>
-          </div>
-          <div className={classes.b1r}>
-            <div className={classes.whiteText}>
-              {this.props.withdrawFrom}
-            </div>
-          </div>
-        </div>
-        <div className={classes.shim} />
-        <div className={classes.box1} >
-          <div className={classes.b1l}>
-            <div className={classes.whiteText}>
-              Deposit to:
-            </div>
-          </div>
-          <div className={classes.b1r}>
-            <div className={classes.whiteText}>
-            {this.props.depositTo}
-            </div>
-          </div>
-        </div>
-        <div className={classes.shim} />
-        <div className={classes.box1} >
-          <div className={classes.b1l}>
-            <div className={classes.twoRow}>
-              {this.renderFeeLabel()}
-              <div className={classes.greenText}>
-                Total
+            <div className={classes.b1r}>
+              <div className={classes.whiteText}>
+                {this.props.onOfCurrencyCodeInFiat}
               </div>
             </div>
           </div>
-          <div className={classes.b1r}>
-            <div className={classes.twoRow}>
-              {this.renderFeeAmount()}
-              <div className={classes.greenTextRight}>
-                {this.props.total}
+          <div className={classes.shim} />
+          <div className={classes.box1}>
+            <div className={classes.b1l}>
+              <div className={classes.whiteText}>Withdrawal from:</div>
+            </div>
+            <div className={classes.b1r}>
+              <div className={classes.whiteText}>{this.props.withdrawFrom}</div>
+            </div>
+          </div>
+          <div className={classes.shim} />
+          <div className={classes.box1}>
+            <div className={classes.b1l}>
+              <div className={classes.whiteText}>Deposit to:</div>
+            </div>
+            <div className={classes.b1r}>
+              <div className={classes.whiteText}>{this.props.depositTo}</div>
+            </div>
+          </div>
+          <div className={classes.shim} />
+          <div className={classes.box1}>
+            <div className={classes.b1l}>
+              <div className={classes.twoRow}>
+                {this.renderFeeLabel()}
+                <div className={classes.greenText}>Total</div>
+              </div>
+            </div>
+            <div className={classes.b1r}>
+              <div className={classes.twoRow}>
+                {this.renderFeeAmount()}
+                <div className={classes.greenTextRight}>{this.props.total}</div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={classes.disclaimer} >
-          {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
-          <div className={classes.terms} >
-            {this.props.termsOfService}
-            {this.renderLinkItem()}
+          <div className={classes.disclaimer}>
+            {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
+            <div className={classes.terms}>
+              {this.props.termsOfService}
+              {this.renderLinkItem()}
+            </div>
           </div>
         </div>
-
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
+        </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
@@ -199,7 +196,7 @@ const styles = theme => ({
     marginRight: 3
   },
   inputWrapper: {
-    fontSize: 68,
+    fontSize: 68
   },
   receiveAmount: {
     flexShrink: 1,
@@ -212,7 +209,7 @@ const styles = theme => ({
     flexDirection: 'column'
   },
   box1: {
-    display:'flex',
+    display: 'flex',
     flexDirection: 'row',
     position: 'relative',
     nimHHeight: 31,
@@ -226,12 +223,12 @@ const styles = theme => ({
   },
   b1l: {
     display: 'flex',
-    flexShrink: 1,
+    flexShrink: 1
   },
   b1r: {
     display: 'flex',
     flexGrow: 1,
-    flexDirection:'column',
+    flexDirection: 'column',
     alignItems: 'flex-end'
   },
   whiteText: {
@@ -257,8 +254,8 @@ const styles = theme => ({
     height: 38
   },
   twoRow: {
-    display : 'flex',
-    flexDirection: 'column',
+    display: 'flex',
+    flexDirection: 'column'
   },
   disclaimer: {
     flex: 1,
@@ -278,7 +275,9 @@ const styles = theme => ({
     color: THEME.COLORS.WHITE,
     flexDirection: 'column',
     marginTop: 10
-  },
+  }
 })
-const TransactionConfirmationScreen = withStyles(styles)(TransactionConfirmationScreenComponent)
+const TransactionConfirmationScreen = withStyles(styles)(
+  TransactionConfirmationScreenComponent
+)
 export { TransactionConfirmationScreen }

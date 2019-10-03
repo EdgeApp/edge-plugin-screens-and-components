@@ -50,7 +50,7 @@ export type Transaction = {
   sourceAmount: number,
   destAmount: number,
   fees: {
-      USD: number
+    USD: number
   },
   sourceName: string,
   destName: string,

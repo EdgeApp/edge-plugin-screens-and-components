@@ -19,110 +19,110 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class AddressSceneComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
-        </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Provide your home address.
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
           </div>
-          <TextField
-            id="standard-uncontrolled"
-            label="Address"
-            type="text"
-            tabIndex='0'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-            autoFocus
-          />
-          <TextField
-            id="standard-uncontrolled"
-            label="Unit (optional)"
-            type="text"
-            tabIndex='1'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-          />
-          <TextField
-            id="standard-uncontrolled"
-            label="City"
-            type="text"
-            tabIndex='2'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-          />
-          <TextField
-            id="standard-uncontrolled"
-            label="State"
-            type="text"
-            tabIndex='3'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-          />
-          <TextField
-            id="standard-uncontrolled"
-            label="Postal Code"
-            type="tel"
-            tabIndex='4'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-          />
+          <div className={classes.inset}>
+            <div className={classes.headerText}>Provide your home address.</div>
+            <TextField
+              id="standard-uncontrolled"
+              label="Address"
+              type="text"
+              tabIndex="0"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+              autoFocus
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="Unit (optional)"
+              type="text"
+              tabIndex="1"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="City"
+              type="text"
+              tabIndex="2"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="State"
+              type="text"
+              tabIndex="3"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="Postal Code"
+              type="tel"
+              tabIndex="4"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+            />
+          </div>
+        </div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
@@ -148,7 +148,7 @@ const styles = theme => ({
     height: 40,
     textAlign: 'center',
     alignItems: 'center',
-    color: THEME.COLORS.BLACK,
+    color: THEME.COLORS.BLACK
   }
 })
 const AddressScene = withStyles(styles)(AddressSceneComponent)

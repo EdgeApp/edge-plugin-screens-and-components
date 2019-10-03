@@ -18,31 +18,31 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class TransactionSuccessComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy}/>
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} />
+          </div>
+          <div className={classes.headerText}>Congratulations!</div>
+          <div className={classes.subHeaderText}>
+            Transaction was successful
+          </div>
         </div>
-        <div className={classes.headerText} >
-          Congratulations!
-        </div>
-        <div className={classes.subHeaderText}>
-          Transaction was successful
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({

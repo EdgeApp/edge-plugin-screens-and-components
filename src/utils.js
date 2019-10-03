@@ -1,4 +1,4 @@
-import {sha256}  from 'js-sha256'
+import { sha256 } from 'js-sha256'
 
 export const encodeGetSig = (url, msg, userApiSecretKey) => {
   const hash = sha256.hmac.create(userApiSecretKey)
@@ -9,14 +9,15 @@ export const encodeGetSig = (url, msg, userApiSecretKey) => {
 
 export const genRandomString = (length: number = 32) => {
   let text = ''
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length))
   }
   return text
 }
-export function formatRate (rate, currency) {
+export function formatRate(rate, currency) {
   if (!rate) {
     return ''
   }
@@ -25,7 +26,7 @@ export function formatRate (rate, currency) {
     currency: currency
   })
 }
-export function formatAmount (rate, currency) {
+export function formatAmount(rate, currency) {
   if (!rate) {
     return ''
   }

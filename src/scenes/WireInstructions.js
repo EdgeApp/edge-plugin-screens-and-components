@@ -22,60 +22,61 @@ type Props = {
   onNext(Object): void,
   message: Array<string>
 }
-type State = {
-}
+type State = {}
 
 class WireInstructionsComponent extends Component<Props, State> {
   handleNext = () => {
     this.props.onNext(this.props.history)
   }
+
   splitLine = (arg: string) => {
     const stringArray = arg.split(':')
     return stringArray[1]
   }
+
   renderMessage = () => {
     const { classes } = this.props
     const lines = this.props.message.map((arg: string, index: number) => {
-      if(index === 0) {
-        return <div className={classes.subHeaderText}>
-        {arg}
-      </div>
+      if (index === 0) {
+        return <div className={classes.subHeaderText}>{arg}</div>
       }
-      if(arg === '') {
+      if (arg === '') {
         return <div className={classes.subHeaderText} />
       }
-      if(arg ==='Additional Data:' || arg.includes( 'Amount: €')) {
-        return <div className={classes.individualLinesText}>
-        {arg}
-      </div>
+      if (arg === 'Additional Data:' || arg.includes('Amount: €')) {
+        return <div className={classes.individualLinesText}>{arg}</div>
       }
-      return <div key={String(index)} className={classes.individualLinesText} >
-        <CopyToClipboard text={this.splitLine(arg)}
-          onCopy={() => console.log(this.splitLine(arg))}>
-           <FontAwesomeIcon icon="copy" />
-        </CopyToClipboard>
-        {' '}{' '}{' '}{arg}
-      </div>
-
+      return (
+        <div key={String(index)} className={classes.individualLinesText}>
+          <CopyToClipboard
+            text={this.splitLine(arg)}
+            onCopy={() => console.log(this.splitLine(arg))}
+          >
+            <FontAwesomeIcon icon="copy" />
+          </CopyToClipboard>{' '}
+          {arg}
+        </div>
+      )
     })
     return lines
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy}/>
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} />
+          </div>
+          <div className={classes.headerText}>{this.props.title}</div>
+          {this.renderMessage()}
         </div>
-        <div className={classes.headerText} >
-          {this.props.title}
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
-        {this.renderMessage()}
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.handleNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({

@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {ADDRESS_ROUTE} from '../constants/index'
+import { ADDRESS_ROUTE } from '../constants/index'
 import { PendingScene } from '../scenes/PendingScene'
 import { connect } from 'react-redux'
 

@@ -27,18 +27,11 @@ const mapStateToProps = (state: State) => {
   }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onSellClick: () => {
-  },
-  selectWallet: () => {
-  },
-  onBuyClick: () => {
-  },
-  getPreviousOrders: () => {
-
-  },
-  openLink: (arg: string, history: Object) => {
-
-  }
+  onSellClick: () => {},
+  selectWallet: () => {},
+  onBuyClick: () => {},
+  getPreviousOrders: () => {},
+  openLink: (arg: string, history: Object) => {}
 })
 export const BuySellConnector = connect(
   mapStateToProps,

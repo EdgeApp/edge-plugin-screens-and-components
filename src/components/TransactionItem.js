@@ -66,37 +66,49 @@ type Props = {
 const TransactionItem = withStyles(limitStyles)((props: Props) => {
   const { transaction, classes } = props
   const transactionType = transaction.type
-  const moneyClass = transactionType === 'Sell' ? classes.cryptoAmountTextSell : classes.cryptoAmountTextBuy
- /*  window.edgeProvider.consoleLog('-- TRANSACTION --')
+  const moneyClass =
+    transactionType === 'Sell'
+      ? classes.cryptoAmountTextSell
+      : classes.cryptoAmountTextBuy
+  /*  window.edgeProvider.consoleLog('-- TRANSACTION --')
   window.edgeProvider.consoleLog(transaction) */
   const date = transaction.createdAt
-  const dateString = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()
+  const dateString =
+    date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
   const upDown = transactionType === 'Sell' ? '-' : '+'
-  const cryptoCode = transactionType === 'Sell' ? transaction.sourceCurrency : transaction.destCurrency
-  const cryptoAmount =  transactionType === 'Sell' ? transaction.sourceAmount : transaction.destAmount
-  const fiatAmount = transactionType === 'Sell' ? transaction.destAmount : transaction.sourceAmount
+  const cryptoCode =
+    transactionType === 'Sell'
+      ? transaction.sourceCurrency
+      : transaction.destCurrency
+  const cryptoAmount =
+    transactionType === 'Sell'
+      ? transaction.sourceAmount
+      : transaction.destAmount
+  const fiatAmount =
+    transactionType === 'Sell'
+      ? transaction.destAmount
+      : transaction.sourceAmount
   return (
-    <div className={classes.container} onClick={() => {
-      props.link(transaction.link)
-    }}>
-      <div className={classes.containerLeft} >
-        <div className={classes.columnStuff} >
-          <div className={classes.transactionTypeText} >
+    <div
+      className={classes.container}
+      onClick={() => {
+        props.link(transaction.link)
+      }}
+    >
+      <div className={classes.containerLeft}>
+        <div className={classes.columnStuff}>
+          <div className={classes.transactionTypeText}>
             {transactionType}: {transaction.status}
           </div>
-          <div className={classes.dateText} >
-           {dateString}
-          </div>
+          <div className={classes.dateText}>{dateString}</div>
         </div>
       </div>
-      <div className={classes.containerRight} >
-        <div className={classes.columnStuff} >
-          <div className={moneyClass} >
+      <div className={classes.containerRight}>
+        <div className={classes.columnStuff}>
+          <div className={moneyClass}>
             {upDown} {cryptoAmount} {cryptoCode}
           </div>
-          <div className={classes.fiatAmountText} >
-            $ {fiatAmount}
-          </div>
+          <div className={classes.fiatAmountText}>$ {fiatAmount}</div>
         </div>
       </div>
     </div>

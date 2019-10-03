@@ -1,13 +1,15 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {PHONE_ROUTE} from '../constants/index'
+import { PHONE_ROUTE } from '../constants/index'
 import { WireInstructions } from '../scenes/WireInstructions'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
   const message = []
-  message.push('To complete your purchase. wire funds to Bity.  You must include the reference')
+  message.push(
+    'To complete your purchase. wire funds to Bity.  You must include the reference'
+  )
   message.push('Recipient: Bity SA Rue des Usines 44 20')
   message.push('Bank Address: Fidor Bank AG, Germany')
   message.push('Account: 0020041966')

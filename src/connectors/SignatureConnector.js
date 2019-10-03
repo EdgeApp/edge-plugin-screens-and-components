@@ -2,7 +2,7 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { SignatureScene } from '../scenes/SignatureScene'
-import {THANK_YOU_ROUTE} from '../constants/index'
+import { THANK_YOU_ROUTE } from '../constants/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {
