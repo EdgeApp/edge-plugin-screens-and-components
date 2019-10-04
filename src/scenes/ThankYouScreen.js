@@ -17,34 +17,34 @@ type Props = {
   thanksMessage: string,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class ThankYouScreenComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Thank You
-          </div>
-          <div className={classes.subHeaderText}>
-            {this.props.thanksMessage}
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.inset}>
+            <div className={classes.headerText}>Thank You</div>
+            <div className={classes.subHeaderText}>
+              {this.props.thanksMessage}
+            </div>
           </div>
         </div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Done </PrimaryButton>
+        </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Done </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,

@@ -54,35 +54,44 @@ const powerThemes = theme => ({
 type Props = {
   classes: Object,
   useBlack?: boolean,
-  poweredBy: PoweredByType,
+  poweredBy: PoweredByType
 }
 const onClick = (arg: string) => {
   window.edgeProvider.openEmailApp(arg)
 }
 const PoweredBy = withStyles(powerThemes)((props: Props) => {
   // const image = props.poweredBy.logo
-  const p = props.useBlack
-    ? props.classes.pDark
-    : props.classes.p
-  const logoWrap = props.poweredBy.useBackground ? props.classes.logoWrapper : props.classes.logoWrapperClear
+  const p = props.useBlack ? props.classes.pDark : props.classes.p
+  const logoWrap = props.poweredBy.useBackground
+    ? props.classes.logoWrapper
+    : props.classes.logoWrapperClear
   return (
-    <div className={props.classes.container} onClick={() => {
-      onClick(props.poweredBy.email)
-      }}>
-      <div className={props.classes.containerInner} >
+    <div
+      className={props.classes.container}
+      onClick={() => {
+        onClick(props.poweredBy.email)
+      }}
+    >
+      <div className={props.classes.containerInner}>
         <div>
-          <div className={p} >
-            Powered by
-          </div>
-          <div className={p} >
-            {props.poweredBy.email}
-          </div>
+          <div className={p}>Powered by</div>
+          <div className={p}>{props.poweredBy.email}</div>
         </div>
       </div>
       <div className={props.classes.shim} />
-      <div className={props.classes.containerInner} >
-        <div className={logoWrap} style={{width: props.poweredBy.width, height: props.poweredBy.height}}>
-          <img src={props.poweredBy.logo} className={props.classes.logo} alt={''} />
+      <div className={props.classes.containerInner}>
+        <div
+          className={logoWrap}
+          style={{
+            width: props.poweredBy.width,
+            height: props.poweredBy.height
+          }}
+        >
+          <img
+            src={props.poweredBy.logo}
+            className={props.classes.logo}
+            alt=""
+          />
         </div>
       </div>
     </div>

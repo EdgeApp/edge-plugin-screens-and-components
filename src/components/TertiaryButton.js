@@ -19,7 +19,7 @@ const getStyle = (lineColor, isCustom = false, isDisabled = false) => {
       backgroundColor: THEME.COLORS.CLEAR,
       height: '50px',
       color: THEME.COLORS.ACCENT_MINT,
-      border: `1px solid ${lineColor}`,
+      border: `1px solid ${lineColor}`
     }
   }
   if (isDisabled) {
@@ -28,7 +28,7 @@ const getStyle = (lineColor, isCustom = false, isDisabled = false) => {
       backgroundColor: THEME.COLORS.CLEAR,
       height: '50px',
       color: THEME.COLORS.GRAY_2,
-      border: `1px solid ${THEME.COLORS.GRAY_2}`,
+      border: `1px solid ${THEME.COLORS.GRAY_2}`
     }
   }
   return {
@@ -39,7 +39,7 @@ const getStyle = (lineColor, isCustom = false, isDisabled = false) => {
     height: '50px',
     disabledButton: {
       border: `1px solid ${THEME.COLORS.GRAY_2}`,
-      color: THEME.COLORS.GRAY_2,
+      color: THEME.COLORS.GRAY_2
     }
   }
 }
@@ -50,7 +50,8 @@ export const TertiaryButton = (props: Props) => {
       onClick={props.onClick}
       disabled={props.disabled}
       style={getStyle(props.lineColor, props.isCustom, props.disabled)}
-      fullWidth>
+      fullWidth
+    >
       {props.children}
     </Button>
   )

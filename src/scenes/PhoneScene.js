@@ -19,65 +19,67 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class PhoneSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
-        </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Tell us more about yourself.
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
           </div>
-          <TextField
-            id="standard-uncontrolled"
-            label="Phone Number"
-            type="tel"
-            tabIndex='0'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-            autoFocus
-          />
-          <TextField
-            id="standard-uncontrolled"
-            label="Date of Birth"
-            type="date"
-            tabIndex='1'
-            fullWidth
-            InputProps={{
-              classes: {
-                input: classes.resize,
-              },
-            }}
-            className={classes.textField}
-            margin="normal"
-            onChange={() => {}}
-          />
+          <div className={classes.inset}>
+            <div className={classes.headerText}>
+              Tell us more about yourself.
+            </div>
+            <TextField
+              id="standard-uncontrolled"
+              label="Phone Number"
+              type="tel"
+              tabIndex="0"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+              autoFocus
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="Date of Birth"
+              type="date"
+              tabIndex="1"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={() => {}}
+            />
+          </div>
+        </div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
@@ -103,8 +105,8 @@ const styles = theme => ({
     height: 40,
     textAlign: 'center',
     alignItems: 'center',
-    color: THEME.COLORS.BLACK,
-  },
+    color: THEME.COLORS.BLACK
+  }
 })
 const PhoneScene = withStyles(styles)(PhoneSceneComponent)
 export { PhoneScene }

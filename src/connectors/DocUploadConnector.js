@@ -2,7 +2,7 @@
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { DocumentUploadScreen } from '../scenes/DocumentUploadScreen'
-import {SOCIAL_ROUTE} from '../constants/index'
+import { SOCIAL_ROUTE } from '../constants/index'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state: State) => {

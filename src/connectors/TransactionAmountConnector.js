@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {TRANSACTION_CONFIRM_ROUTE} from '../constants/index'
+import { TRANSACTION_CONFIRM_ROUTE } from '../constants/index'
 import { TransactionAmountScreen } from '../scenes/TransactionAmountScreen'
 import { connect } from 'react-redux'
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state: State) => {
     buyOrSell: 'sell',
     cryptoAmount: '.00345',
     fiatAmount: '50',
-    bankName: 'Allen\'s Amazing Banks XX007',
+    bankName: "Allen's Amazing Banks XX007",
     poweredBy: {
       email: 'support@wyre.com',
       logo: '../assets/poweredByLogo.png'
@@ -33,15 +33,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   getExchangeRate: () => {
     // dispatch(getExchangeRate())
   },
-  confirmQuote: (crypto: string, fiat: string,  history: Object) => {
+  confirmQuote: (crypto: string, fiat: string, history: Object) => {
     // dispatch(confirmQuote(crypto,fiat, history))
     history.push(TRANSACTION_CONFIRM_ROUTE)
   },
-  changeCrypto: (amount, exchangeRate: number) => {
-  },
-  changeFiat: (amount: string, exchangeRate: number) => {
-
-  }
+  changeCrypto: (amount, exchangeRate: number) => {},
+  changeFiat: (amount: string, exchangeRate: number) => {}
   /*
   changeCrypto = (arg: string) => {
     window.edgeProvider.consoleLog('arg: ' + arg)

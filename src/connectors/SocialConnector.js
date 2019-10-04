@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {BANK_CONNECT_ROUTE} from '../constants/index'
+import { BANK_CONNECT_ROUTE } from '../constants/index'
 import { SocialScreen } from '../scenes/SocialScreen'
 import { connect } from 'react-redux'
 

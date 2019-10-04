@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {TRANSACTION_SUCCESS_ROUTE} from '../constants/index'
+import { TRANSACTION_SUCCESS_ROUTE } from '../constants/index'
 import { TransactionConfirmationScreen } from '../scenes/TransactionConfirmationScreen'
 import { connect } from 'react-redux'
 
@@ -17,7 +17,7 @@ const mapStateToProps = (state: State) => {
       currencyIcon: 'string',
       currencyIconDark: 'string'
     },
-    isSell:true,
+    isSell: true,
     cryptoAmount: '.00345',
     fiatAmount: '50',
     withdrawFrom: 'Western Bank',

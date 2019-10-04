@@ -1,7 +1,7 @@
 // @flow
 import type { Dispatch, State } from '../types/ReduxTypes'
 
-import {PHONE_ROUTE} from '../constants/index'
+import { PHONE_ROUTE } from '../constants/index'
 import { TransactionSuccess } from '../scenes/TransactionSuccess'
 import { connect } from 'react-redux'
 

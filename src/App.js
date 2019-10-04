@@ -2,7 +2,11 @@
 
 import React, { Component } from 'react'
 import { applyMiddleware, createStore } from 'redux'
-import { faCheckSquare, faCoffee, faCopy } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCheckSquare,
+  faCoffee,
+  faCopy
+} from '@fortawesome/free-solid-svg-icons'
 
 import Navigation from './scenes/Navigation'
 import { Provider } from 'react-redux'
@@ -15,11 +19,12 @@ const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
 
 library.add(fab, faCopy, faCheckSquare, faCoffee)
 
-export default class App extends Component<{},{}> {
-  render () {
-    return <Provider store={createStoreWithMiddleware(rootReducer)}>
-    <Navigation />
-  </Provider>
+export default class App extends Component<{}, {}> {
+  render() {
+    return (
+      <Provider store={createStoreWithMiddleware(rootReducer)}>
+        <Navigation />
+      </Provider>
+    )
   }
 }
-

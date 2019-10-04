@@ -1,5 +1,6 @@
 // @flow
-import { APPROVED, NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
+
+import { NOT_STARTED, THANK_YOU_ROUTE } from '../constants/index'
 import type { Dispatch, State } from '../types/ReduxTypes'
 
 import { StartScene } from '../scenes/StartScene'
@@ -18,9 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onNext: (history: Object) => {
     history.push(THANK_YOU_ROUTE)
   },
-  initInfo: () => {
-
-  }
+  initInfo: () => {}
 })
 export const StartSceneConnector = connect(
   mapStateToProps,

@@ -10,10 +10,13 @@ export const initialState = {
   wallet: null
 }
 
-export const WalletReducer = (state: WalletState = initialState, action: Action): WalletState => {
+export const WalletReducer = (
+  state: WalletState = initialState,
+  action: Action
+): WalletState => {
   switch (action.type) {
     case 'WALLET_LOADED':
-      return {...state, wallet: action.data}
+      return { ...state, wallet: action.data }
     default:
       // window.edgeProvider.consoleLog('Wyre Reducer Default')
       return state

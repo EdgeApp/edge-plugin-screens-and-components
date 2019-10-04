@@ -19,45 +19,49 @@ type Props = {
   camera: any,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class DocumentUploadScreenComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const image = this.props.camera
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-          <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
+          </div>
+          <div className={classes.inset}>
+            <div className={classes.headerText}>
+              Upload your passport or driver’s license.
+            </div>
+            <div className={classes.dashBox}>
+              <img src={image} className={classes.camera} alt="" />
+            </div>
+            <div className={classes.subHeaderText}>Please note:</div>
+            <div className={classes.bulletPoints}>
+              - Identification cannot be expired
+            </div>
+            <div className={classes.bulletPoints}>- No glare or reflection</div>
+            <div className={classes.bulletPoints}>
+              - All details and corners in frame
+            </div>
+            <div className={classes.bulletPoints}>- Photo must be in focus</div>
+          </div>
         </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Upload your passport or driver’s license.
-          </div>
-          <div className={classes.dashBox} >
-            <img src={image} className={classes.camera} alt={''}/>
-          </div>
-          <div className={classes.subHeaderText}>
-            Please note:
-          </div>
-          <div className={classes.bulletPoints}> - Identification cannot be expired</div>
-          <div className={classes.bulletPoints}> - No glare or reflection</div>
-          <div className={classes.bulletPoints}> - All details and corners in frame</div>
-          <div className={classes.bulletPoints}> - Photo must be in focus</div>
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,
@@ -103,7 +107,7 @@ const styles = theme => ({
     borderColor: THEME.COLORS.ACCENT_BLUE,
     borderWidth: 6,
     borderStyle: 'dashed',
-    marginTop: 30,
+    marginTop: 30
   },
   camera: {
     padding: 0,

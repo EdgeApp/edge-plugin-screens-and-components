@@ -18,41 +18,40 @@ type Props = {
   poweredBy: PoweredByType,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class PendingSceneComponent extends Component<Props, State> {
   onNext = () => {
     this.props.onNext(this.props.history)
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-        <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
-        </div>
-        <div className={classes.inset} >
-          <div className={classes.headerText} >
-            Please bear with us…
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
           </div>
-          <div className={classes.subHeaderText}>
-            Your application is still being reviewed.
-          </div>
-          <div className={classes.subHeaderText}>
-            We will email you once we are done processing.
-          </div>
-          <div className={classes.subHeaderText2}>
-            Thank you for your patience
+          <div className={classes.inset}>
+            <div className={classes.headerText}>Please bear with us…</div>
+            <div className={classes.subHeaderText}>
+              Your application is still being reviewed.
+            </div>
+            <div className={classes.subHeaderText}>
+              We will email you once we are done processing.
+            </div>
+            <div className={classes.subHeaderText2}>
+              Thank you for your patience
+            </div>
           </div>
         </div>
       </div>
-
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainer, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainer, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
   containerBottom: sceneButtonBottom,

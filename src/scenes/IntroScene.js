@@ -1,6 +1,10 @@
 // @flow
-import type { Card, PoweredByType } from  '../types/AppTypes'
-import { IntroItemComponent, PoweredBy, PrimaryButton } from '../components/indexComponents'
+import type { Card, PoweredByType } from '../types/AppTypes'
+import {
+  IntroItemComponent,
+  PoweredBy,
+  PrimaryButton
+} from '../components/indexComponents'
 import React, { Component } from 'react'
 import {
   logo,
@@ -21,48 +25,53 @@ type Props = {
   cards: Array<any>,
   onNext(Object): void
 }
-type State = {
-}
+type State = {}
 
 class IntroSceneComponent extends Component<Props, State> {
-  onNext = () => {
+  handleNext = () => {
     this.props.onNext(this.props.history)
   }
+
   renderCards = () => {
     let counter = 0
     const cards = this.props.cards.map((card: Card) => {
       counter++
-      return <IntroItemComponent card={card} key={counter} removeDivider={counter === this.props.cards.length}/>
+      return (
+        <IntroItemComponent
+          card={card}
+          key={counter}
+          removeDivider={counter === this.props.cards.length}
+        />
+      )
     })
     return cards
   }
-  render () {
+
+  render() {
     const { classes } = this.props
-    return <div className={classes.container} >
-      <div className={classes.containerMain}>
-        <div className={classes.poweredByRow}>
-        <PoweredBy poweredBy={this.props.poweredBy} useBlack/>
+    return (
+      <div className={classes.container}>
+        <div className={classes.containerMain}>
+          <div className={classes.poweredByRow}>
+            <PoweredBy poweredBy={this.props.poweredBy} useBlack />
+          </div>
+          <div className={classes.logoContainer}>
+            <img style={logo} src={this.props.logo} alt="" />
+          </div>
+          {this.renderCards()}
         </div>
-        <div className={classes.logoContainer}>
-          <img
-            style={logo}
-            src={this.props.logo}
-            alt={''}
-          />
+        <div className={classes.containerBottom}>
+          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
         </div>
-        {this.renderCards()}
       </div>
-      <div className={classes.containerBottom}>
-        <PrimaryButton onClick={this.onNext} >Next </PrimaryButton>
-      </div>
-    </div>
+    )
   }
 }
 const styles = theme => ({
-  container: {...sceneContainerNoHeight, backgroundColor: THEME.COLORS.WHITE},
+  container: { ...sceneContainerNoHeight, backgroundColor: THEME.COLORS.WHITE },
   poweredByRow: poweredByRow,
   containerMain: sceneMainContainer,
-  containerBottom: {...sceneButtonBottom, marginTop: 40},
+  containerBottom: { ...sceneButtonBottom, marginTop: 40 },
   logoContainer: {
     display: 'flex',
     flexShrink: 1,
