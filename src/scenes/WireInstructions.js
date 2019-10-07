@@ -20,6 +20,7 @@ type Props = {
   title: string,
   poweredBy: PoweredByType,
   onNext(Object): void,
+  onCopy(string): void,
   message: Array<string>
 }
 type State = {}
@@ -50,7 +51,11 @@ class WireInstructionsComponent extends Component<Props, State> {
         <div key={String(index)} className={classes.individualLinesText}>
           <CopyToClipboard
             text={this.splitLine(arg)}
-            onCopy={() => console.log(this.splitLine(arg))}
+            onCopy={() =>
+              this.props.onCopy(
+                'copied ' + this.splitLine(arg) + ' to clipboard'
+              )
+            }
           >
             <FontAwesomeIcon icon="copy" />
           </CopyToClipboard>{' '}
