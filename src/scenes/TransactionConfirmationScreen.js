@@ -43,9 +43,13 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
     this.props.onNext(this.props.history)
   }
 
-  renderLinkItem = () => {
+  renderLinkItem = (classes: Object) => {
     if (!this.props.link) return null
-    return <a href={this.props.link}>{this.props.linkText}</a>
+    return (
+      <a className={classes.a} href={this.props.link}>
+        {this.props.linkText}
+      </a>
+    )
   }
 
   renderFiatCode = () => {
@@ -151,7 +155,7 @@ class TransactionConfirmationScreenComponent extends Component<Props, State> {
             {`${buyOrSellSyntax} amount is an estimate. Actual rate is determined at the time funds are received.`}
             <div className={classes.terms}>
               {this.props.termsOfService}
-              {this.renderLinkItem()}
+              {this.renderLinkItem(classes)}
             </div>
           </div>
         </div>
@@ -267,7 +271,9 @@ const styles = theme => ({
     flexDirection: 'column',
     marginTop: 20
   },
-
+  a: {
+    color: THEME.COLORS.WHITE
+  },
   terms: {
     fontSize: 12,
     width: '100%',
