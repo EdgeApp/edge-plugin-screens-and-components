@@ -17,13 +17,85 @@ type Props = {
   history: Object,
   classes: Object,
   poweredBy: PoweredByType,
+  address1?: string,
+  address2?: string,
+  city?: string,
+  country?: string,
+  state?: string,
+  zip?: string,
   onNext(Object): void
 }
-type State = {}
+type State = {
+  address1: string,
+  address2: string,
+  city: string,
+  country: string,
+  state: string,
+  zip: string
+}
 
 class AddressSceneComponent extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      address1: this.props.address1 ? this.props.address1 : '',
+      address2: this.props.address2 ? this.props.address2 : '',
+      city: this.props.city ? this.props.city : '',
+      country: this.props.country ? this.props.country : '',
+      state: this.props.state ? this.props.state : '',
+      zip: this.props.zip ? this.props.zip : ''
+    }
+  }
+
   handleNext = () => {
-    this.props.onNext(this.props.history)
+    const { address1, address2, city, country, state, zip } = this.state
+    if (address1 && city && country && state && zip) {
+      this.props.onNext({
+        address1,
+        address2,
+        city,
+        country,
+        state,
+        zip,
+        history: this.props.history
+      })
+    }
+  }
+
+  handleChangeAddress1 = event => {
+    this.setState({
+      address1: event.target.value
+    })
+  }
+
+  handleChangeAddress2 = event => {
+    this.setState({
+      address2: event.target.value
+    })
+  }
+
+  handleChangeCity = event => {
+    this.setState({
+      city: event.target.value
+    })
+  }
+
+  handleChangeState = event => {
+    this.setState({
+      state: event.target.value
+    })
+  }
+
+  handleChangePostalCode = event => {
+    this.setState({
+      zip: event.target.value
+    })
+  }
+
+  handleChangeCountry = event => {
+    this.setState({
+      country: event.target.value
+    })
   }
 
   render() {
@@ -49,7 +121,8 @@ class AddressSceneComponent extends Component<Props, State> {
               }}
               className={classes.textField}
               margin="normal"
-              onChange={() => {}}
+              onChange={this.handleChangeAddress1}
+              value={this.state.address1}
               autoFocus
             />
             <TextField
@@ -65,7 +138,8 @@ class AddressSceneComponent extends Component<Props, State> {
               }}
               className={classes.textField}
               margin="normal"
-              onChange={() => {}}
+              onChange={this.handleChangeAddress2}
+              value={this.state.address2}
             />
             <TextField
               id="standard-uncontrolled"
@@ -80,7 +154,8 @@ class AddressSceneComponent extends Component<Props, State> {
               }}
               className={classes.textField}
               margin="normal"
-              onChange={() => {}}
+              onChange={this.handleChangeCity}
+              value={this.state.city}
             />
             <TextField
               id="standard-uncontrolled"
@@ -95,7 +170,8 @@ class AddressSceneComponent extends Component<Props, State> {
               }}
               className={classes.textField}
               margin="normal"
-              onChange={() => {}}
+              onChange={this.handleChangeState}
+              value={this.state.state}
             />
             <TextField
               id="standard-uncontrolled"
@@ -110,12 +186,29 @@ class AddressSceneComponent extends Component<Props, State> {
               }}
               className={classes.textField}
               margin="normal"
-              onChange={() => {}}
+              onChange={this.handleChangePostalCode}
+              value={this.state.zip}
+            />
+            <TextField
+              id="standard-uncontrolled"
+              label="Country"
+              type="text"
+              tabIndex="5"
+              fullWidth
+              InputProps={{
+                classes: {
+                  input: classes.resize
+                }
+              }}
+              className={classes.textField}
+              margin="normal"
+              onChange={this.handleChangeCountry}
+              value={this.state.country}
             />
           </div>
         </div>
         <div className={classes.containerBottom}>
-          <PrimaryButton onClick={this.handleNext}>Next </PrimaryButton>
+          <PrimaryButton onClick={this.handleNext}>Next</PrimaryButton>
         </div>
       </div>
     )
@@ -142,7 +235,7 @@ const styles = theme => ({
   headerText: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: 33,
+    marginTop: 34,
     width: '100%',
     fontSize: 17,
     height: 40,

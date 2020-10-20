@@ -1,7 +1,7 @@
 // @flow
 
 // Scenes:
-// export { AddressScreen } from "./scenes/AddressScreen.js"
+export { AddressScene } from './scenes/AddressScreen.js'
 export { BankAccountInfoSceneMin } from './scenes/BankAccountInfoSceneMin.js'
 // export { BankConnectScene } from "./scenes/BankConnectScene.js"
 export { BuySellScene } from './scenes/BuySellScene.js'
