@@ -20,12 +20,26 @@ type Props = {
   iban?: string,
   swift?: string,
   owner?: string,
+  address1?: string,
+  address2?: string,
+  city?: string,
+  country?: string,
+  state?: string,
+  zip?: string,
+  requireAddress?: boolean,
   onNext(Object): void
 }
 type State = {
   iban: string,
   swift: string,
-  owner: string
+  owner: string,
+  address1: string,
+  address2: string,
+  city: string,
+  country: string,
+  state: string,
+  zip: string,
+  requireAddress: boolean
 }
 
 class BankAccountInfoSceneMinComponent extends Component<Props, State> {
@@ -34,17 +48,60 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
     this.state = {
       iban: this.props.iban ? this.props.iban : '',
       swift: this.props.swift ? this.props.swift : '',
-      owner: this.props.owner ? this.props.owner : ''
+      owner: this.props.owner ? this.props.owner : '',
+      address1: this.props.address1 ? this.props.address1 : '',
+      address2: this.props.address2 ? this.props.address2 : '',
+      city: this.props.city ? this.props.city : '',
+      country: this.props.country ? this.props.country : '',
+      state: this.props.state ? this.props.state : '',
+      zip: this.props.zip ? this.props.zip : '',
+      requireAddress: this.props.requireAddress
+        ? this.props.requireAddress
+        : false
     }
   }
 
   handleNext = () => {
-    const { iban, swift, owner } = this.state
-    if (iban && swift && owner) {
+    const {
+      iban,
+      swift,
+      owner,
+      address1,
+      address2,
+      city,
+      country,
+      state,
+      zip,
+      requireAddress
+    } = this.state
+    if (iban && swift && owner && !requireAddress) {
       this.props.onNext({
         iban,
         swift,
         owner,
+        history: this.props.history
+      })
+    } else if (
+      iban &&
+      swift &&
+      owner &&
+      address1 &&
+      city &&
+      country &&
+      state &&
+      zip &&
+      requireAddress
+    ) {
+      this.props.onNext({
+        iban,
+        swift,
+        owner,
+        address1,
+        address2,
+        city,
+        country,
+        state,
+        zip,
         history: this.props.history
       })
     }
@@ -68,8 +125,45 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
     })
   }
 
+  handleChangeAddress1 = event => {
+    this.setState({
+      address1: event.target.value
+    })
+  }
+
+  handleChangeAddress2 = event => {
+    this.setState({
+      address2: event.target.value
+    })
+  }
+
+  handleChangeCity = event => {
+    this.setState({
+      city: event.target.value
+    })
+  }
+
+  handleChangeState = event => {
+    this.setState({
+      state: event.target.value
+    })
+  }
+
+  handleChangePostalCode = event => {
+    this.setState({
+      zip: event.target.value
+    })
+  }
+
+  handleChangeCountry = event => {
+    this.setState({
+      country: event.target.value
+    })
+  }
+
   render() {
     const { classes } = this.props
+    const { requireAddress } = this.state
     return (
       <div className={classes.container}>
         <div className={classes.containerMain}>
@@ -129,6 +223,122 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
               onChange={this.handleChangeSwift}
               value={this.state.swift}
             />
+            {requireAddress && (
+              <div className={classes.headerText}>
+                Provide your home address.
+              </div>
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="Address"
+                type="text"
+                tabIndex="3"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangeAddress1}
+                value={this.state.address1}
+                autoFocus={
+                  this.state.owner !== '' && this.state.address1 === ''
+                }
+              />
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="Unit (optional)"
+                type="text"
+                tabIndex="4"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangeAddress2}
+                value={this.state.address2}
+              />
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="City"
+                type="text"
+                tabIndex="5"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangeCity}
+                value={this.state.city}
+              />
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="State"
+                type="text"
+                tabIndex="6"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangeState}
+                value={this.state.state}
+              />
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="Postal Code"
+                type="tel"
+                tabIndex="7"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangePostalCode}
+                value={this.state.zip}
+              />
+            )}
+            {requireAddress && (
+              <TextField
+                id="standard-uncontrolled"
+                label="Country"
+                type="text"
+                tabIndex="8"
+                fullWidth
+                InputProps={{
+                  classes: {
+                    input: classes.resize
+                  }
+                }}
+                className={classes.textField}
+                margin="normal"
+                onChange={this.handleChangeCountry}
+                value={this.state.country}
+              />
+            )}
           </div>
         </div>
         <div className={classes.containerBottom}>
