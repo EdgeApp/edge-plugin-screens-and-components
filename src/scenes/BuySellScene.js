@@ -27,6 +27,7 @@ type Props = {
   isBuyDisabled: boolean,
   poweredBy: PoweredByType,
   isSellDisabled: boolean,
+  isSellTransaction: boolean,
   onSellClick(Object): void,
   selectWallet(): void,
   onBuyClick(Object): void,
@@ -90,7 +91,13 @@ class BuySellSceneComponent extends Component<Props, State> {
   }
 
   render() {
-    const { classes, wallet, partnerName } = this.props
+    const {
+      classes,
+      wallet,
+      partnerName,
+      isSellTransaction,
+      transactions
+    } = this.props
     const currencyCode = wallet ? wallet.currencyCode : ''
     const buyText = this.props.wallet
       ? 'Buy ' + currencyCode + ' with ' + partnerName
@@ -117,26 +124,34 @@ class BuySellSceneComponent extends Component<Props, State> {
               {this.renderButtonInsides()}
             </TertiaryButton>
             <div className={classes.space40} />
-            <TertiaryButton
-              onClick={this.handleBuyClick}
-              lineColor={THEME.COLORS.ACCENT_MINT}
-              disabled={this.props.isBuyDisabled}
-            >
-              <div className={textStyle}>{buyText}</div>
-            </TertiaryButton>
+            {!isSellTransaction && (
+              <TertiaryButton
+                onClick={this.handleBuyClick}
+                lineColor={THEME.COLORS.ACCENT_MINT}
+                disabled={this.props.isBuyDisabled}
+              >
+                <div className={textStyle}>{buyText}</div>
+              </TertiaryButton>
+            )}
             <div className={classes.space10} />
-            <TertiaryButton
-              onClick={this.handleSellClick}
-              lineColor={THEME.COLORS.ACCENT_MINT}
-              disabled={this.props.isSellDisabled}
-            >
-              <div className={textStyle}>{sellText}</div>
-            </TertiaryButton>
+            {isSellTransaction && (
+              <TertiaryButton
+                onClick={this.handleSellClick}
+                lineColor={THEME.COLORS.ACCENT_MINT}
+                disabled={this.props.isSellDisabled}
+              >
+                <div className={textStyle}>{sellText}</div>
+              </TertiaryButton>
+            )}
           </div>
-          <div className={classes.transactionsContainer}>
-            <div className={classes.transactionsTitle}>Transaction History</div>
-            {this.renderTransactions()}
-          </div>
+          {transactions.length > 0 && (
+            <div className={classes.transactionsContainer}>
+              <div className={classes.transactionsTitle}>
+                Transaction History
+              </div>
+              {this.renderTransactions()}
+            </div>
+          )}
         </div>
       </div>
     )
