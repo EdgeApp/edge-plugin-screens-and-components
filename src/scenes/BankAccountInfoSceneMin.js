@@ -7,6 +7,7 @@ import {
   sceneContainer,
   sceneMainContainer
 } from '../styles/styles'
+import CountryPicker from 'react-native-country-picker-modal'
 
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
@@ -157,7 +158,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
 
   handleChangeCountry = event => {
     this.setState({
-      country: event.target.value
+      country: event.target.country.cca2
     })
   }
 
@@ -337,6 +338,14 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
                 margin="normal"
                 onChange={this.handleChangeCountry}
                 value={this.state.country}
+              />
+            )}
+            {requireAddress && (
+              <CountryPicker
+                countryCode={this.state.country}
+                withFlagButton
+                withCountryNameButton
+                onSelect={this.handleChangeCountry}
               />
             )}
           </div>
