@@ -335,6 +335,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
                 }}
                 className={classes.textField}
                 margin="normal"
+                helperText="2-letter country code"
                 onChange={this.handleChangeCountry}
                 value={this.state.country}
               />
