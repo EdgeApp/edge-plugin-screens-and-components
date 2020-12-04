@@ -10,6 +10,10 @@ import {
 
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
+import {
+  COUNTRY_CODES,
+  FILTERED_COUNTRIES
+} from '../constants/accountConstants'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -27,6 +31,7 @@ type Props = {
   state?: string,
   zip?: string,
   requireAddress?: boolean,
+  countryList?: Object[],
   onNext(Object): void
 }
 type State = {
@@ -39,7 +44,8 @@ type State = {
   country: string,
   state: string,
   zip: string,
-  requireAddress: boolean
+  requireAddress: boolean,
+  filteredCountryList: Object[]
 }
 
 class BankAccountInfoSceneMinComponent extends Component<Props, State> {
@@ -57,8 +63,21 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
       zip: this.props.zip ? this.props.zip : '',
       requireAddress: this.props.requireAddress
         ? this.props.requireAddress
-        : false
+        : false,
+      filteredCountryList: []
     }
+  }
+
+  componentDidMount() {
+    this.filterCountries()
+  }
+
+  filterCountries = () => {
+    const filteredCountryList = COUNTRY_CODES.filter(
+      country => FILTERED_COUNTRIES.indexOf(country['alpha-2']) !== -1
+    )
+    console.log('filteredCountryList', filteredCountryList)
+    this.setState({ filteredCountryList })
   }
 
   handleNext = () => {
@@ -161,9 +180,27 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
     })
   }
 
+  handleSelectCountry = event => {
+    console.log('targetthisevent', event)
+    this.setState({
+      country: event
+    })
+  }
+
   render() {
     const { classes } = this.props
-    const { requireAddress } = this.state
+    const { filteredCountryList, requireAddress } = this.state
+    const countryRows =
+      filteredCountryList.length > 0 &&
+      filteredCountryList.map((country, i) => {
+        console.log('targetthiscountry', country)
+        return (
+          <option key={i} value={country['alpha-2']}>
+            {country.name}
+          </option>
+        )
+      }, this)
+    console.log('countryRows', countryRows)
     return (
       <div className={classes.container}>
         <div className={classes.containerMain}>
@@ -322,23 +359,14 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
               />
             )}
             {requireAddress && (
-              <TextField
-                id="standard-uncontrolled"
-                label="Country"
-                type="text"
-                tabIndex="8"
-                fullWidth
-                InputProps={{
-                  classes: {
-                    input: classes.resize
-                  }
-                }}
-                className={classes.textField}
-                margin="normal"
-                helperText="2-letter country code"
-                onChange={this.handleChangeCountry}
-                value={this.state.country}
-              />
+              <div>
+                <label>
+                  Select Country
+                  <select onChange={this.handleSelectCountry}>
+                    {countryRows}
+                  </select>
+                </label>
+              </div>
             )}
           </div>
         </div>
