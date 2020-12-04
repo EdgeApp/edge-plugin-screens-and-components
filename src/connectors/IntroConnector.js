@@ -23,7 +23,7 @@ const mapStateToProps = (state: State) => {
     {
       title: 'No Personal Info ',
       body:
-        'Users can trade up to €5000 per day without providing any personal info.',
+        'Users can trade up to €5000 per day without providing any personal info. The first purchase is limited to €1000.',
       list: []
     },
     {
@@ -36,7 +36,7 @@ const mapStateToProps = (state: State) => {
     {
       title: 'Terms of Service',
       body:
-        "Orders placed through the Bity Plugin are executed by bity. By creating orders you are agreeing to Bity's terms of service ",
+        "Orders placed through the Bity Plugin are executed by Bity. By creating orders you are agreeing to Bity's terms of service ",
       list: [],
       link: 'https://bity.com/legal/',
       linkText: 'Terms of Service'
