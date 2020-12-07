@@ -307,7 +307,7 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
               <TextField
                 id="standard-uncontrolled"
                 label="Postal Code"
-                type="tel"
+                type="text"
                 tabIndex="7"
                 fullWidth
                 InputProps={{
