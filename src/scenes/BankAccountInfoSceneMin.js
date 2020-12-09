@@ -10,6 +10,7 @@ import {
 
 import type { PoweredByType } from '../types/AppTypes'
 import THEME from '../constants/themeConstants'
+import { COUNTRY_CODES } from '../constants/accountConstants'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -39,12 +40,14 @@ type State = {
   country: string,
   state: string,
   zip: string,
-  requireAddress: boolean
+  requireAddress: boolean,
+  filteredCountryList: Object[]
 }
 
 class BankAccountInfoSceneMinComponent extends Component<Props, State> {
   constructor(props: Props) {
     super(props)
+    this.handleSelectCountry = this.handleSelectCountry.bind(this)
     this.state = {
       iban: this.props.iban ? this.props.iban : '',
       swift: this.props.swift ? this.props.swift : '',
@@ -57,7 +60,8 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
       zip: this.props.zip ? this.props.zip : '',
       requireAddress: this.props.requireAddress
         ? this.props.requireAddress
-        : false
+        : false,
+      filteredCountryList: COUNTRY_CODES
     }
   }
 
@@ -161,9 +165,25 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
     })
   }
 
+  handleSelectCountry = event => {
+    const saveEvent = event
+    this.setState({
+      country: saveEvent.target.value
+    })
+  }
+
   render() {
     const { classes } = this.props
-    const { requireAddress } = this.state
+    const { filteredCountryList, requireAddress } = this.state
+    const countryRows =
+      filteredCountryList.length > 0 &&
+      filteredCountryList.map((country, i) => {
+        return (
+          <option key={country.code} value={country.code}>
+            {country.name}
+          </option>
+        )
+      }, this)
     return (
       <div className={classes.container}>
         <div className={classes.containerMain}>
@@ -322,23 +342,17 @@ class BankAccountInfoSceneMinComponent extends Component<Props, State> {
               />
             )}
             {requireAddress && (
-              <TextField
-                id="standard-uncontrolled"
-                label="Country"
-                type="text"
-                tabIndex="8"
-                fullWidth
-                InputProps={{
-                  classes: {
-                    input: classes.resize
-                  }
-                }}
-                className={classes.textField}
-                margin="normal"
-                helperText="2-letter country code"
-                onChange={this.handleChangeCountry}
-                value={this.state.country}
-              />
+              <div>
+                <label>
+                  Select Country
+                  <select
+                    onChange={this.handleSelectCountry}
+                    value={this.state.country}
+                  >
+                    {countryRows}
+                  </select>
+                </label>
+              </div>
             )}
           </div>
         </div>
