@@ -185,7 +185,8 @@ class TransactionAmountScreenComponent extends Component<Props, State> {
         inputRef={this.inputRef}
         id="standard-uncontrolled"
         label="Phone Number"
-        type="tel"
+        type="number"
+        step="0.01"
         tabIndex="0"
         fullWidth
         InputProps={{
